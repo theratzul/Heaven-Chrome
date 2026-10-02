@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos - Web Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="ui-layer">
+            <div id="hud">
+                <div class="hud-item">SCORE: <span id="scoreVal">0</span></div>
+                <div class="hud-item">LIVES: <span id="livesVal">3</span></div>
+                <div class="hud-item">ENERGY: <div class="energy-bar"><div id="energyFill"></div></div></div>
+            </div>
+            <div id="overlay" class="screen">
+                <h1 id="titleText">CHRONOS</h1>
+                <p id="subText">A Time-Bending Adventure</p>
+                <div class="controls">
+                    <p>Q/A or W/S - Up/Down</p>
+                    <p>O/P or A/D - Left/Right</p>
+                    <p>SPACE - Time Shift (Slow)</p>
+                    <p>M - Pause</p>
+                </div>
+                <p class="blink">Press SPACE to begin</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
