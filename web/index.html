@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronos - Web Edition</title>
+    <title>Heaven Chronos - Web Edition</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="game-container">
+        <!-- Sun rays background -->
+        <div class="sun-rays"></div>
         <canvas id="gameCanvas" width="800" height="600"></canvas>
         <div id="ui-layer">
             <div id="hud">
-                <div class="hud-item">SCORE: <span id="scoreVal">0</span></div>
-                <div class="hud-item">LIVES: <span id="livesVal">3</span></div>
-                <div class="hud-item">ENERGY: <div class="energy-bar"><div id="energyFill"></div></div></div>
+                <div class="hud-item">FAITH SCORE: <span id="scoreVal">0</span></div>
+                <div class="hud-item">SOULS: <span id="livesVal">3</span></div>
+                <div class="hud-item">DIVINE GRACE: <div class="energy-bar"><div id="energyFill"></div></div></div>
             </div>
             <div id="overlay" class="screen">
-                <h1 id="titleText">CHRONOS</h1>
-                <p id="subText">A Time-Bending Adventure</p>
+                <div class="cross-icon">✝</div>
+                <h1 id="titleText">HEAVEN CHRONOS</h1>
+                <p id="subText">A Divine Time-Bending Journey</p>
                 <div class="controls">
-                    <p>Q/A or W/S - Up/Down</p>
-                    <p>O/P or A/D - Left/Right</p>
-                    <p>SPACE - Time Shift (Slow)</p>
+                    <p>Q/A or W/S - Ascend/Descend</p>
+                    <p>O/P or A/D - Move Left/Right</p>
+                    <p>SPACE - Divine Time Shift (Slow)</p>
                     <p>M - Pause</p>
                 </div>
-                <p class="blink">Press SPACE to begin</p>
+                <p class="blink">Press SPACE to Begin Your Journey</p>
             </div>
         </div>
     </div>
