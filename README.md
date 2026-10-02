@@ -1,6 +1,10 @@
 # Heaven Chronos - A Divine Time-Bending Adventure
 
-Heaven Chronos is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** with enhanced heavenly graphics while maintaining the same core mechanics.
+Heaven Chronos is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** and an **Android App** with enhanced heavenly graphics while maintaining the same core mechanics.
+
+**Game Purpose:** The purpose of Heaven Chronos is to test your timing and reflexes as you guide an angelic soul through perilous heavenly realms. Your goal is to navigate past demonic hazards and reach the Pearly Gates in order to ascend to higher levels of existence, ultimately achieving eternal peace. You must strategically use your Divine Grace to slow down time when faced with impossible odds.
+
+**Created by: popa bogdan**
 
 ## How it Works in Detail
 
@@ -16,43 +20,38 @@ The core mechanic of Heaven Chronos involves spatial movement coupled with time 
 ```
 Chronos/
 +-- src/                # ZX Spectrum source code (C and ASM)
-|   +-- engine/         # Low-level engine (ASM routines)
-|   +-- game/           # Game logic (C + ASM)
 +-- web/                # Modern HTML5 Canvas Game (JS/HTML/CSS)
-|   +-- index.html      # Main HTML layout
-|   +-- style.css       # Heavenly and majestic UI and styling
-|   +-- script.js       # Game logic, rendering, and levels
++-- android/            # Capacitor-based Android Project
++-- .github/workflows/  # CI/CD pipelines (e.g. android.yml)
 +-- assets/             # Graphics and sound assets for ZX version
 +-- build/              # Compiled output (.tap, .tzx, .bin)
 +-- tools/              # Cross-compilers and emulators
-+-- build.bat           # Windows ZX build script
-+-- run.bat             # Windows ZX run script
-+-- env.bat             # Windows environment setup
-+-- build.sh            # Linux ZX build script
-+-- run.sh              # Linux ZX run script
-+-- env.sh              # Linux environment setup
++-- build.bat / .sh     # ZX build scripts for Windows/Linux
++-- run.bat / .sh       # ZX run scripts for Windows/Linux
++-- env.bat / .sh       # Environment setup scripts
 ```
 
 ## How to Run
 
-### Windows (ZX Spectrum Version)
-1. **Set up environment**: Open a command prompt and run `env.bat` to configure paths.
-2. **Build**: Run `build.bat` to compile the game using z88dk.
-3. **Run**: Run `run.bat` to launch the compiled game in the Fuse emulator.
-
-### Linux (ZX Spectrum Version)
-1. **Set up environment**: Source the environment script in your terminal: `source env.sh`
-2. **Build**: Execute `./build.sh` to compile the game.
-3. **Run**: Execute `./run.sh` to run the game in your local ZX Spectrum emulator (e.g. Fuse).
+### Windows / Linux (ZX Spectrum Version)
+1. **Set up environment**: Run `env.bat` (Windows) or `source env.sh` (Linux).
+2. **Build**: Run `build.bat` (Windows) or `./build.sh` (Linux) to compile the game using z88dk.
+3. **Run**: Run `run.bat` or `./run.sh` to launch the compiled game in the Fuse emulator.
 
 ### Web Version (Any OS)
 1. Navigate to the `web` directory in your file explorer.
 2. Open `index.html` in any modern web browser (Chrome, Firefox, Edge, Safari).
 3. The game will run locally—no build process or server required! 
 
+### Android Version
+1. Ensure you have Node.js and Java JDK installed.
+2. Run `npm install` and `npx cap sync android`.
+3. To build locally, run `cd android && ./gradlew assembleDebug`. The generated APK will be in `android/app/build/outputs/apk/debug/app-debug.apk`.
+4. Alternatively, use the **GitHub Actions** workflow included in the repo which automatically builds the APK on every push to main.
+
 ## Controls
 
-### Web Version
+### Web / Android Version
 - **W/A/S/D or Arrow Keys or Q/A/O/P** - Ascend, Move Left, Descend, Move Right
 - **Space** - Divine Time Shift (Slow)
 - **M** - Pause (Contemplation)
@@ -65,5 +64,6 @@ Chronos/
 
 ## Target Platforms
 
-- **ZX Spectrum 48K** (compatible with 128K): 256x192 resolution, 8 colors.
+- **ZX Spectrum 48K**: 256x192 resolution, 8 colors.
 - **Web Browsers**: HTML5 Canvas with modern CSS styling and heavenly graphics.
+- **Android**: Wrapped Web Version using Capacitor.

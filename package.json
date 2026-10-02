@@ -1,0 +1,29 @@
+{
+  "name": "heaven-chronos",
+  "version": "1.0.0",
+  "description": "Heaven Chronos is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** with enhanced heavenly graphics while maintaining the same core mechanics.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theratzul/Heaven-Chrome.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/theratzul/Heaven-Chrome/issues"
+  },
+  "homepage": "https://github.com/theratzul/Heaven-Chrome#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^7.6.9",
+    "@capacitor/core": "^8.5.2"
+  }
+}

@@ -67,7 +67,7 @@ static void show_title_screen(void)
     video_print_at(14, 7, "SPACE - Time Shift");
     video_print_at(15, 7, "M     - Pause");
     video_print_at(19, 5, "Press SPACE to begin...");
-    video_print_at(22, 5, "(c) 2026 Chronos Project");
+    video_print_at(22, 5, "(c) 2026 popa bogdan");
 
     /* Wait for SPACE */
     while (!(input_read_keys() & INPUT_KEY_FIRE)) {
