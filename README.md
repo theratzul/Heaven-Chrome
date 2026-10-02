@@ -1,14 +1,14 @@
-# Heaven Chronos - A Divine Time-Bending Adventure
+# Heaven Chrome - A Divine Time-Bending Adventure
 
-Heaven Chronos is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** and an **Android App** with enhanced heavenly graphics while maintaining the same core mechanics.
+Heaven Chrome is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** and an **Android App** with enhanced heavenly graphics while maintaining the same core mechanics.
 
-**Game Purpose:** The purpose of Heaven Chronos is to test your timing and reflexes as you guide an angelic soul through perilous heavenly realms. Your goal is to navigate past demonic hazards and reach the Pearly Gates in order to ascend to higher levels of existence, ultimately achieving eternal peace. You must strategically use your Divine Grace to slow down time when faced with impossible odds.
+**Game Purpose:** The purpose of Heaven Chrome is to test your timing and reflexes as you guide an angelic soul through perilous heavenly realms. Your goal is to navigate past demonic hazards and reach the Pearly Gates in order to ascend to higher levels of existence, ultimately achieving eternal peace. You must strategically use your Divine Grace to slow down time when faced with impossible odds.
 
 **Created by: popa bogdan**
 
 ## How it Works in Detail
 
-The core mechanic of Heaven Chronos involves spatial movement coupled with time manipulation. The player navigates a grid-based level containing walls (marble blocks), platforms (clouds), and hazards (red crosses). 
+The core mechanic of Heaven Chrome involves spatial movement coupled with time manipulation. The player navigates a grid-based level containing walls (marble blocks), platforms (clouds), and hazards (red crosses). 
 
 - **Movement:** The player (an angelic glowing orb) can move in four directions (Ascend, Descend, Move Left, Move Right). 
 - **Divine Time Shift (Slow):** By pressing and holding `SPACE`, the player taps into their Divine Grace to slow down time. This causes enemies/hazards and the general game loop to run at a reduced speed, allowing the player to safely navigate past fast-moving obstacles or execute precise maneuvers.

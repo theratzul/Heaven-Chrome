@@ -1,6 +1,6 @@
-# Heaven Chronos — Installation & Setup Guide
+# Heaven Chrome — Installation & Setup Guide
 
-> A complete guide to setting up your development environment and running Heaven Chronos on every supported platform: **ZX Spectrum 48K**, **Web**, and **Android**.
+> A complete guide to setting up your development environment and running Heaven Chrome on every supported platform: **ZX Spectrum 48K**, **Web**, and **Android**.
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## 1. Project Overview
 
-Heaven Chronos targets three distinct platforms, each requiring a different toolchain:
+Heaven Chrome targets three distinct platforms, each requiring a different toolchain:
 
 | Platform | Technology | Output |
 |---|---|---|
@@ -30,7 +30,7 @@ Heaven Chronos targets three distinct platforms, each requiring a different tool
 
 ## 2. Platform A — ZX Spectrum 48K (z88dk + Fuse)
 
-The ZX Spectrum version is the **original** version of Heaven Chronos. Source code lives in `src/` and is split between **C** (game logic: `main.c`, `player.c`, `levels.c`, `chrono.c`, `hud.c`) and **Z80 Assembly** (engine layer: `sprites.asm`, `video.asm`, `input.asm`, `sound.asm`, `isr.asm`).
+The ZX Spectrum version is the **original** version of Heaven Chrome. Source code lives in `src/` and is split between **C** (game logic: `main.c`, `player.c`, `levels.c`, `chrono.c`, `hud.c`) and **Z80 Assembly** (engine layer: `sprites.asm`, `video.asm`, `input.asm`, `sound.asm`, `isr.asm`).
 
 ### 2.1 Tool Explanations
 
@@ -170,7 +170,7 @@ The Web version requires **no installation whatsoever** — it is a completely s
 
 ### What the Web Version Is
 
-`web/index.html` contains a full Heaven Chronos port using the **HTML5 Canvas API**. The game loop, collision detection, time-shift mechanic, and all rendering are implemented in JavaScript. It is also the source that gets embedded into the Android APK by Capacitor.
+`web/index.html` contains a full Heaven Chrome port using the **HTML5 Canvas API**. The game loop, collision detection, time-shift mechanic, and all rendering are implemented in JavaScript. It is also the source that gets embedded into the Android APK by Capacitor.
 
 ### Running
 
@@ -223,7 +223,7 @@ Capacitor is Ionic's open-source bridge between web apps and native mobile platf
 ```json
 {
   "appId": "com.popabogdan.heavenchronos",
-  "appName": "Heaven Chronos",
+  "appName": "Heaven Chrome",
   "webDir": "web"
 }
 ```

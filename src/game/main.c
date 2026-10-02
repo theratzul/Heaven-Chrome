@@ -59,7 +59,7 @@ static void show_title_screen(void)
     video_set_border(5);
 
     /* Title text */
-    video_print_at( 3, 9, "C H R O N O S");
+    video_print_at( 3, 10, "C H R O M E");
     video_print_at( 6, 6, "A Time-Bending Adventure");
     video_print_at(10, 7, "Controls:");
     video_print_at(12, 7, "Q/A   - Up/Down");
