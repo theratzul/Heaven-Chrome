@@ -15,8 +15,15 @@ android/.idea/
 android/*.iml
 android/app/*.iml
 
+# Linux build outputs
+linux/bin/
+linux/src/*.o
+linux/steam_package/
+linux/*.tar.gz
+
 # OS and editor files
 .DS_Store
 Thumbs.db
 *.swp
 *~
+

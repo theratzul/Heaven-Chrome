@@ -508,40 +508,83 @@ Both the ZX Spectrum and Web/Android versions include rich atmospheric backgroun
 
 ---
 
-## 5. CI/CD — GitHub Actions
+## 5. Platform D — Linux & Steam (Native C + SDL2)
 
-**Workflow file:** [`.github/workflows/android.yml`](.github/workflows/android.yml)
+The Linux version is a high-performance native 64-bit C application engineered specifically for **Debian, Ubuntu, SteamOS, and Steam Deck**.
 
-### Triggers
+### 5.1 Architecture & Steam Compatibility
+* **Language & Graphics**: Written in standard C99 using **SDL2** with hardware-accelerated rendering (`SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC`).
+* **Steam Deck Verified Ready**:
+  * Automatically detects game controllers (`SDL_GameController`) including Steam Deck built-in controls, Xbox, and PlayStation pads.
+  * Native 800×600 logical resolution with automatic letterboxing/pillarboxing (`SDL_RenderSetLogicalSize`) to fit standard 16:9, 16:10 (Steam Deck 1280×800), or ultrawide monitors.
+  * Fullscreen toggle on <kbd>F11</kbd> or <kbd>Alt</kbd>+<kbd>Enter</kbd>.
+* **Built-in Audio Synthesizer**: Pure C 3-channel polyphonic synthesizer rendering real-time celestial hymn music, slow-motion pitch warping, and holy chimes via SDL2 audio callback (no external soundfont dependencies).
+* **Self-Contained Build**: Development headers are bundled in [`linux/include/SDL2/`](linux/include/SDL2/), meaning the game can be compiled on Debian with only `gcc` and `make` against the pre-installed `libsdl2-2.0-0` runtime.
 
-| Event | Description |
-|---|---|
-| `push` to `main` / `master` | Runs automatically on every commit |
-| `pull_request` to `main` / `master` | Runs on every PR targeting main |
-| `workflow_dispatch` | Manual trigger from the GitHub Actions UI |
+### 5.2 Build Instructions (Debian / Ubuntu / SteamOS)
 
-### Pipeline Steps
+1. **Install build tools (if not already installed):**
+   ```bash
+   sudo apt update
+   sudo apt install -y gcc make libsdl2-dev
+   ```
+   *(Note: If `libsdl2-dev` cannot be installed with sudo, the build system automatically falls back to bundled headers and the system's `libsdl2-2.0.so.0`!)*
 
-| Step | Action | Why |
-|---|---|---|
-| Checkout | `actions/checkout@v4` | Fetch the repository code |
-| Setup Node.js 20 | `actions/setup-node@v4` with `node-version: '20'` | Satisfies Capacitor CLI >= 20 requirement |
-| Setup JDK 21 | `actions/setup-java@v4` with `java-version: '21'`, `distribution: 'temurin'` | Required by Gradle to compile the Android project |
-| Install dependencies | `npm install` | Downloads `@capacitor/cli`, `@capacitor/core`, `@capacitor/android` |
-| Sync Capacitor | `npx cap sync android` | Copies `web/` into the Android project assets |
-| Build APK | `cd android && ./gradlew assembleDebug` | Compiles the debug APK |
-| Upload artifact | `actions/upload-artifact@v4` | Makes `Heaven-Chrome.apk` downloadable from the Actions run page |
+2. **Compile the native Linux executable:**
+   ```bash
+   ./build-linux.sh
+   ```
+   *Output binary:* [`linux/bin/heaven-chrome`](linux/bin/heaven-chrome) (approx. 52 KB).
 
-### Downloading the APK
+3. **Run and test locally:**
+   ```bash
+   ./run-linux.sh
+   # or directly:
+   ./linux/run.sh
+   ```
 
-After a successful run: **Actions tab** → click the run → scroll to **Artifacts** → download **`Heaven-Chrome`**.
+### 5.3 Steamworks Packaging & Upload
+
+The Linux build is pre-configured with everything needed to upload to Steam:
+
+1. **Steam App ID (`linux/steam_appid.txt`):**
+   * Configured by default to `480` (Valve's Spacewar development App ID for local testing).
+   * Once you have registered your game on Steamworks, replace `480` in `linux/steam_appid.txt` with your assigned App ID.
+
+2. **Create the Steam Release Tarball:**
+   ```bash
+   make -C linux package
+   ```
+   This generates `linux/heaven-chrome-linux.tar.gz` containing:
+   * `heaven-chrome` (64-bit ELF binary)
+   * `run.sh` (Steam launcher script setting `LD_LIBRARY_PATH`)
+   * `steam_appid.txt` (Steam App ID configuration)
+   * `heaven-chrome.desktop` (XDG desktop entry)
+
+3. **Uploading via SteamPipe (ContentBuilder):**
+   * Place the contents of `linux/steam_package/` into your SteamPipe depot directory (e.g. `content/linux_depot/`).
+   * In your Steamworks depot build script (`depot_build_*.vdf`):
+     * Set `FileMapping` to include `*`.
+   * In your Steamworks App configuration under **Installation** → **General Installation**:
+     * **Operating System**: Linux + SteamOS.
+     * **Executable**: `run.sh` (or `heaven-chrome`).
 
 ---
 
-## 6. Repository Scripts Reference
+## 6. CI/CD — GitHub Actions
+
+### Workflows
+* **Android Build:** [`.github/workflows/android.yml`](.github/workflows/android.yml) — Builds and uploads `Heaven-Chrome.apk` on every push.
+* **Linux Steam Build:** [`.github/workflows/linux.yml`](.github/workflows/linux.yml) — Builds and uploads `heaven-chrome` and `heaven-chrome-linux.tar.gz` on every push.
+
+---
+
+## 7. Repository Scripts Reference
 
 | Script | OS | What it does |
 |---|---|---|
+| [`build-linux.sh`](build-linux.sh) | Linux / Debian | One-click script: builds native 64-bit ELF binary `linux/bin/heaven-chrome` with SDL2. |
+| [`run-linux.sh`](run-linux.sh) | Linux / Debian | Launches native Linux game (delegates to `linux/run.sh`). |
 | [`build-android.sh`](build-android.sh) | Linux / macOS | One-click script: syncs `web/` assets into Capacitor and builds `Heaven-Chrome.apk`. |
 | [`env.bat`](env.bat) | Windows | Adds `tools\z88dk\bin` to `PATH`; sets `ZCCCFG` and `Z80_OZFILES`. Must be called before building. |
 | [`env.sh`](env.sh) | Linux | Delegates to `env.bat` via `wine cmd /c env.bat`. |

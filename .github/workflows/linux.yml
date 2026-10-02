@@ -1,0 +1,40 @@
+name: Build Linux Steam App
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Build Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc make libsdl2-dev
+
+    - name: Build Linux Binary
+      run: |
+        chmod +x build-linux.sh
+        ./build-linux.sh
+
+    - name: Create Steam Package
+      run: |
+        make -C linux package
+
+    - name: Upload Linux Binary & Steam Package
+      uses: actions/upload-artifact@v4
+      with:
+        name: Heaven-Chrome-Linux
+        path: |
+          linux/bin/heaven-chrome
+          linux/run.sh
+          linux/steam_appid.txt
+          linux/heaven-chrome.desktop
+          linux/heaven-chrome-linux.tar.gz

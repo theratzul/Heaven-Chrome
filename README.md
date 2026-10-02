@@ -20,20 +20,27 @@ The core mechanic of Heaven Chrome involves spatial movement coupled with time m
 ## Project Structure
 
 ```
-Chronos/
+Heaven-Chrome/
 +-- src/                # ZX Spectrum source code (C and ASM)
 +-- web/                # Modern HTML5 Canvas Game (JS/HTML/CSS)
 +-- android/            # Capacitor-based Android Project
-+-- .github/workflows/  # CI/CD pipelines (e.g. android.yml)
-+-- assets/             # Graphics and sound assets for ZX version
-+-- build/              # Compiled output (.tap, .tzx, .bin)
-+-- tools/              # Cross-compilers and emulators
++-- linux/              # Native Linux (Debian / Steam) C project (SDL2)
++-- .github/workflows/  # CI/CD pipelines (Android & Linux Steam)
 +-- build.bat / .sh     # ZX build scripts for Windows/Linux
++-- build-android.sh    # Android build script
++-- build-linux.sh      # Linux & Steam native C build script
++-- run-linux.sh        # Linux launcher script
 +-- run.bat / .sh       # ZX run scripts for Windows/Linux
 +-- env.bat / .sh       # Environment setup scripts
++-- tools/              # Level editors, compilers, emulators
 ```
 
 ## How to Run
+
+### Linux & Steam Native Version (Debian / Ubuntu / SteamOS / Steam Deck)
+1. **Compile**: Run `./build-linux.sh` (or `make -C linux`). Outputs native 64-bit executable `linux/bin/heaven-chrome`.
+2. **Run**: Run `./run-linux.sh` (or `./linux/run.sh`).
+3. **Steam Upload**: Run `make -C linux package` to produce `linux/heaven-chrome-linux.tar.gz` ready for Steamworks depots.
 
 ### Windows / Linux (ZX Spectrum Version)
 1. **Set up environment**: Run `env.bat` (Windows) or `source env.sh` (Linux).
@@ -47,11 +54,17 @@ Chronos/
 
 ### Android Version
 1. Ensure you have Node.js and Java JDK installed.
-2. Run `npm install` and `npx cap sync android` (or run `./build-android.sh`).
-3. To build locally, run `./build-android.sh` (or `cd android && ./gradlew assembleDebug`). The generated APK will be in `android/app/build/outputs/apk/debug/Heaven-Chrome.apk`.
-4. Alternatively, use the **GitHub Actions** workflow included in the repo which automatically builds `Heaven-Chrome.apk` on every push to main.
+2. Run `./build-android.sh` to sync web assets and compile `Heaven-Chrome.apk` into `android/app/build/outputs/apk/debug/Heaven-Chrome.apk`.
+3. Alternatively, download the APK built automatically by **GitHub Actions** on every push to main.
 
 ## Controls
+
+### Linux & Steam Version (Debian / Steam Deck / Gamepad)
+- **D-Pad / Left Stick or WASD / Arrows** - Ascend, Descend, Move Left, Move Right
+- **Button [A] / Right Trigger or SPACE** - Hold for Divine Time Shift (Slow Motion)
+- **Button [Start] / [Back] or P / ESC** - Pause / Contemplate
+- **Button [Y] or M** - Toggle Celestial Audio Mute
+- **F11 or Alt+Enter** - Toggle Fullscreen
 
 ### Android Version (Touch Screen)
 - **On-Screen D-Pad (▲ / ▼ / ◀ / ▶)** - Ascend, Descend, Move Left, Move Right
@@ -74,6 +87,7 @@ Chronos/
 
 ## Target Platforms
 
-- **ZX Spectrum 48K**: 256x192 resolution, 8 colors.
-- **Web Browsers**: HTML5 Canvas with modern CSS styling and heavenly graphics.
-- **Android**: Wrapped Web Version using Capacitor.
+- **Linux & Steam**: Native 64-bit C99 + SDL2 hardware-accelerated app for Debian, Ubuntu, SteamOS, and Steam Deck.
+- **ZX Spectrum 48K**: 256x192 resolution, 8 colors (z88dk).
+- **Web Browsers**: HTML5 Canvas with modern CSS styling, web audio synthesizer, and responsive layout.
+- **Android**: Wrapped Web Version using Capacitor (`Heaven-Chrome.apk`).

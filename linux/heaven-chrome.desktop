@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Heaven Chrome
+Comment=A Divine Time-Bending Action Adventure
+Exec=heaven-chrome
+Icon=heaven-chrome
+Terminal=false
+Type=Application
+Categories=Game;ActionGame;ArcadeGame;
+Keywords=steam;action;retro;time;divine;puzzle;
+StartupNotify=true
