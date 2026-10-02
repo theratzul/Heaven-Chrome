@@ -448,7 +448,13 @@ Push any commit to your repository, wait ~1 minute for GitHub Actions to build `
 
 The application has been engineered to deliver an ergonomic handheld console experience on smartphones (such as Samsung Galaxy S24) with tall 19.5:9 / 20:9 aspect ratios:
 
-* **Responsive 4:3 Scaling:** The 800×600 pixel internal canvas is scaled dynamically (`aspect-ratio: 4 / 3; width: 100%; max-height: 52vh;`) with safe-area padding (`env(safe-area-inset-top)` / `env(safe-area-inset-bottom)`). This eliminates horizontal cropping and ensures the entire game world is 100% visible in portrait mode.
+* **Responsive 4:3 Scaling:** The 800×600 pixel internal canvas is scaled dynamically (`aspect-ratio: 4 / 3; width: 100%; max-height: 50vh;`) with safe-area padding (`env(safe-area-inset-top)` / `env(safe-area-inset-bottom)`). This eliminates horizontal cropping and ensures the entire game world is 100% visible in portrait mode.
+* **Samsung S24 Typography & Anti-Font-Boosting:**
+  * Enabled `-webkit-text-size-adjust: 100%; text-size-adjust: 100%;` to prevent Samsung Internet and Android WebView from automatically auto-inflating and distorting font sizes (Text Autosizer bug).
+  * Re-engineered the title `h1#titleText` with safe fluid clamping (`clamp(15px, 4.6vw, 22px)` on mobile) and `white-space: nowrap` so "HEAVEN CHROME" never clips or wraps.
+  * Formatted subtitle (`#subText`) on a single elegant line without awkward line breaks or hyphenation.
+  * Redesigned the controls panel into a sleek, compact summary (`🕹️ MOVE`, `⏳ SLOW`, `⏸️ PAUSE`) with zero vertical overflow.
+  * Dedicated portrait media query `@media (max-width: 480px) and (orientation: portrait)` tailored to Samsung Galaxy S24 screen proportions (412×915 and 384×854).
 * **Ergonomic Control Deck:** In portrait mode, the lower half of the phone screen hosts a dedicated, non-intrusive celestial controller deck so fingers never obstruct the game view.
 * **Virtual D-Pad (Left Thumb):** 4-way direction pad (▲, ▼, ◀, ▶) featuring smooth touch sliding (`touchmove` tracking) so players can glide between directions without lifting their thumb.
 * **Divine Slow Time Button (Right Thumb):** Large, pulsing golden button that triggers and sustains the Divine Grace time-slow mechanic while held.
