@@ -6,10 +6,21 @@ const hud = document.getElementById('hud');
 const overlay = document.getElementById('overlay');
 const titleText = document.getElementById('titleText');
 const subText = document.getElementById('subText');
+const authorText = document.getElementById('authorText');
 const scoreVal = document.getElementById('scoreVal');
 const livesVal = document.getElementById('livesVal');
 const energyFill = document.getElementById('energyFill');
 const gameContainer = document.getElementById('game-container');
+const overlayActionBtn = document.getElementById('overlayActionBtn');
+const blinkPrompt = document.getElementById('blinkPrompt');
+const hudPauseBtn = document.getElementById('hudPauseBtn');
+const deckPauseBtn = document.getElementById('deckPauseBtn');
+const deckSlowBtn = document.getElementById('deckSlowBtn');
+const dpadBase = document.getElementById('dpadBase');
+const btnUp = document.getElementById('btnUp');
+const btnDown = document.getElementById('btnDown');
+const btnLeft = document.getElementById('btnLeft');
+const btnRight = document.getElementById('btnRight');
 
 // Game Constants
 const TILE_SIZE = 25;
@@ -113,7 +124,6 @@ let currentLevel = 0;
 let score = 0;
 let keys = {};
 let particles = [];
-let gameLoopInterval;
 
 // Player
 const player = {
@@ -121,6 +131,7 @@ const player = {
     y: 20,
     lives: 3,
     invincible: 0,
+    moveCooldown: 0
 };
 
 // Chrono (Time mechanics)
@@ -138,12 +149,11 @@ const chrono = {
 window.addEventListener('keydown', (e) => {
     keys[e.key.toLowerCase()] = true;
     if (e.key === ' ' || e.key === 'Spacebar') keys['space'] = true;
-    if (e.key.toLowerCase() === 'm' && gameState === STATE_PLAYING) {
-        setGameState(STATE_PAUSED);
-    } else if (e.key.toLowerCase() === 'm' && gameState === STATE_PAUSED) {
-        setGameState(STATE_PLAYING);
+    if (e.key.toLowerCase() === 'm') {
+        togglePause();
     }
 });
+
 window.addEventListener('keyup', (e) => {
     keys[e.key.toLowerCase()] = false;
     if (e.key === ' ' || e.key === 'Spacebar') keys['space'] = false;
@@ -162,51 +172,270 @@ function resetPlayer() {
     player.x = 2;
     player.y = 20;
     player.invincible = 0;
+    player.moveCooldown = 0;
+}
+
+function togglePause() {
+    if (gameState === STATE_PLAYING) {
+        setGameState(STATE_PAUSED);
+    } else if (gameState === STATE_PAUSED) {
+        setGameState(STATE_PLAYING);
+    }
 }
 
 function setGameState(state) {
     gameState = state;
     overlay.classList.remove('hidden');
     hud.style.display = 'none';
-    
+
+    const controlsPanel = document.querySelector('.controls-panel');
+    const crossIcon = document.querySelector('.cross-icon');
+
     if (state === STATE_TITLE) {
         titleText.innerText = "HEAVEN CHROME";
         subText.innerText = "A Divine Time-Bending Journey";
-        subText.style.color = "#4169E1";
-        document.querySelector('.controls').style.display = 'block';
-        document.querySelector('.cross-icon').style.display = 'block';
+        subText.style.color = "#1e88e5";
+        if (controlsPanel) controlsPanel.style.display = 'block';
+        if (crossIcon) crossIcon.style.display = 'block';
+        if (overlayActionBtn) {
+            overlayActionBtn.style.display = 'block';
+            overlayActionBtn.innerText = "TAP TO ENTER PARADISE";
+        }
+        if (blinkPrompt) blinkPrompt.innerText = "or press SPACE / tap screen to begin";
     } else if (state === STATE_PLAYING) {
         overlay.classList.add('hidden');
         hud.style.display = 'flex';
     } else if (state === STATE_PAUSED) {
         titleText.innerText = "CONTEMPLATION";
-        subText.innerText = "Press M to resume your path";
-        document.querySelector('.controls').style.display = 'none';
-        document.querySelector('.cross-icon').style.display = 'none';
+        subText.innerText = "Journey Paused";
+        subText.style.color = "#8B6508";
+        if (controlsPanel) controlsPanel.style.display = 'none';
+        if (crossIcon) crossIcon.style.display = 'none';
+        if (overlayActionBtn) {
+            overlayActionBtn.style.display = 'block';
+            overlayActionBtn.innerText = "RESUME JOURNEY";
+        }
+        if (blinkPrompt) blinkPrompt.innerText = "or tap anywhere / press M";
     } else if (state === STATE_GAMEOVER) {
         titleText.innerText = "FALLEN";
-        subText.innerText = "Press SPACE to resurrect";
-        document.querySelector('.controls').style.display = 'none';
-        document.querySelector('.cross-icon').style.display = 'none';
+        subText.innerText = "Your soul yearns to ascend again";
+        subText.style.color = "#e53935";
+        if (controlsPanel) controlsPanel.style.display = 'none';
+        if (crossIcon) crossIcon.style.display = 'none';
+        if (overlayActionBtn) {
+            overlayActionBtn.style.display = 'block';
+            overlayActionBtn.innerText = "TAP TO RESURRECT";
+        }
+        if (blinkPrompt) blinkPrompt.innerText = "or press SPACE / tap screen";
     } else if (state === STATE_LEVELWIN) {
         titleText.innerText = "ASCENSION";
-        subText.innerText = "Moving to higher heavens...";
-        document.querySelector('.controls').style.display = 'none';
-        document.querySelector('.cross-icon').style.display = 'none';
+        subText.innerText = "Ascending into the higher heavens...";
+        subText.style.color = "#FFD700";
+        if (controlsPanel) controlsPanel.style.display = 'none';
+        if (crossIcon) crossIcon.style.display = 'none';
+        if (overlayActionBtn) overlayActionBtn.style.display = 'none';
+        if (blinkPrompt) blinkPrompt.innerText = "";
+        
         setTimeout(() => {
             currentLevel++;
             if (currentLevel >= levels.length) {
                 gameState = STATE_GAMEOVER;
                 titleText.innerText = "PARADISE FOUND";
-                subText.innerText = "You have reached eternal peace!";
+                subText.innerText = "You have attained eternal peace!";
+                subText.style.color = "#4caf50";
+                if (overlayActionBtn) {
+                    overlayActionBtn.style.display = 'block';
+                    overlayActionBtn.innerText = "PLAY AGAIN";
+                }
                 overlay.classList.remove('hidden');
             } else {
                 resetPlayer();
                 setGameState(STATE_PLAYING);
             }
-        }, 2000);
+        }, 1800);
     }
 }
+
+// ------------------------------------------------------------------
+// Touch and Click Event Handlers
+// ------------------------------------------------------------------
+
+function handleOverlayAction(e) {
+    if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    if (gameState === STATE_TITLE || gameState === STATE_GAMEOVER) {
+        initGame();
+    } else if (gameState === STATE_PAUSED) {
+        setGameState(STATE_PLAYING);
+    }
+}
+
+if (overlayActionBtn) {
+    overlayActionBtn.addEventListener('click', handleOverlayAction);
+    overlayActionBtn.addEventListener('touchstart', handleOverlayAction, { passive: false });
+}
+
+if (overlay) {
+    overlay.addEventListener('click', (e) => {
+        if (e.target !== overlayActionBtn) {
+            handleOverlayAction(e);
+        }
+    });
+}
+
+// Pause Buttons
+if (hudPauseBtn) {
+    hudPauseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePause();
+    });
+    hudPauseBtn.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        togglePause();
+    }, { passive: false });
+}
+
+if (deckPauseBtn) {
+    deckPauseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePause();
+    });
+    deckPauseBtn.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        togglePause();
+    }, { passive: false });
+}
+
+// Slow Time Button
+function startSlowTime(e) {
+    if (e) e.preventDefault();
+    keys['space'] = true;
+    if (deckSlowBtn) deckSlowBtn.classList.add('pressed');
+    if (window.navigator && window.navigator.vibrate) {
+        try { window.navigator.vibrate(15); } catch(err) {}
+    }
+}
+
+function stopSlowTime(e) {
+    if (e) e.preventDefault();
+    keys['space'] = false;
+    if (deckSlowBtn) deckSlowBtn.classList.remove('pressed');
+}
+
+if (deckSlowBtn) {
+    deckSlowBtn.addEventListener('touchstart', startSlowTime, { passive: false });
+    deckSlowBtn.addEventListener('touchend', stopSlowTime, { passive: false });
+    deckSlowBtn.addEventListener('touchcancel', stopSlowTime, { passive: false });
+    deckSlowBtn.addEventListener('mousedown', startSlowTime);
+    deckSlowBtn.addEventListener('mouseup', stopSlowTime);
+    deckSlowBtn.addEventListener('mouseleave', stopSlowTime);
+}
+
+// D-Pad Touch & Drag Handlers
+const dpadKeys = {
+    up: { el: btnUp, key1: 'w', key2: 'arrowup' },
+    down: { el: btnDown, key1: 's', key2: 'arrowdown' },
+    left: { el: btnLeft, key1: 'a', key2: 'arrowleft' },
+    right: { el: btnRight, key1: 'd', key2: 'arrowright' }
+};
+
+let activeDirection = null;
+
+function setDirection(dir) {
+    if (activeDirection === dir) return;
+
+    // Clear previous direction
+    if (activeDirection && dpadKeys[activeDirection]) {
+        keys[dpadKeys[activeDirection].key1] = false;
+        keys[dpadKeys[activeDirection].key2] = false;
+        if (dpadKeys[activeDirection].el) dpadKeys[activeDirection].el.classList.remove('pressed');
+    }
+
+    activeDirection = dir;
+
+    // Set new direction
+    if (dir && dpadKeys[dir]) {
+        keys[dpadKeys[dir].key1] = true;
+        keys[dpadKeys[dir].key2] = true;
+        if (dpadKeys[dir].el) dpadKeys[dir].el.classList.add('pressed');
+        if (window.navigator && window.navigator.vibrate) {
+            try { window.navigator.vibrate(8); } catch(err) {}
+        }
+    }
+}
+
+function clearDpad() {
+    setDirection(null);
+}
+
+function handleDpadTouch(e) {
+    e.preventDefault();
+    if (e.type === 'touchend' || e.type === 'touchcancel') {
+        if (e.touches.length === 0) {
+            clearDpad();
+        } else {
+            let inDpad = false;
+            for (let i = 0; i < e.touches.length; i++) {
+                let touch = e.touches[i];
+                let target = document.elementFromPoint(touch.clientX, touch.clientY);
+                if (target && dpadBase && dpadBase.contains(target)) {
+                    let btn = target.closest('.dpad-key');
+                    if (btn && btn.dataset.dir) {
+                        setDirection(btn.dataset.dir);
+                        inDpad = true;
+                        break;
+                    }
+                }
+            }
+            if (!inDpad) clearDpad();
+        }
+        return;
+    }
+
+    for (let i = 0; i < e.touches.length; i++) {
+        let touch = e.touches[i];
+        let target = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (target && dpadBase && dpadBase.contains(target)) {
+            let btn = target.closest('.dpad-key');
+            if (btn && btn.dataset.dir) {
+                setDirection(btn.dataset.dir);
+                return;
+            }
+        }
+    }
+}
+
+if (dpadBase) {
+    dpadBase.addEventListener('touchstart', handleDpadTouch, { passive: false });
+    dpadBase.addEventListener('touchmove', handleDpadTouch, { passive: false });
+    dpadBase.addEventListener('touchend', handleDpadTouch, { passive: false });
+    dpadBase.addEventListener('touchcancel', handleDpadTouch, { passive: false });
+}
+
+['up', 'down', 'left', 'right'].forEach(dir => {
+    let btn = dpadKeys[dir]?.el;
+    if (btn) {
+        btn.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            setDirection(dir);
+        });
+        btn.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+            if (activeDirection === dir) clearDpad();
+        });
+        btn.addEventListener('mouseleave', (e) => {
+            if (activeDirection === dir) clearDpad();
+        });
+    }
+});
+
+// ------------------------------------------------------------------
+// Game Logic and Rendering
+// ------------------------------------------------------------------
 
 function spawnParticles(x, y, color) {
     for (let i = 0; i < 15; i++) {
@@ -247,7 +476,7 @@ function drawParticles() {
 function update() {
     if (gameState === STATE_TITLE || gameState === STATE_GAMEOVER) {
         if (keys['space']) {
-            keys['space'] = false; // consume
+            keys['space'] = false;
             initGame();
         }
         return;
@@ -275,22 +504,22 @@ function update() {
     // Player logic
     if (player.invincible > 0) player.invincible--;
 
-    let moveSpeed = 1; 
+    let moveSpeed = 1;
     let oldX = player.x;
     let oldY = player.y;
-    
+
     if (!player.moveCooldown) player.moveCooldown = 0;
-    
+
     if (player.moveCooldown > 0) {
         player.moveCooldown--;
     } else {
         let moved = false;
         if ((keys['q'] || keys['w'] || keys['arrowup']) && player.y > 1) { player.y -= moveSpeed; moved = true; }
-        else if ((keys['a'] || keys['s'] || keys['arrowdown']) && player.y < 22) { player.y += moveSpeed; moved = true; }
+        else if ((keys['s'] || keys['arrowdown']) && player.y < 22) { player.y += moveSpeed; moved = true; }
         else if ((keys['o'] || keys['a'] || keys['arrowleft']) && player.x > 0) { player.x -= moveSpeed; moved = true; }
         else if ((keys['p'] || keys['d'] || keys['arrowright']) && player.x < 31) { player.x += moveSpeed; moved = true; }
-        
-        if (moved) player.moveCooldown = 4; // limit movement speed
+
+        if (moved) player.moveCooldown = 4;
     }
 
     // Check collision
@@ -305,11 +534,10 @@ function update() {
                 setGameState(STATE_GAMEOVER);
             } else {
                 player.invincible = 50;
-                player.x = 2; // spawn point
+                player.x = 2;
                 player.y = 20;
             }
         } else {
-            // bounce back
             player.x = oldX;
             player.y = oldY;
         }
@@ -320,7 +548,7 @@ function update() {
     }
 
     updateParticles();
-    
+
     // Update UI
     scoreVal.innerText = score;
     livesVal.innerText = player.lives;
@@ -349,22 +577,18 @@ function drawLevel() {
                 ctx.arc(px + 28, py + 18, 6, 0, Math.PI * 2);
                 ctx.fill();
             } else if (tile === 3) { // Hazard (Red Cross)
-                ctx.fillStyle = '#FF0000'; // Red
+                ctx.fillStyle = '#FF0000';
                 ctx.shadowBlur = 10;
                 ctx.shadowColor = '#FF0000';
-                // Draw vertical bar
                 ctx.fillRect(px + TILE_SIZE/2 - 3, py + 2, 6, TILE_SIZE - 4);
-                // Draw horizontal bar
                 ctx.fillRect(px + 4, py + 8, TILE_SIZE - 8, 6);
                 ctx.shadowBlur = 0;
             } else if (tile === 4) { // Exit (Pearly Gates)
                 ctx.fillStyle = '#FFD700';
                 ctx.shadowBlur = 15;
                 ctx.shadowColor = '#FFD700';
-                // Draw pillars
                 ctx.fillRect(px + 2, py + 2, 4, TILE_SIZE - 4);
                 ctx.fillRect(px + TILE_SIZE - 6, py + 2, 4, TILE_SIZE - 4);
-                // Draw arch
                 ctx.beginPath();
                 ctx.arc(px + TILE_SIZE/2, py + 8, TILE_SIZE/2 - 2, Math.PI, 0);
                 ctx.fill();
@@ -380,16 +604,14 @@ function drawPlayer() {
     let px = player.x * TILE_SIZE;
     let py = player.y * TILE_SIZE;
 
-    // Draw Holy Orb / Angelic form
     ctx.fillStyle = '#ffffff';
     ctx.shadowBlur = 20;
     ctx.shadowColor = '#FFD700';
-    
+
     ctx.beginPath();
     ctx.arc(px + TILE_SIZE/2, py + TILE_SIZE/2, TILE_SIZE/2 - 4, 0, Math.PI * 2);
     ctx.fill();
-    
-    // Draw golden halo
+
     ctx.strokeStyle = '#FFD700';
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -400,9 +622,8 @@ function drawPlayer() {
 }
 
 function draw() {
-    // Clear (background is handled by CSS, so we just clear transparently)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+
     if (gameState === STATE_TITLE) {
         return;
     }
@@ -415,12 +636,11 @@ function draw() {
 function gameLoop() {
     update();
     draw();
-    
-    // Slow down effect visual + logic
+
     let delay = chrono.isSlow ? 1000/25 : 1000/FPS;
     setTimeout(gameLoop, delay);
 }
 
-// Start
+// Initialize
 setGameState(STATE_TITLE);
 gameLoop();

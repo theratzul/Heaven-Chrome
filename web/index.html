@@ -2,37 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heaven Chrome - Web Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Heaven Chrome</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="game-container">
-        <!-- Sun rays background -->
-        <div class="sun-rays"></div>
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div id="ui-layer">
-            <div id="hud">
-                <div class="hud-item">FAITH SCORE: <span id="scoreVal">0</span></div>
-                <div class="hud-item">SOULS: <span id="livesVal">3</span></div>
-                <div class="hud-item">DIVINE GRACE: <div class="energy-bar"><div id="energyFill"></div></div></div>
-            </div>
-            <div id="overlay" class="screen">
-                <div class="cross-icon">✝</div>
-                <h1 id="titleText">HEAVEN CHROME</h1>
-                <p id="subText">A Divine Time-Bending Journey</p>
-                <p style="color: #FFD700; font-size: 18px; font-weight: bold; margin-top: -20px; margin-bottom: 30px;">by popa bogdan</p>
-                <div class="controls">
-                    <p>Q/A or W/S - Ascend/Descend</p>
-                    <p>O/P or A/D - Move Left/Right</p>
-                    <p>SPACE - Divine Time Shift (Slow)</p>
-                    <p>M - Pause</p>
+    <div id="game-wrapper">
+        <div id="game-container">
+            <!-- Sun rays divine background -->
+            <div class="sun-rays"></div>
+            
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            
+            <div id="ui-layer">
+                <div id="hud">
+                    <div class="hud-item faith-item">
+                        <span class="hud-label">FAITH:</span>
+                        <span id="scoreVal" class="hud-val">0</span>
+                    </div>
+                    <div class="hud-item souls-item">
+                        <span class="hud-label">SOULS:</span>
+                        <span id="livesVal" class="hud-val">3</span>
+                    </div>
+                    <div class="hud-item grace-item">
+                        <span class="hud-label">GRACE:</span>
+                        <div class="energy-bar"><div id="energyFill"></div></div>
+                    </div>
+                    <button id="hudPauseBtn" class="hud-pause-btn" aria-label="Pause game">⏸</button>
                 </div>
-                <p class="blink">Press SPACE to Begin Your Journey</p>
+                
+                <div id="overlay" class="screen">
+                    <div class="overlay-content">
+                        <div class="cross-icon">✝</div>
+                        <h1 id="titleText">HEAVEN CHROME</h1>
+                        <p id="subText">A Divine Time-Bending Journey</p>
+                        <p id="authorText">by popa bogdan</p>
+                        
+                        <div class="controls-panel">
+                            <div class="control-row">
+                                <span class="control-key">D-PAD / WASD</span>
+                                <span class="control-desc">Ascend, Descend, Move Left / Right</span>
+                            </div>
+                            <div class="control-row">
+                                <span class="control-key">HOLD SLOW / SPACE</span>
+                                <span class="control-desc">Divine Time Shift (Slow Motion)</span>
+                            </div>
+                            <div class="control-row">
+                                <span class="control-key">PAUSE / M</span>
+                                <span class="control-desc">Contemplation / Resume</span>
+                            </div>
+                        </div>
+                        
+                        <button id="overlayActionBtn" class="action-start-btn">TAP TO ENTER PARADISE</button>
+                        <p class="blink" id="blinkPrompt">or press SPACE / tap anywhere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- On-Screen Touch Controls deck for Samsung S24 & mobile screens -->
+        <div id="touch-controls" class="touch-controls-deck">
+            <!-- Left: D-Pad -->
+            <div class="dpad-wrapper">
+                <div class="dpad-base" id="dpadBase">
+                    <button class="dpad-key dpad-up" id="btnUp" data-dir="up" aria-label="Move Up">
+                        <span class="arrow-icon">▲</span>
+                    </button>
+                    <div class="dpad-mid">
+                        <button class="dpad-key dpad-left" id="btnLeft" data-dir="left" aria-label="Move Left">
+                            <span class="arrow-icon">◀</span>
+                        </button>
+                        <div class="dpad-core">✝</div>
+                        <button class="dpad-key dpad-right" id="btnRight" data-dir="right" aria-label="Move Right">
+                            <span class="arrow-icon">▶</span>
+                        </button>
+                    </div>
+                    <button class="dpad-key dpad-down" id="btnDown" data-dir="down" aria-label="Move Down">
+                        <span class="arrow-icon">▼</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Action Buttons -->
+            <div class="action-buttons-wrapper">
+                <button class="deck-btn deck-pause" id="deckPauseBtn" aria-label="Pause or Resume">
+                    <span class="btn-icon">⏸</span>
+                    <span class="btn-text">PAUSE</span>
+                </button>
+                
+                <button class="deck-btn deck-slow" id="deckSlowBtn" aria-label="Hold to Slow Time">
+                    <div class="halo-ring"></div>
+                    <span class="btn-symbol">⏳</span>
+                    <span class="btn-main-text">SLOW TIME</span>
+                    <span class="btn-sub-text">HOLD FOR DIVINE GRACE</span>
+                </button>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

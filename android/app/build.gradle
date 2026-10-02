@@ -22,6 +22,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Heaven-Chrome.apk"
+        }
+    }
+}
+
+tasks.register('copyAlternativeApkNames') {
+    doLast {
+        def apkDir = file("$buildDir/outputs/apk/debug")
+        def primaryApk = file("$apkDir/Heaven-Chrome.apk")
+        if (primaryApk.exists()) {
+            copy {
+                from apkDir
+                into apkDir
+                include "Heaven-Chrome.apk"
+                rename "Heaven-Chrome.apk", "Heaven Chrome.apk"
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    tasks.named("assembleDebug").configure {
+        finalizedBy "copyAlternativeApkNames"
+    }
 }
 
 repositories {

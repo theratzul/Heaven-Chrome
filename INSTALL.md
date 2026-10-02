@@ -277,7 +277,7 @@ cd android
 gradlew.bat assembleDebug
 ```
 
-APK location: `android\app\build\outputs\apk\debug\app-debug.apk`
+APK location: `android\app\build\outputs\apk\debug\Heaven-Chrome.apk`
 
 ---
 
@@ -347,11 +347,11 @@ cd android && chmod +x gradlew
 ./gradlew assembleDebug
 ```
 
-APK location: `android/app/build/outputs/apk/debug/app-debug.apk`
+APK location: `android/app/build/outputs/apk/debug/Heaven-Chrome.apk`
 
 **Install to a connected device:**
 ```bash
-adb install android/app/build/outputs/apk/debug/app-debug.apk
+adb install android/app/build/outputs/apk/debug/Heaven-Chrome.apk
 ```
 
 ---
@@ -387,11 +387,11 @@ adb install android/app/build/outputs/apk/debug/app-debug.apk
 | Install dependencies | `npm install` | Downloads `@capacitor/cli`, `@capacitor/core`, `@capacitor/android` |
 | Sync Capacitor | `npx cap sync android` | Copies `web/` into the Android project assets |
 | Build APK | `cd android && ./gradlew assembleDebug` | Compiles the debug APK |
-| Upload artifact | `actions/upload-artifact@v4` | Makes `app-debug.apk` downloadable from the Actions run page |
+| Upload artifact | `actions/upload-artifact@v4` | Makes `Heaven-Chrome.apk` downloadable from the Actions run page |
 
 ### Downloading the APK
 
-After a successful run: **Actions tab** → click the run → scroll to **Artifacts** → download **`app-debug`**.
+After a successful run: **Actions tab** → click the run → scroll to **Artifacts** → download **`Heaven-Chrome`**.
 
 ---
 

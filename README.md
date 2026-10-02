@@ -45,13 +45,19 @@ Chronos/
 
 ### Android Version
 1. Ensure you have Node.js and Java JDK installed.
-2. Run `npm install` and `npx cap sync android`.
-3. To build locally, run `cd android && ./gradlew assembleDebug`. The generated APK will be in `android/app/build/outputs/apk/debug/app-debug.apk`.
-4. Alternatively, use the **GitHub Actions** workflow included in the repo which automatically builds the APK on every push to main.
+2. Run `npm install` and `npx cap sync android` (or run `./build-android.sh`).
+3. To build locally, run `./build-android.sh` (or `cd android && ./gradlew assembleDebug`). The generated APK will be in `android/app/build/outputs/apk/debug/Heaven-Chrome.apk`.
+4. Alternatively, use the **GitHub Actions** workflow included in the repo which automatically builds `Heaven-Chrome.apk` on every push to main.
 
 ## Controls
 
-### Web / Android Version
+### Android Version (Touch Screen)
+- **On-Screen D-Pad (▲ / ▼ / ◀ / ▶)** - Ascend, Descend, Move Left, Move Right
+- **Slow Time Button (Hold)** - Divine Time Shift (Slow Motion)
+- **Pause Button (⏸)** - Pause / Contemplate
+- **Tap Screen** - Start Game / Resurrect / Resume
+
+### Web / Desktop Version
 - **W/A/S/D or Arrow Keys or Q/A/O/P** - Ascend, Move Left, Descend, Move Right
 - **Space** - Divine Time Shift (Slow)
 - **M** - Pause (Contemplation)
