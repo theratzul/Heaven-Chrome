@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"name": "Chronos (ZX Spectrum)",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.encoding": "utf8",
+		"files.associations": {
+			"*.asm": "z80"
+		}
+	}
+}

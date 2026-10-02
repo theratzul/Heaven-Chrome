@@ -1,0 +1,11 @@
+PORT_ROW_AtoG                   = $FDFE ; const, local, , , code_user, src/engine/input.asm:12
+PORT_ROW_PtoY                   = $DFFE ; const, local, , , code_user, src/engine/input.asm:13
+PORT_ROW_QtoT                   = $FBFE ; const, local, , , code_user, src/engine/input.asm:11
+PORT_ROW_SPACE                  = $7FFE ; const, local, , , code_user, src/engine/input.asm:10
+_input_read_keys                = $0000 ; addr, public, , , code_user, src/engine/input.asm:15
+no_down                         = $0018 ; addr, local, , , code_user, src/engine/input.asm:30
+no_fire                         = $0039 ; addr, local, , , code_user, src/engine/input.asm:51
+no_left                         = $0023 ; addr, local, , , code_user, src/engine/input.asm:37
+no_pause                        = $0044 ; addr, local, , , code_user, src/engine/input.asm:58
+no_right                        = $002E ; addr, local, , , code_user, src/engine/input.asm:44
+no_up                           = $000D ; addr, local, , , code_user, src/engine/input.asm:23

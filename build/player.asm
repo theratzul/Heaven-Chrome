@@ -1,0 +1,435 @@
+;--------------------------------------------------------
+; File Created by SDCC : free open source ISO C Compiler
+; Version 4.5.0 #15242 (MINGW64)
+;--------------------------------------------------------
+; Processed by Z88DK
+;--------------------------------------------------------
+
+	EXTERN __divschar
+	EXTERN __divschar_callee
+	EXTERN __divsint
+	EXTERN __divsint_callee
+	EXTERN __divslong
+	EXTERN __divslong_callee
+	EXTERN __divslonglong
+	EXTERN __divslonglong_callee
+	EXTERN __divsuchar
+	EXTERN __divsuchar_callee
+	EXTERN __divuchar
+	EXTERN __divuchar_callee
+	EXTERN __divuint
+	EXTERN __divuint_callee
+	EXTERN __divulong
+	EXTERN __divulong_callee
+	EXTERN __divulonglong
+	EXTERN __divulonglong_callee
+	EXTERN __divuschar
+	EXTERN __divuschar_callee
+	EXTERN __modschar
+	EXTERN __modschar_callee
+	EXTERN __modsint
+	EXTERN __modsint_callee
+	EXTERN __modslong
+	EXTERN __modslong_callee
+	EXTERN __modslonglong
+	EXTERN __modslonglong_callee
+	EXTERN __modsuchar
+	EXTERN __modsuchar_callee
+	EXTERN __moduchar
+	EXTERN __moduchar_callee
+	EXTERN __moduint
+	EXTERN __moduint_callee
+	EXTERN __modulong
+	EXTERN __modulong_callee
+	EXTERN __modulonglong
+	EXTERN __modulonglong_callee
+	EXTERN __moduschar
+	EXTERN __moduschar_callee
+	EXTERN __mulint
+	EXTERN __mulint_callee
+	EXTERN __mullong
+	EXTERN __mullong_callee
+	EXTERN __mullonglong
+	EXTERN __mullonglong_callee
+	EXTERN __mulschar
+	EXTERN __mulschar_callee
+	EXTERN __mulsuchar
+	EXTERN __mulsuchar_callee
+	EXTERN __muluchar
+	EXTERN __muluchar_callee
+	EXTERN __muluschar
+	EXTERN __muluschar_callee
+	EXTERN __rlslonglong
+	EXTERN __rlslonglong_callee
+	EXTERN __rlulonglong
+	EXTERN __rlulonglong_callee
+	EXTERN __rrslonglong
+	EXTERN __rrslonglong_callee
+	EXTERN __rrulonglong
+	EXTERN __rrulonglong_callee
+	EXTERN ___mulsint2slong
+	EXTERN ___mulsint2slong_callee
+	EXTERN ___muluint2ulong
+	EXTERN ___muluint2ulong_callee
+	EXTERN ___sdcc_call_hl
+	EXTERN ___sdcc_call_iy
+	EXTERN ___sdcc_enter_ix
+	EXTERN banked_call
+	EXTERN _banked_ret
+	EXTERN ___fs2schar
+	EXTERN ___fs2schar_callee
+	EXTERN ___fs2sint
+	EXTERN ___fs2sint_callee
+	EXTERN ___fs2slong
+	EXTERN ___fs2slong_callee
+	EXTERN ___fs2slonglong
+	EXTERN ___fs2slonglong_callee
+	EXTERN ___fs2uchar
+	EXTERN ___fs2uchar_callee
+	EXTERN ___fs2uint
+	EXTERN ___fs2uint_callee
+	EXTERN ___fs2ulong
+	EXTERN ___fs2ulong_callee
+	EXTERN ___fs2ulonglong
+	EXTERN ___fs2ulonglong_callee
+	EXTERN ___fsadd
+	EXTERN ___fsadd_callee
+	EXTERN ___fsdiv
+	EXTERN ___fsdiv_callee
+	EXTERN ___fseq
+	EXTERN ___fseq_callee
+	EXTERN ___fsgt
+	EXTERN ___fsgt_callee
+	EXTERN ___fslt
+	EXTERN ___fslt_callee
+	EXTERN ___fsmul
+	EXTERN ___fsmul_callee
+	EXTERN ___fsneq
+	EXTERN ___fsneq_callee
+	EXTERN ___fssub
+	EXTERN ___fssub_callee
+	EXTERN ___schar2fs
+	EXTERN ___schar2fs_callee
+	EXTERN ___sint2fs
+	EXTERN ___sint2fs_callee
+	EXTERN ___slong2fs
+	EXTERN ___slong2fs_callee
+	EXTERN ___slonglong2fs
+	EXTERN ___slonglong2fs_callee
+	EXTERN ___uchar2fs
+	EXTERN ___uchar2fs_callee
+	EXTERN ___uint2fs
+	EXTERN ___uint2fs_callee
+	EXTERN ___ulong2fs
+	EXTERN ___ulong2fs_callee
+	EXTERN ___ulonglong2fs
+	EXTERN ___ulonglong2fs_callee
+	EXTERN ____sdcc_2_copy_src_mhl_dst_deix
+	EXTERN ____sdcc_2_copy_src_mhl_dst_bcix
+	EXTERN ____sdcc_4_copy_src_mhl_dst_deix
+	EXTERN ____sdcc_4_copy_src_mhl_dst_bcix
+	EXTERN ____sdcc_4_copy_src_mhl_dst_mbc
+	EXTERN ____sdcc_4_ldi_nosave_bc
+	EXTERN ____sdcc_4_ldi_save_bc
+	EXTERN ____sdcc_4_push_hlix
+	EXTERN ____sdcc_4_push_mhl
+	EXTERN ____sdcc_lib_setmem_hl
+	EXTERN ____sdcc_ll_add_de_bc_hl
+	EXTERN ____sdcc_ll_add_de_bc_hlix
+	EXTERN ____sdcc_ll_add_de_hlix_bc
+	EXTERN ____sdcc_ll_add_de_hlix_bcix
+	EXTERN ____sdcc_ll_add_deix_bc_hl
+	EXTERN ____sdcc_ll_add_deix_hlix
+	EXTERN ____sdcc_ll_add_hlix_bc_deix
+	EXTERN ____sdcc_ll_add_hlix_deix_bc
+	EXTERN ____sdcc_ll_add_hlix_deix_bcix
+	EXTERN ____sdcc_ll_asr_hlix_a
+	EXTERN ____sdcc_ll_asr_mbc_a
+	EXTERN ____sdcc_ll_copy_src_de_dst_hlix
+	EXTERN ____sdcc_ll_copy_src_de_dst_hlsp
+	EXTERN ____sdcc_ll_copy_src_deix_dst_hl
+	EXTERN ____sdcc_ll_copy_src_deix_dst_hlix
+	EXTERN ____sdcc_ll_copy_src_deixm_dst_hlsp
+	EXTERN ____sdcc_ll_copy_src_desp_dst_hlsp
+	EXTERN ____sdcc_ll_copy_src_hl_dst_de
+	EXTERN ____sdcc_ll_copy_src_hlsp_dst_de
+	EXTERN ____sdcc_ll_copy_src_hlsp_dst_deixm
+	EXTERN ____sdcc_ll_lsl_hlix_a
+	EXTERN ____sdcc_ll_lsl_mbc_a
+	EXTERN ____sdcc_ll_lsr_hlix_a
+	EXTERN ____sdcc_ll_lsr_mbc_a
+	EXTERN ____sdcc_ll_push_hlix
+	EXTERN ____sdcc_ll_push_mhl
+	EXTERN ____sdcc_ll_sub_de_bc_hl
+	EXTERN ____sdcc_ll_sub_de_bc_hlix
+	EXTERN ____sdcc_ll_sub_de_hlix_bc
+	EXTERN ____sdcc_ll_sub_de_hlix_bcix
+	EXTERN ____sdcc_ll_sub_deix_bc_hl
+	EXTERN ____sdcc_ll_sub_deix_hlix
+	EXTERN ____sdcc_ll_sub_hlix_bc_deix
+	EXTERN ____sdcc_ll_sub_hlix_deix_bc
+	EXTERN ____sdcc_ll_sub_hlix_deix_bcix
+	EXTERN ____sdcc_load_debc_deix
+	EXTERN ____sdcc_load_dehl_deix
+	EXTERN ____sdcc_load_debc_mhl
+	EXTERN ____sdcc_load_hlde_mhl
+	EXTERN ____sdcc_store_dehl_bcix
+	EXTERN ____sdcc_store_debc_hlix
+	EXTERN ____sdcc_store_debc_mhl
+	EXTERN ____sdcc_cpu_pop_ei
+	EXTERN ____sdcc_cpu_pop_ei_jp
+	EXTERN ____sdcc_cpu_push_di
+	EXTERN ____sdcc_outi
+	EXTERN ____sdcc_outi_128
+	EXTERN ____sdcc_outi_256
+	EXTERN ____sdcc_ldi
+	EXTERN ____sdcc_ldi_128
+	EXTERN ____sdcc_ldi_256
+	EXTERN ____sdcc_4_copy_srcd_hlix_dst_deix
+	EXTERN ____sdcc_4_and_src_mbc_mhl_dst_deix
+	EXTERN ____sdcc_4_or_src_mbc_mhl_dst_deix
+	EXTERN ____sdcc_4_xor_src_mbc_mhl_dst_deix
+	EXTERN ____sdcc_4_or_src_dehl_dst_bcix
+	EXTERN ____sdcc_4_xor_src_dehl_dst_bcix
+	EXTERN ____sdcc_4_and_src_dehl_dst_bcix
+	EXTERN ____sdcc_4_xor_src_mbc_mhl_dst_debc
+	EXTERN ____sdcc_4_or_src_mbc_mhl_dst_debc
+	EXTERN ____sdcc_4_and_src_mbc_mhl_dst_debc
+	EXTERN ____sdcc_4_cpl_src_mhl_dst_debc
+	EXTERN ____sdcc_4_xor_src_debc_mhl_dst_debc
+	EXTERN ____sdcc_4_or_src_debc_mhl_dst_debc
+	EXTERN ____sdcc_4_and_src_debc_mhl_dst_debc
+	EXTERN ____sdcc_4_and_src_debc_hlix_dst_debc
+	EXTERN ____sdcc_4_or_src_debc_hlix_dst_debc
+	EXTERN ____sdcc_4_xor_src_debc_hlix_dst_debc
+
+;--------------------------------------------------------
+; Public variables in this module
+;--------------------------------------------------------
+	GLOBAL _player_init
+	GLOBAL _player_update
+	GLOBAL _player_draw
+	GLOBAL _player_on_hit
+	GLOBAL _player_reset_position
+	GLOBAL _player_get_x
+	GLOBAL _player_get_y
+	GLOBAL _player_get_lives
+;--------------------------------------------------------
+; Externals used
+;--------------------------------------------------------
+	GLOBAL _sprite_draw
+;--------------------------------------------------------
+; special function registers
+;--------------------------------------------------------
+;--------------------------------------------------------
+; ram data
+;--------------------------------------------------------
+	SECTION bss_compiler
+_px:
+	DEFS 1
+_py:
+	DEFS 1
+_lives:
+	DEFS 1
+_invincible:
+	DEFS 1
+_facing:
+	DEFS 1
+_start_x:
+	DEFS 1
+_start_y:
+	DEFS 1
+;--------------------------------------------------------
+; ram data
+;--------------------------------------------------------
+
+IF 0
+
+; .area _INITIALIZED removed by z88dk
+
+
+ENDIF
+
+;--------------------------------------------------------
+; absolute external ram data
+;--------------------------------------------------------
+	SECTION IGNORE
+;--------------------------------------------------------
+; global & static initialisations
+;--------------------------------------------------------
+	SECTION code_crt_init
+;--------------------------------------------------------
+; Home
+;--------------------------------------------------------
+	SECTION code_home
+;--------------------------------------------------------
+; code
+;--------------------------------------------------------
+	SECTION code_compiler
+;	---------------------------------
+; Function player_init
+; ---------------------------------
+_player_init:
+	ld	hl,_start_x
+	ld	(hl),0x02
+	ld	hl,_start_y
+	ld	(hl),0x14
+	ld	hl,_px
+	ld	(hl),0x02
+	ld	hl,_py
+	ld	(hl),0x14
+	ld	hl,_lives
+	ld	(hl),0x03
+	xor	a, a
+	ld	(_invincible),a
+	xor	a, a
+	ld	(_facing),a
+	ret
+	SECTION rodata_compiler
+_player_sprite:
+	DEFB +0x18
+	DEFB +0x3c
+	DEFB +0x7e
+	DEFB +0x5a
+	DEFB +0x7e
+	DEFB +0x24
+	DEFB +0x24
+	DEFB +0x66
+	SECTION code_compiler
+;	---------------------------------
+; Function player_update
+; ---------------------------------
+_player_update:
+	push	ix
+	ld	ix,0
+	add	ix,sp
+	ld	hl,_invincible
+	ld	a, (hl)
+	or	a, a
+	jr	Z,l_player_update_00102
+	dec	(hl)
+l_player_update_00102:
+	ld	c,(ix+4)
+	bit	0, c
+	jr	Z,l_player_update_00104
+	ld	a,0x01
+	ld	hl,_py
+	sub	a, (hl)
+	jr	NC,l_player_update_00104
+	ld	a, (hl)
+	add	a,0xff
+	ld	(hl), a
+l_player_update_00104:
+	bit	1, c
+	jr	Z,l_player_update_00107
+	ld	hl,_py
+	ld	a,(hl)
+	cp	a,0x16
+	jr	NC,l_player_update_00107
+	inc	a
+	ld	(hl), a
+l_player_update_00107:
+	bit	2, c
+	jr	Z,l_player_update_00110
+	ld	hl,_px
+	ld	a, (hl)
+	or	a, a
+	jr	Z,l_player_update_00110
+	ld	a, (hl)
+	add	a,0xff
+	ld	(hl), a
+	ld	hl,_facing
+	ld	(hl),0x01
+l_player_update_00110:
+	bit	3, c
+	jr	Z,l_player_update_00115
+	ld	hl,_px
+	ld	a,(hl)
+	cp	a,0x1f
+	jr	NC,l_player_update_00115
+	inc	a
+	ld	(hl), a
+	xor	a, a
+	ld	(_facing),a
+l_player_update_00115:
+	pop	ix
+	ret
+;	---------------------------------
+; Function player_draw
+; ---------------------------------
+_player_draw:
+	ld	hl,_invincible
+	ld	a, (hl)
+	or	a, a
+	jr	Z,l_player_draw_00102
+	ld	a, (hl)
+	rrca
+	jr	C,l_player_draw_00104
+l_player_draw_00102:
+	ld	hl,_player_sprite
+	push	hl
+	ld	a, (_py)
+	push	af
+	inc	sp
+	ld	a, (_px)
+	push	af
+	inc	sp
+	call	_sprite_draw
+	pop	af
+	pop	af
+l_player_draw_00104:
+	ret
+;	---------------------------------
+; Function player_on_hit
+; ---------------------------------
+_player_on_hit:
+	ld	a,(_invincible)
+	or	a, a
+	jr	NZ,l_player_on_hit_00105
+	ld	hl,_lives
+	ld	a, (hl)
+	or	a, a
+	jr	Z,l_player_on_hit_00104
+	dec	(hl)
+l_player_on_hit_00104:
+	ld	hl,_invincible
+	ld	(hl),0x32
+	ld	a,(_start_x)
+	ld	(_px),a
+	ld	a,(_start_y)
+	ld	(_py),a
+l_player_on_hit_00105:
+	ret
+;	---------------------------------
+; Function player_reset_position
+; ---------------------------------
+_player_reset_position:
+	ld	a,(_start_x)
+	ld	(_px),a
+	ld	a,(_start_y)
+	ld	(_py),a
+	xor	a, a
+	ld	(_invincible),a
+	ret
+;	---------------------------------
+; Function player_get_x
+; ---------------------------------
+_player_get_x:
+	ld	a, (_px)
+	ld	l, a
+	ret
+;	---------------------------------
+; Function player_get_y
+; ---------------------------------
+_player_get_y:
+	ld	a, (_py)
+	ld	l, a
+	ret
+;	---------------------------------
+; Function player_get_lives
+; ---------------------------------
+_player_get_lives:
+	ld	a, (_lives)
+	ld	l, a
+	ret
+	SECTION IGNORE

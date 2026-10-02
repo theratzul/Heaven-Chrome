@@ -1,0 +1,3955 @@
+
+#line 1 "src/game/main.c"
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/arch/zx.h"
+
+ 
+
+
+
+
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/arch.h"
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/../../../libsrc/_DEVELOPMENT/target/zx/config_zx.h"
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 46 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/arch.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 9 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/arch/zx.h"
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/stddef.h"
+
+ 
+
+
+
+
+
+
+
+
+
+typedef int           ptrdiff_t;
+
+
+
+typedef unsigned int  size_t;
+
+
+typedef unsigned char max_align_t;
+
+
+
+typedef unsigned char wchar_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 11 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/arch/zx.h"
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/rect.h"
+
+ 
+
+
+
+
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/stdint.h"
+
+ 
+
+
+
+
+
+typedef signed char            int8_t;
+typedef signed int             int16_t;
+typedef signed long            int32_t;
+
+typedef unsigned char          uint8_t;
+typedef unsigned int           uint16_t;
+typedef unsigned long          uint32_t;
+
+typedef signed char            int_least8_t;
+typedef signed int             int_least16_t;
+typedef signed long            int_least32_t;
+
+typedef unsigned char          uint_least8_t;
+typedef unsigned int           uint_least16_t;
+typedef unsigned long          uint_least32_t;
+
+typedef signed int             int_fast8_t;
+typedef signed int             int_fast16_t;
+typedef signed long            int_fast32_t;
+
+typedef unsigned int           uint_fast8_t;
+typedef unsigned int           uint_fast16_t;
+typedef unsigned long          uint_fast32_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef long long              int64_t;
+typedef unsigned long long     uint64_t;
+
+typedef long long              int_least64_t;
+typedef unsigned long long     uint_least64_t;
+
+typedef long long              int_fast64_t;
+typedef unsigned long long     uint_fast64_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef int                    intptr_t;
+
+
+typedef unsigned int           uintptr_t;
+
+
+
+
+
+
+
+
+
+
+typedef long long              intmax_t;
+typedef unsigned long long     uintmax_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 9 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/rect.h"
+
+ 
+
+struct r_Ival8
+{
+   uint8_t coord;               
+   uint8_t width;               
+};
+
+struct r_Ival16
+{
+   uint16_t coord;              
+   uint16_t width;              
+};
+
+struct r_Rect8
+{
+   uint8_t x;                   
+   uint8_t width;               
+   uint8_t y;                   
+   uint8_t height;              
+};
+
+struct r_Rect16
+{
+   uint16_t x;                  
+   uint16_t width;              
+   uint16_t y;                  
+   uint16_t height;             
+};
+
+
+
+#line 12 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/arch/zx.h"
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern unsigned char GLOBAL_ZX_PORT_FE;
+extern unsigned char GLOBAL_ZX_PORT_1FFD;
+extern unsigned char GLOBAL_ZX_PORT_7FFD;
+
+ 
+
+
+
+
+
+
+
+
+
+__sfr __at 0xfe IO_FE;
+
+__sfr __banked __at 0x1ffd IO_1FFD;
+__sfr __banked __at 0x7ffd IO_7FFD;
+
+
+
+ 
+
+struct zxtapehdr
+{
+	unsigned char hdtype;       
+	unsigned char hdname[10];   
+	unsigned int  hdlen;        
+	unsigned int  hdadd;        
+	unsigned int  hdvars;       
+};
+
+
+
+
+extern unsigned char zx_tape_load_block(void *dst,unsigned int len,unsigned char type) __preserves_regs(iyl,iyh);
+extern unsigned char zx_tape_load_block_callee(void *dst,unsigned int len,unsigned char type) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char zx_tape_save_block(void *src,unsigned int len,unsigned char type) __preserves_regs(iyl,iyh);
+extern unsigned char zx_tape_save_block_callee(void *src,unsigned int len,unsigned char type) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char zx_tape_verify_block(void *dst,unsigned int len,unsigned char type) __preserves_regs(iyl,iyh);
+extern unsigned char zx_tape_verify_block_callee(void *dst,unsigned int len,unsigned char type) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+
+ 
+
+extern void zx_border(unsigned char colour) __preserves_regs(b,c,d,e,iyl,iyh);
+extern void zx_border_fastcall(unsigned char colour) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern void zx_cls(unsigned char attr) __preserves_regs(iyl,iyh);
+extern void zx_cls_fastcall(unsigned char attr) __preserves_regs(iyl,iyh) __z88dk_fastcall;
+
+
+
+extern void zx_cls_attr(unsigned char attr) __preserves_regs(iyl,iyh);
+extern void zx_cls_attr_fastcall(unsigned char attr) __preserves_regs(iyl,iyh) __z88dk_fastcall;
+
+
+
+extern void zx_cls_pix(unsigned char pix) __preserves_regs(iyl,iyh);
+extern void zx_cls_pix_fastcall(unsigned char pix) __preserves_regs(iyl,iyh) __z88dk_fastcall;
+
+
+
+extern void zx_cls_wc(struct r_Rect8 *r,unsigned char attr);
+extern void zx_cls_wc_callee(struct r_Rect8 *r,unsigned char attr) __z88dk_callee;
+
+
+
+extern void zx_cls_wc_attr(struct r_Rect8 *r,unsigned char attr);
+extern void zx_cls_wc_attr_callee(struct r_Rect8 *r,unsigned char attr) __z88dk_callee;
+
+
+
+extern void zx_cls_wc_pix(struct r_Rect8 *r,unsigned char pix);
+extern void zx_cls_wc_pix_callee(struct r_Rect8 *r,unsigned char pix) __z88dk_callee;
+
+
+
+extern void zx_scroll_up(unsigned char rows,unsigned char attr) __preserves_regs(iyl,iyh);
+extern void zx_scroll_up_callee(unsigned char rows,unsigned char attr) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern void zx_scroll_up_attr(unsigned char rows,unsigned char attr) __preserves_regs(iyl,iyh);
+extern void zx_scroll_up_attr_callee(unsigned char rows,unsigned char attr) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern void zx_scroll_up_pix(unsigned char rows,unsigned char pix) __preserves_regs(iyl,iyh);
+extern void zx_scroll_up_pix_callee(unsigned char rows,unsigned char pix) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern void zx_scroll_wc_up(struct r_Rect8 *r,unsigned char rows,unsigned char attr);
+extern void zx_scroll_wc_up_callee(struct r_Rect8 *r,unsigned char rows,unsigned char attr) __z88dk_callee;
+
+
+
+extern void zx_scroll_wc_up_attr(struct r_Rect8 *r,unsigned char rows,unsigned char attr);
+extern void zx_scroll_wc_up_attr_callee(struct r_Rect8 *r,unsigned char rows,unsigned char attr) __z88dk_callee;
+
+
+
+extern void zx_scroll_wc_up_pix(struct r_Rect8 *r,unsigned char rows,unsigned char pix);
+extern void zx_scroll_wc_up_pix_callee(struct r_Rect8 *r,unsigned char rows,unsigned char pix) __z88dk_callee;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern void zx_visit_wc_attr(struct r_Rect8 *r,void (*visit)(unsigned char *));
+extern void zx_visit_wc_attr_callee(struct r_Rect8 *r,void (*visit)(unsigned char *)) __z88dk_callee;
+
+
+
+extern void zx_visit_wc_pix(struct r_Rect8 *r,void (*visit)(unsigned char *));
+extern void zx_visit_wc_pix_callee(struct r_Rect8 *r,void (*visit)(unsigned char *)) __z88dk_callee;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+extern unsigned char zx_aaddr2cx(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_aaddr2cx_fastcall(void *aaddr) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char zx_aaddr2cy(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_aaddr2cy_fastcall(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char zx_aaddr2px(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_aaddr2px_fastcall(void *aaddr) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char zx_aaddr2py(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_aaddr2py_fastcall(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_aaddr2saddr(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_aaddr2saddr_fastcall(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_aaddrcdown(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_aaddrcdown_fastcall(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_aaddrcleft(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_aaddrcleft_fastcall(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_aaddrcright(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_aaddrcright_fastcall(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_aaddrcup(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_aaddrcup_fastcall(void *aaddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char zx_bitmask2px(unsigned char bitmask) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_bitmask2px_fastcall(unsigned char bitmask) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_cxy2aaddr(unsigned char x,unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_cxy2aaddr_callee(unsigned char x,unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char *zx_cxy2saddr(unsigned char x,unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_cxy2saddr_callee(unsigned char x,unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char *zx_cy2aaddr(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_cy2aaddr_fastcall(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_cy2saddr(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_cy2saddr_fastcall(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char zx_px2bitmask(unsigned char x) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_px2bitmask_fastcall(unsigned char x) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_pxy2aaddr(unsigned char x,unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_pxy2aaddr_callee(unsigned char x,unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char *zx_pxy2saddr(unsigned char x,unsigned char y) __preserves_regs(b,c,iyl,iyh);
+extern unsigned char *zx_pxy2saddr_callee(unsigned char x,unsigned char y) __preserves_regs(b,c,iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char *zx_py2aaddr(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_py2aaddr_fastcall(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_py2saddr(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_py2saddr_fastcall(unsigned char y) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_saddr2aaddr(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_saddr2aaddr_fastcall(void *saddr) __preserves_regs(b,c,d,e,l,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char zx_saddr2cx(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_saddr2cx_fastcall(void *saddr) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char zx_saddr2cy(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char zx_saddr2cy_fastcall(void *saddr) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned int zx_saddr2px(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned int zx_saddr2px_fastcall(void *saddr) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned int zx_saddr2py(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned int zx_saddr2py_fastcall(void *saddr) __preserves_regs(b,c,d,e,h,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_saddrcdown(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_saddrcdown_fastcall(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_saddrcleft(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_saddrcleft_fastcall(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_saddrcright(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_saddrcright_fastcall(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_saddrcup(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_saddrcup_fastcall(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_saddrpdown(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_saddrpdown_fastcall(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern unsigned char *zx_saddrpleft(void *saddr,unsigned char bitmask) __preserves_regs(b,c,iyl,iyh);
+extern unsigned char *zx_saddrpleft_callee(void *saddr,unsigned char bitmask) __preserves_regs(b,c,iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char *zx_saddrpright(void *saddr,unsigned char bitmask) __preserves_regs(b,c,iyl,iyh);
+extern unsigned char *zx_saddrpright_callee(void *saddr,unsigned char bitmask) __preserves_regs(b,c,iyl,iyh) __z88dk_callee;
+
+
+
+extern unsigned char *zx_saddrpup(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh);
+extern unsigned char *zx_saddrpup_fastcall(void *saddr) __preserves_regs(b,c,d,e,iyl,iyh) __z88dk_fastcall;
+
+
+
+
+ 
+
+extern int zx_pattern_fill(unsigned char x,unsigned char y,void *pattern,unsigned int depth);
+extern int zx_pattern_fill_callee(unsigned char x,unsigned char y,void *pattern,unsigned int depth) __z88dk_callee;
+
+
+
+
+
+
+#line 15 "src/game/main.c"
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/arch/zx/sp1.h"
+
+ 
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+ 
+ 
+ 
+
+struct sp1_Rect {
+
+   uint8_t row;
+   uint8_t col;
+   uint8_t width;
+   uint8_t height;
+
+};
+
+struct sp1_update;
+struct sp1_ss;
+struct sp1_cs;
+
+struct sp1_update {                    
+
+   uint8_t              nload;           
+   uint8_t              colour;          
+   uint16_t             tile;            
+   struct sp1_cs       *slist;           
+   struct sp1_update   *ulist;           
+   uint8_t             *screen;          
+
+};
+
+struct sp1_ss {                        
+
+   uint8_t              row;             
+   uint8_t              col;             
+   uint8_t              width;           
+   uint8_t              height;          
+
+   uint8_t              vrot;            
+   uint8_t              hrot;            
+
+   uint8_t             *frame;           
+
+   uint8_t              res0;            
+   uint8_t              e_hrot;          
+   uint8_t              res1;            
+   uint16_t             e_offset;        
+   uint8_t              res2;            
+   uint8_t              res3;            
+
+   struct sp1_cs     *first;           
+
+   uint8_t              xthresh;         
+   uint8_t              ythresh;         
+   uint8_t              nactive;         
+
+};
+
+struct sp1_cs {                        
+
+   struct sp1_cs     *next_in_spr;     
+
+   struct sp1_update *update;          
+
+   uint8_t              plane;           
+   uint8_t              type;            
+   uint8_t              attr_mask;       
+   uint8_t              attr;            
+
+   void                *ss_draw;         
+
+   uint8_t              res0;            
+   uint8_t             *def;             
+   uint8_t              res1;            
+   uint8_t              res2;            
+   uint8_t             *l_def;           
+   uint8_t              res3;            
+   void                *draw;            
+
+   struct sp1_cs       *next_in_upd;     
+   struct sp1_cs       *prev_in_upd;     
+
+};
+
+struct sp1_ap {                        
+
+   uint8_t              attr_mask;       
+   uint8_t              attr;            
+
+};
+
+struct sp1_tp {                        
+
+   uint8_t              attr;            
+   uint16_t             tile;            
+
+};
+
+struct sp1_pss {                       
+
+   struct sp1_Rect     *bounds;          
+   uint8_t              flags;           
+   uint8_t              x;               
+   uint8_t              y;               
+   uint8_t              attr_mask;       
+   uint8_t              attr;            
+   struct sp1_update   *pos;             
+   void                *visit;           
+   
+};
+
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+ 
+
+extern struct sp1_cs  sp1_struct_cs_prototype;
+extern struct sp1_ss  sp1_struct_ss_prototype;
+
+ 
+
+extern void    SP1_DRAW_MASK2(void);         
+extern void    SP1_DRAW_MASK2NR(void);       
+extern void    SP1_DRAW_MASK2LB(void);       
+extern void    SP1_DRAW_MASK2RB(void);       
+
+extern void    SP1_DRAW_LOAD2(void);         
+extern void    SP1_DRAW_LOAD2NR(void);       
+extern void    SP1_DRAW_LOAD2LB(void);       
+extern void    SP1_DRAW_LOAD2RB(void);       
+
+extern void    SP1_DRAW_OR2(void);           
+extern void    SP1_DRAW_OR2NR(void);         
+extern void    SP1_DRAW_OR2LB(void);         
+extern void    SP1_DRAW_OR2RB(void);         
+
+extern void    SP1_DRAW_XOR2(void);          
+extern void    SP1_DRAW_XOR2NR(void);        
+extern void    SP1_DRAW_XOR2LB(void);        
+extern void    SP1_DRAW_XOR2RB(void);        
+
+extern void    SP1_DRAW_LOAD2LBIM(void);     
+extern void    SP1_DRAW_LOAD2RBIM(void);     
+
+ 
+
+extern void    SP1_DRAW_LOAD1(void);         
+extern void    SP1_DRAW_LOAD1NR(void);       
+extern void    SP1_DRAW_LOAD1LB(void);       
+extern void    SP1_DRAW_LOAD1RB(void);       
+
+extern void    SP1_DRAW_OR1(void);           
+extern void    SP1_DRAW_OR1NR(void);         
+extern void    SP1_DRAW_OR1LB(void);         
+extern void    SP1_DRAW_OR1RB(void);         
+
+extern void    SP1_DRAW_XOR1(void);          
+extern void    SP1_DRAW_XOR1NR(void);        
+extern void    SP1_DRAW_XOR1LB(void);        
+extern void    SP1_DRAW_XOR1RB(void);        
+
+extern void    SP1_DRAW_LOAD1LBIM(void);     
+extern void    SP1_DRAW_LOAD1RBIM(void);     
+
+ 
+
+extern void    SP1_DRAW_ATTR(void);          
+
+ 
+ 
+ 
+ 
+
+extern struct sp1_ss *sp1_CreateSpr(void *drawf,uint16_t type,uint16_t height,int graphic,uint16_t plane);
+extern struct sp1_ss *sp1_CreateSpr_callee(void *drawf,uint16_t type,uint16_t height,int graphic,uint16_t plane) __z88dk_callee;
+
+
+
+extern uint16_t sp1_AddColSpr(struct sp1_ss *s,void *drawf,uint16_t type,int graphic,uint16_t plane);
+extern uint16_t sp1_AddColSpr_callee(struct sp1_ss *s,void *drawf,uint16_t type,int graphic,uint16_t plane) __z88dk_callee;
+
+
+
+extern void sp1_ChangeSprType(struct sp1_cs *c,void *drawf);
+extern void sp1_ChangeSprType_callee(struct sp1_cs *c,void *drawf) __z88dk_callee;
+
+
+
+extern void sp1_DeleteSpr(struct sp1_ss *s);
+extern void sp1_DeleteSpr_fastcall(struct sp1_ss *s) __z88dk_fastcall;
+
+
+ 
+
+extern void sp1_MoveSprAbs(struct sp1_ss *s,struct sp1_Rect *clip,void *frame,uint16_t row,uint16_t col,uint16_t vrot,uint16_t hrot);
+extern void sp1_MoveSprAbs_callee(struct sp1_ss *s,struct sp1_Rect *clip,void *frame,uint16_t row,uint16_t col,uint16_t vrot,uint16_t hrot) __z88dk_callee;
+
+
+
+extern void sp1_MoveSprRel(struct sp1_ss *s,struct sp1_Rect *clip,void *frame,int rel_row,int rel_col,int rel_vrot,int rel_hrot);
+extern void sp1_MoveSprRel_callee(struct sp1_ss *s,struct sp1_Rect *clip,void *frame,int rel_row,int rel_col,int rel_vrot,int rel_hrot) __z88dk_callee;
+
+
+
+extern void sp1_MoveSprPix(struct sp1_ss *s,struct sp1_Rect *clip,void *frame,uint16_t x,uint16_t y);
+extern void sp1_MoveSprPix_callee(struct sp1_ss *s,struct sp1_Rect *clip,void *frame,uint16_t x,uint16_t y) __z88dk_callee;
+
+
+
+
+extern void sp1_IterateSprChar(struct sp1_ss *s,void *hook1);
+extern void sp1_IterateSprChar_callee(struct sp1_ss *s,void *hook1) __z88dk_callee;
+
+
+
+extern void sp1_IterateUpdateSpr(struct sp1_ss *s,void *hook2);
+extern void sp1_IterateUpdateSpr_callee(struct sp1_ss *s,void *hook2) __z88dk_callee;
+
+
+
+
+extern void sp1_GetSprClrAddr(struct sp1_ss *s,uint8_t **sprdest);
+extern void sp1_GetSprClrAddr_callee(struct sp1_ss *s,uint8_t **sprdest) __z88dk_callee;
+
+
+
+extern void sp1_PutSprClr(uint8_t **sprdest,struct sp1_ap *src,uint16_t n);
+extern void sp1_PutSprClr_callee(uint8_t **sprdest,struct sp1_ap *src,uint16_t n) __z88dk_callee;
+
+
+
+extern void sp1_GetSprClr(uint8_t **sprsrc,struct sp1_ap *dest,uint16_t n);
+extern void sp1_GetSprClr_callee(uint8_t **sprsrc,struct sp1_ap *dest,uint16_t n) __z88dk_callee;
+
+
+
+
+extern void *sp1_PreShiftSpr(uint16_t flag,uint16_t height,uint16_t width,void *srcframe,void *destframe,uint16_t rshift);
+extern void *sp1_PreShiftSpr_callee(uint16_t flag,uint16_t height,uint16_t width,void *srcframe,void *destframe,uint16_t rshift) __z88dk_callee;
+
+
+
+
+ 
+ 
+
+extern void sp1_InitCharStruct(struct sp1_cs *cs,void *drawf,uint16_t type,void *graphic,uint16_t plane);
+extern void sp1_InitCharStruct_callee(struct sp1_cs *cs,void *drawf,uint16_t type,void *graphic,uint16_t plane) __z88dk_callee;
+
+
+
+extern void sp1_InsertCharStruct(struct sp1_update *u,struct sp1_cs *cs);
+extern void sp1_InsertCharStruct_callee(struct sp1_update *u,struct sp1_cs *cs) __z88dk_callee;
+
+
+
+extern void sp1_RemoveCharStruct(struct sp1_cs *cs);
+extern void sp1_RemoveCharStruct_fastcall(struct sp1_cs *cs) __z88dk_fastcall;
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+extern void *sp1_TileEntry(uint16_t c,void *def);
+extern void *sp1_TileEntry_callee(uint16_t c,void *def) __z88dk_callee;
+
+
+
+
+extern void sp1_PrintAt(uint16_t row,uint16_t col,uint16_t colour,uint16_t tile);
+extern void sp1_PrintAt_callee(uint16_t row,uint16_t col,uint16_t colour,uint16_t tile) __z88dk_callee;
+
+
+
+extern void sp1_PrintAtInv(uint16_t row,uint16_t col,uint16_t colour,uint16_t tile);
+extern void sp1_PrintAtInv_callee(uint16_t row,uint16_t col,uint16_t colour,uint16_t tile) __z88dk_callee;
+
+
+
+extern uint16_t sp1_ScreenStr(uint16_t row,uint16_t col) __preserves_regs(b,c);
+extern uint16_t sp1_ScreenStr_callee(uint16_t row,uint16_t col) __preserves_regs(b,c) __z88dk_callee;
+
+
+
+extern uint16_t sp1_ScreenAttr(uint16_t row,uint16_t col) __preserves_regs(b,c);
+extern uint16_t sp1_ScreenAttr_callee(uint16_t row,uint16_t col) __preserves_regs(b,c) __z88dk_callee;
+
+
+
+
+extern void sp1_PrintString(struct sp1_pss *ps,uint8_t *s);
+extern void sp1_PrintString_callee(struct sp1_pss *ps,uint8_t *s) __z88dk_callee;
+
+
+
+extern void sp1_SetPrintPos(struct sp1_pss *ps,uint16_t row,uint16_t col);
+extern void sp1_SetPrintPos_callee(struct sp1_pss *ps,uint16_t row,uint16_t col) __z88dk_callee;
+
+
+
+
+extern void sp1_GetTiles(struct sp1_Rect *r,struct sp1_tp *dest);
+extern void sp1_GetTiles_callee(struct sp1_Rect *r,struct sp1_tp *dest) __z88dk_callee;
+
+
+
+extern void sp1_PutTiles(struct sp1_Rect *r,struct sp1_tp *src);
+extern void sp1_PutTiles_callee(struct sp1_Rect *r,struct sp1_tp *src) __z88dk_callee;
+
+
+
+extern void sp1_PutTilesInv(struct sp1_Rect *r,struct sp1_tp *src);
+extern void sp1_PutTilesInv_callee(struct sp1_Rect *r,struct sp1_tp *src) __z88dk_callee;
+
+
+
+
+extern void sp1_ClearRect(struct sp1_Rect *r,uint16_t colour,uint16_t tile,uint16_t rflag);
+extern void sp1_ClearRect_callee(struct sp1_Rect *r,uint16_t colour,uint16_t tile,uint16_t rflag) __z88dk_callee;
+
+
+
+extern void sp1_ClearRectInv(struct sp1_Rect *r,uint16_t colour,uint16_t tile,uint16_t rflag);
+extern void sp1_ClearRectInv_callee(struct sp1_Rect *r,uint16_t colour,uint16_t tile,uint16_t rflag) __z88dk_callee;
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+extern void sp1_Initialize(uint16_t iflag,uint16_t colour,uint16_t tile);
+extern void sp1_Initialize_callee(uint16_t iflag,uint16_t colour,uint16_t tile) __z88dk_callee;
+
+
+
+extern void sp1_UpdateNow(void);
+
+
+extern struct sp1_update *sp1_GetUpdateStruct(uint16_t row,uint16_t col) __preserves_regs(b,c);
+extern struct sp1_update *sp1_GetUpdateStruct_callee(uint16_t row,uint16_t col) __preserves_regs(b,c) __z88dk_callee;
+
+
+
+extern void sp1_IterateUpdateArr(struct sp1_update **ua,void *hook);
+extern void sp1_IterateUpdateArr_callee(struct sp1_update **ua,void *hook) __z88dk_callee;
+
+
+ 
+extern void sp1_IterateUpdateRect(struct sp1_Rect *r,void *hook);
+extern void sp1_IterateUpdateRect_callee(struct sp1_Rect *r,void *hook) __z88dk_callee;
+
+
+
+
+extern void sp1_InvUpdateStruct(struct sp1_update *u);
+extern void sp1_InvUpdateStruct_fastcall(struct sp1_update *u) __z88dk_fastcall;
+
+
+
+extern void sp1_ValUpdateStruct(struct sp1_update *u) __preserves_regs(b,c,d,e);
+extern void sp1_ValUpdateStruct_fastcall(struct sp1_update *u) __preserves_regs(a,b,c,d,e,h,l) __z88dk_fastcall;
+
+
+
+
+extern void sp1_DrawUpdateStructIfInv(struct sp1_update *u);
+extern void sp1_DrawUpdateStructIfInv_fastcall(struct sp1_update *u) __z88dk_fastcall;
+
+
+
+extern void sp1_DrawUpdateStructIfVal(struct sp1_update *u);
+extern void sp1_DrawUpdateStructIfVal_fastcall(struct sp1_update *u) __z88dk_fastcall;
+
+
+
+extern void sp1_DrawUpdateStructIfNotRem(struct sp1_update *u);
+extern void sp1_DrawUpdateStructIfNotRem_fastcall(struct sp1_update *u) __z88dk_fastcall;
+
+
+
+extern void sp1_DrawUpdateStructAlways(struct sp1_update *u);
+extern void sp1_DrawUpdateStructAlways_fastcall(struct sp1_update *u) __z88dk_fastcall;
+
+
+
+
+extern void sp1_RemoveUpdateStruct(struct sp1_update *u) __preserves_regs(b,c);
+extern void sp1_RemoveUpdateStruct_fastcall(struct sp1_update *u) __preserves_regs(b,c) __z88dk_fastcall;
+
+
+
+extern void sp1_RestoreUpdateStruct(struct sp1_update *u) __preserves_regs(b,c,d,e);
+extern void sp1_RestoreUpdateStruct_fastcall(struct sp1_update *u) __preserves_regs(a,b,c,d,e,h,l) __z88dk_fastcall;
+
+
+
+
+extern void sp1_Invalidate(struct sp1_Rect *r);
+extern void sp1_Invalidate_fastcall(struct sp1_Rect *r) __z88dk_fastcall;
+
+
+
+extern void sp1_Validate(struct sp1_Rect *r);
+extern void sp1_Validate_fastcall(struct sp1_Rect *r) __z88dk_fastcall;
+
+
+
+
+
+
+#line 16 "src/game/main.c"
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/input.h"
+
+ 
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+
+ 
+
+typedef struct udk_s
+{
+
+   uint16_t fire;       
+   uint16_t right;      
+   uint16_t left;       
+   uint16_t down;       
+   uint16_t up;         
+   
+} udk_t;
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/input/input_zx.h"
+
+ 
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern int in_inkey(void);
+
+extern int in_key_pressed(uint16_t scancode) __preserves_regs(b,c,d,e);
+extern int in_key_pressed_fastcall(uint16_t scancode) __preserves_regs(b,c,d,e) __z88dk_fastcall;
+
+
+
+extern uint16_t in_key_scancode(int c);
+extern uint16_t in_key_scancode_fastcall(int c) __z88dk_fastcall;
+
+
+
+
+extern uint16_t in_pause(uint16_t dur_ms);
+extern uint16_t in_pause_fastcall(uint16_t dur_ms) __z88dk_fastcall;
+
+
+
+extern int in_test_key(void) __preserves_regs(b,c,d,e);
+
+extern void in_wait_key(void) __preserves_regs(b,c,d,e,h,l);
+
+extern void in_wait_nokey(void) __preserves_regs(b,c,d,e,h,l);
+
+
+ 
+ 
+ 
+
+
+
+
+typedef uint16_t (*JOYFUNC)(udk_t *);
+
+
+
+extern uint16_t in_stick_keyboard(udk_t *u) __preserves_regs(b,c);
+extern uint16_t in_stick_keyboard_fastcall(udk_t *u) __preserves_regs(b,c) __z88dk_fastcall;
+
+
+
+
+extern uint16_t in_stick_cursor(void) __preserves_regs(b,c);
+
+extern uint16_t in_stick_fuller(void) __preserves_regs(b,c,d,e);
+
+extern uint16_t in_stick_kempston(void) __preserves_regs(b,c);
+
+extern uint16_t in_stick_sinclair1(void) __preserves_regs(b,c);
+
+extern uint16_t in_stick_sinclair2(void) __preserves_regs(b,c);
+
+
+ 
+ 
+ 
+
+extern void in_mouse_amx_init(uint16_t x_vector,uint16_t y_vector);
+extern void in_mouse_amx_init_callee(uint16_t x_vector,uint16_t y_vector) __z88dk_callee;
+
+
+
+extern void in_mouse_amx_reset(void);
+
+extern void in_mouse_amx_setpos(uint16_t x,uint16_t y) __preserves_regs(h,l);
+extern void in_mouse_amx_setpos_callee(uint16_t x,uint16_t y) __preserves_regs(h,l) __z88dk_callee;
+
+
+
+extern void in_mouse_amx(uint8_t *buttons,uint16_t *x,uint16_t *y);
+extern void in_mouse_amx_callee(uint8_t *buttons,uint16_t *x,uint16_t *y) __z88dk_callee;
+
+
+
+extern uint16_t in_mouse_amx_wheel(void);
+
+extern int16_t in_mouse_amx_wheel_delta(void);
+
+
+extern void in_mouse_kempston_init(void);
+
+extern void in_mouse_kempston_reset(void);
+
+extern void in_mouse_kempston_setpos(uint16_t x,uint16_t y) __preserves_regs(h,l);
+extern void in_mouse_kempston_setpos_callee(uint16_t x,uint16_t y) __preserves_regs(h,l) __z88dk_callee;
+
+
+
+extern void in_mouse_kempston(uint8_t *buttons,uint16_t *x,uint16_t *y);
+extern void in_mouse_kempston_callee(uint8_t *buttons,uint16_t *x,uint16_t *y) __z88dk_callee;
+
+
+
+extern uint16_t in_mouse_kempston_wheel(void);
+
+extern int16_t in_mouse_kempston_wheel_delta(void);
+
+
+
+
+#line 87 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/input.h"
+
+
+
+
+
+
+
+
+
+
+#line 17 "src/game/main.c"
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/z80.h"
+
+ 
+
+
+
+
+
+
+
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/im2.h"
+
+ 
+
+
+
+
+
+
+
+extern void im2_init(void *im2_table_address) __preserves_regs(b,c,d,e,iyl,iyh);
+extern void im2_init_fastcall(void *im2_table_address) __preserves_regs(b,c,d,e,h,l,iyl,iyh) __z88dk_fastcall;
+
+
+
+extern void *im2_install_isr(uint8_t vector,void *isr) __preserves_regs(b,c,iyl,iyh);
+extern void *im2_install_isr_callee(uint8_t vector,void *isr) __preserves_regs(b,c,iyl,iyh) __z88dk_callee;
+
+
+
+extern void *im2_create_generic_isr(uint8_t num_callbacks,void *address) __preserves_regs(iyl,iyh);
+extern void *im2_create_generic_isr_callee(uint8_t num_callbacks,void *address) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern void *im2_create_generic_isr_8080(uint8_t num_callbacks,void *address) __preserves_regs(iyl,iyh);
+extern void *im2_create_generic_isr_8080_callee(uint8_t num_callbacks,void *address) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern void im2_append_generic_callback(uint8_t vector,void *callback) __preserves_regs(iyl,iyh);
+extern void im2_append_generic_callback_callee(uint8_t vector,void *callback) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern void im2_prepend_generic_callback(uint8_t vector,void *callback) __preserves_regs(iyl,iyh);
+extern void im2_prepend_generic_callback_callee(uint8_t vector,void *callback) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+extern int im2_remove_generic_callback(uint8_t vector,void *callback) __preserves_regs(iyl,iyh);
+extern int im2_remove_generic_callback_callee(uint8_t vector,void *callback) __preserves_regs(iyl,iyh) __z88dk_callee;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 12 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/z80.h"
+
+extern void z80_delay_ms(uint16_t ms);
+extern void z80_delay_ms_fastcall(uint16_t ms) __z88dk_fastcall;
+
+
+
+extern void z80_delay_tstate(uint16_t tstates) __preserves_regs(d,e);
+extern void z80_delay_tstate_fastcall(uint16_t tstates) __preserves_regs(d,e) __z88dk_fastcall;
+
+
+
+extern uint8_t z80_get_int_state(void) __preserves_regs(b,c,d,e);
+
+extern void z80_set_int_state(uint8_t state) __preserves_regs(b,c,d,e);
+extern void z80_set_int_state_fastcall(uint8_t state) __preserves_regs(a,b,c,d,e,h,l) __z88dk_fastcall;
+
+
+
+
+extern uint8_t z80_inp(uint16_t port) __preserves_regs(d,e);
+extern uint8_t z80_inp_fastcall(uint16_t port) __preserves_regs(d,e) __z88dk_fastcall;
+
+
+
+extern void *z80_inir(void *dst,uint8_t port,uint8_t num) __preserves_regs(d,e);
+extern void *z80_inir_callee(void *dst,uint8_t port,uint8_t num) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern void *z80_indr(void *dst,uint8_t port,uint8_t num) __preserves_regs(d,e);
+extern void *z80_indr_callee(void *dst,uint8_t port,uint8_t num) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern void z80_outp(uint16_t port,uint8_t data) __preserves_regs(d,e);
+extern void z80_outp_callee(uint16_t port,uint8_t data) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern void *z80_otir(void *src,uint8_t port,uint8_t num) __preserves_regs(d,e);
+extern void *z80_otir_callee(void *src,uint8_t port,uint8_t num) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern void *z80_otdr(void *src,uint8_t port,uint8_t num) __preserves_regs(d,e);
+extern void *z80_otdr_callee(void *src,uint8_t port,uint8_t num) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 18 "src/game/main.c"
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/intrinsic.h"
+
+ 
+
+
+
+
+
+
+
+ 
+
+#pragma disable_warning 84
+#pragma disable_warning 112
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern void intrinsic_ldi(void*,void*) __z88dk_callee;
+
+
+
+extern void intrinsic_outi(void*) __z88dk_fastcall;
+
+
+
+extern void intrinsic_ini(void*) __z88dk_fastcall;
+
+
+
+
+
+extern void intrinsic_stub(void) __preserves_regs(a,b,c,d,e,h,l);
+
+
+extern void intrinsic_di(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_ei(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_halt(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_reti(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_retn(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_im_0(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_im_1(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_im_2(void) __preserves_regs(a,b,c,d,e,h,l);
+
+extern void intrinsic_nop(void) __preserves_regs(a,b,c,d,e,h,l);
+
+
+extern void intrinsic_ex_de_hl(void) __preserves_regs(a,b,c);
+
+extern void intrinsic_exx(void) __preserves_regs(a);
+
+
+extern void *intrinsic_return_bc(void) __preserves_regs(a,b,c,d,e);
+
+extern void *intrinsic_return_de(void) __preserves_regs(a,b,c,d,e);
+
+
+extern unsigned int intrinsic_swap_endian_16(unsigned int n) __preserves_regs(b,c,d,e);
+extern unsigned int intrinsic_swap_endian_16_fastcall(unsigned int n) __preserves_regs(b,c,d,e) __z88dk_fastcall;
+
+
+
+extern unsigned long intrinsic_swap_endian_32(unsigned long n) __preserves_regs(b,c);
+extern unsigned long intrinsic_swap_endian_32_fastcall(unsigned long n) __preserves_regs(b,c) __z88dk_fastcall;
+
+
+
+extern unsigned long intrinsic_swap_word_32(unsigned long n) __preserves_regs(a,b,c);
+extern unsigned long intrinsic_swap_word_32_fastcall(unsigned long n) __preserves_regs(a,b,c) __z88dk_fastcall;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 19 "src/game/main.c"
+
+
+#line 1 "Z:\home\vboxuser\myrepos\Chronos\tools\z88dk\z88dk\lib\config\..\..\\include\_DEVELOPMENT\sdcc/string.h"
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern int bcmp(const void *b1,const void *b2,size_t len);
+extern int bcmp_callee(const void *b1,const void *b2,size_t len) __z88dk_callee;
+
+
+
+extern void bcopy(const void *src,void *dst,size_t len);
+extern void bcopy_callee(const void *src,void *dst,size_t len) __z88dk_callee;
+
+
+
+extern void bzero(void *mem,size_t n);
+extern void bzero_callee(void *mem,size_t n) __z88dk_callee;
+
+
+
+extern char *index(const char *s,int c) __preserves_regs(d,e);
+extern char *index_callee(const char *s,int c) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern char *rindex(const char *s,int c) __preserves_regs(d);
+extern char *rindex_callee(const char *s,int c) __preserves_regs(d) __z88dk_callee;
+
+
+
+extern char *strset(char *s,int c) __preserves_regs(b,c);
+extern char *strset_callee(char *s,int c) __preserves_regs(b,c) __z88dk_callee;
+
+
+
+extern char *strnset(char *s,int c,size_t n);
+extern char *strnset_callee(char *s,int c,size_t n) __z88dk_callee;
+
+
+
+extern void *rawmemchr(const void *mem,int c) __preserves_regs(d,e);
+extern void *rawmemchr_callee(const void *mem,int c) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+
+extern char *_memlwr_(void *p,size_t n) __preserves_regs(d,e);
+extern char *_memlwr__callee(void *p,size_t n) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern char *_memstrcpy_(void *p,const char *s,size_t n);
+extern char *_memstrcpy__callee(void *p,const char *s,size_t n) __z88dk_callee;
+
+
+
+extern char *_memupr_(void *p,size_t n) __preserves_regs(d,e);
+extern char *_memupr__callee(void *p,size_t n) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern char *_strrstrip_(char *s);
+extern char *_strrstrip__fastcall(char *s) __z88dk_fastcall;
+
+
+
+extern int ffs(int i) __preserves_regs(b,c,d,e);
+extern int ffs_fastcall(int i) __preserves_regs(b,c,d,e) __z88dk_fastcall;
+
+
+
+extern int ffsl(long i) __preserves_regs(b,c);
+extern int ffsl_fastcall(long i) __preserves_regs(b,c,d,e) __z88dk_fastcall;
+
+
+
+extern void *memccpy(void *dst,const void *src,int c,size_t n);
+extern void *memccpy_callee(void *dst,const void *src,int c,size_t n) __z88dk_callee;
+
+
+
+extern void *memchr(const void *s,int c,size_t n);
+extern void *memchr_callee(const void *s,int c,size_t n) __z88dk_callee;
+
+
+
+extern int memcmp(const void *s1,const void *s2,size_t n);
+extern int memcmp_callee(const void *s1,const void *s2,size_t n) __z88dk_callee;
+
+
+
+extern void *memcpy(void *dst,const void *src,size_t n);
+extern void *memcpy_callee(void *dst,const void *src,size_t n) __z88dk_callee;
+
+
+
+extern void *memmem(const void *haystack,size_t haystack_len,const void *needle,size_t needle_len);
+extern void *memmem_callee(const void *haystack,size_t haystack_len,const void *needle,size_t needle_len) __z88dk_callee;
+
+
+
+extern void *memmove(void *dst,const void *src,size_t n);
+extern void *memmove_callee(void *dst,const void *src,size_t n) __z88dk_callee;
+
+
+
+extern void *memrchr(const void *s,int c,size_t n);
+extern void *memrchr_callee(const void *s,int c,size_t n) __z88dk_callee;
+
+
+
+extern void *memset(void *s,int c,size_t n);
+extern void *memset_callee(void *s,int c,size_t n) __z88dk_callee;
+
+
+
+extern void *memset_wr(volatile void *s,int c,size_t n);
+extern void *memset_wr_callee(volatile void *s,int c,size_t n) __z88dk_callee;
+
+
+
+extern void *memswap(void *s1,void *s2,size_t n);
+extern void *memswap_callee(void *s1,void *s2,size_t n) __z88dk_callee;
+
+
+
+extern char *stpcpy(char *dst,const char *src);
+extern char *stpcpy_callee(char *dst,const char *src) __z88dk_callee;
+
+
+
+extern char *stpncpy(char *dst,const char *src,size_t n);
+extern char *stpncpy_callee(char *dst,const char *src,size_t n) __z88dk_callee;
+
+
+
+extern int strcasecmp(const char *s1,const char *s2) __preserves_regs(b);
+extern int strcasecmp_callee(const char *s1,const char *s2) __preserves_regs(b) __z88dk_callee;
+
+
+
+extern char *strcat(char *dst,const char *src);
+extern char *strcat_callee(char *dst,const char *src) __z88dk_callee;
+
+
+
+extern char *strchr(const char *s,int c) __preserves_regs(d,e);
+extern char *strchr_callee(const char *s,int c) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern char *strchrnul(const char *s,int c) __preserves_regs(d,e);
+extern char *strchrnul_callee(const char *s,int c) __preserves_regs(d,e) __z88dk_callee;
+
+
+
+extern int strcmp(const char *s1,const char *s2);
+extern int strcmp_callee(const char *s1,const char *s2) __z88dk_callee;
+
+
+
+extern int strcoll(const char *s1,const char *s2);
+extern int strcoll_callee(const char *s1,const char *s2) __z88dk_callee;
+
+
+
+extern char *strcpy(char *dst,const char *src);
+extern char *strcpy_callee(char *dst,const char *src) __z88dk_callee;
+
+
+
+extern size_t strcspn(const char *s,const char *nspn);
+extern size_t strcspn_callee(const char *s,const char *nspn) __z88dk_callee;
+
+
+
+extern char *strdup(const char *s);
+extern char *strdup_fastcall(const char *s) __z88dk_fastcall;
+
+
+
+extern char *strerror(int errnum) __preserves_regs(d);
+extern char *strerror_fastcall(int errnum) __preserves_regs(d) __z88dk_fastcall;
+
+
+
+extern int stricmp(const char *s1,const char *s2) __preserves_regs(b);
+extern int stricmp_callee(const char *s1,const char *s2) __preserves_regs(b) __z88dk_callee;
+
+
+
+extern size_t strlcat(char *dst,const char *src,size_t n);
+extern size_t strlcat_callee(char *dst,const char *src,size_t n) __z88dk_callee;
+
+
+
+extern size_t strlcpy(char *dst,const char *src,size_t n);
+extern size_t strlcpy_callee(char *dst,const char *src,size_t n) __z88dk_callee;
+
+
+
+extern size_t strlen(const char *s) __preserves_regs(d,e);
+extern size_t strlen_fastcall(const char *s) __preserves_regs(d,e) __z88dk_fastcall;
+
+
+
+extern char *strlwr(char *s) __preserves_regs(b,c,d,e);
+extern char *strlwr_fastcall(char *s) __preserves_regs(b,c,d,e,h,l) __z88dk_fastcall;
+
+
+
+extern int strncasecmp(const char *s1,const char *s2,size_t n);
+extern int strncasecmp_callee(const char *s1,const char *s2,size_t n) __z88dk_callee;
+
+
+
+extern char *strncat(char *dst,const char *src,size_t n);
+extern char *strncat_callee(char *dst,const char *src,size_t n) __z88dk_callee;
+
+
+
+extern char *strnchr(const char *s,size_t n,int c);
+extern char *strnchr_callee(const char *s,size_t n,int c) __z88dk_callee;
+
+
+
+extern int strncmp(const char *s1,const char *s2,size_t n);
+extern int strncmp_callee(const char *s1,const char *s2,size_t n) __z88dk_callee;
+
+
+
+extern char *strncpy(char *dst,const char *src,size_t n);
+extern char *strncpy_callee(char *dst,const char *src,size_t n) __z88dk_callee;
+
+
+
+extern char *strndup(const char *s,size_t n);
+extern char *strndup_callee(const char *s,size_t n) __z88dk_callee;
+
+
+
+extern int strnicmp(const char *s1,const char *s2,size_t n);
+extern int strnicmp_callee(const char *s1,const char *s2,size_t n) __z88dk_callee;
+
+
+
+extern size_t strnlen(const char *s,size_t max_len);
+extern size_t strnlen_callee(const char *s,size_t max_len) __z88dk_callee;
+
+
+
+extern char *strpbrk(const char *s,const char *set) __preserves_regs(b);
+extern char *strpbrk_callee(const char *s,const char *set) __preserves_regs(b) __z88dk_callee;
+
+
+
+extern char *strrchr(const char *s,int c) __preserves_regs(d);
+extern char *strrchr_callee(const char *s,int c) __preserves_regs(d) __z88dk_callee;
+
+
+
+extern size_t strrcspn(const char *s,const char *set);
+extern size_t strrcspn_callee(const char *s,const char *set) __z88dk_callee;
+
+
+
+extern char *strrev(char *s);
+extern char *strrev_fastcall(char *s) __preserves_regs(h,l) __z88dk_fastcall;
+
+
+
+extern size_t strrspn(const char *s,const char *set);
+extern size_t strrspn_callee(const char *s,const char *set) __z88dk_callee;
+
+
+
+extern char *strrstr(const char *s,const char *subs);
+extern char *strrstr_callee(const char *s,const char *subs) __z88dk_callee;
+
+
+
+extern char *strrstrip(char *s);
+extern char *strrstrip_fastcall(char *s) __preserves_regs(h,l) __z88dk_fastcall;
+
+
+
+extern char *strsep(char **s,const char *delim);
+extern char *strsep_callee(char **s,const char *delim) __z88dk_callee;
+
+
+
+extern size_t strspn(const char *s,const char *pfx);
+extern size_t strspn_callee(const char *s,const char *pfx) __z88dk_callee;
+
+
+
+extern char *strstr(const char *s,const char *subs) __preserves_regs(b,c);
+extern char *strstr_callee(const char *s,const char *subs) __preserves_regs(b,c) __z88dk_callee;
+
+
+
+extern char *strstrip(char *s) __preserves_regs(b,c,d,e);
+extern char *strstrip_fastcall(char *s) __preserves_regs(b,c,d,e) __z88dk_fastcall;
+
+
+
+extern char *strtok(char *s,const char *delim);
+extern char *strtok_callee(char *s,const char *delim) __z88dk_callee;
+
+
+
+extern char *strtok_r(char *s,const char *delim,char **last_s);
+extern char *strtok_r_callee(char *s,const char *delim,char **last_s) __z88dk_callee;
+
+
+
+extern char *strupr(char *s) __preserves_regs(b,c,d,e);
+extern char *strupr_fastcall(char *s) __preserves_regs(b,c,d,e,h,l) __z88dk_fastcall;
+
+
+
+extern size_t strxfrm(char *dst,const char *src,size_t n);
+extern size_t strxfrm_callee(char *dst,const char *src,size_t n) __z88dk_callee;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   extern int ffsll(long long i) __preserves_regs(b,c);
+   extern int ffsll_callee(long long i) __preserves_regs(b,c) __z88dk_callee;
+   
+
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+
+
+
+
+
+#line 21 "src/game/main.c"
+
+ 
+
+#line 1 "src/game\player.h"
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+void    player_init(void);
+void    player_update(uint8_t keys);
+void    player_draw(void);
+void    player_on_hit(void);
+void    player_reset_position(void);
+uint8_t player_get_x(void);
+uint8_t player_get_y(void);
+uint8_t player_get_lives(void);
+
+
+
+#line 24 "src/game/main.c"
+
+#line 1 "src/game\levels.h"
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+void    level_load(uint8_t level_num);
+void    level_draw(uint8_t level_num);
+uint8_t level_check_collision(uint8_t x, uint8_t y);
+uint8_t level_check_exit(uint8_t x, uint8_t y);
+uint8_t level_get_tile(uint8_t x, uint8_t y);
+
+
+
+#line 25 "src/game/main.c"
+
+#line 1 "src/game\chrono.h"
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+void    chrono_init(void);
+void    chrono_update(uint8_t keys);
+uint8_t chrono_get_state(void);
+uint8_t chrono_get_energy(void);
+uint8_t chrono_is_slowmo(void);
+
+
+
+#line 26 "src/game/main.c"
+
+#line 1 "src/game\hud.h"
+ 
+
+
+
+
+
+
+void hud_draw(uint16_t score, uint8_t lives, uint8_t chrono_energy);
+
+
+
+#line 27 "src/game/main.c"
+
+ 
+extern void video_cls(uint8_t attr);
+extern void video_set_border(uint8_t color);
+extern void video_print_at(uint8_t row, uint8_t col, const char *str);
+extern uint8_t input_read_keys(void);
+extern void sound_beep(uint16_t pitch, uint8_t duration);
+extern void sound_fx_pickup(void);
+extern void sound_fx_hit(void);
+extern void sound_fx_timeshift(void);
+extern void isr_install(void);
+extern void sprite_draw(uint8_t x, uint8_t y, const uint8_t *data);
+extern void sprite_draw_masked(uint8_t x, uint8_t y, const uint8_t *data, const uint8_t *mask);
+
+ 
+
+
+
+
+
+
+ 
+static uint8_t game_state;
+static uint8_t current_level;
+static uint16_t score;
+static uint8_t lives;
+static uint8_t frame_counter;
+
+ 
+static void show_title_screen(void)
+{
+    video_cls( 0x07  |  0x00 );
+    video_set_border(0);
+
+     
+    video_print_at( 3, 9, "C H R O N O S");
+    video_print_at( 6, 6, "A Time-Bending Adventure");
+    video_print_at(10, 7, "Controls:");
+    video_print_at(12, 7, "Q/A   - Up/Down");
+    video_print_at(13, 7, "O/P   - Left/Right");
+    video_print_at(14, 7, "SPACE - Time Shift");
+    video_print_at(15, 7, "M     - Pause");
+    video_print_at(19, 5, "Press SPACE to begin...");
+    video_print_at(22, 5, "(c) 2026 Chronos Project");
+
+     
+    while (!(input_read_keys() &  0x10 )) {
+         z80_delay_ms_fastcall( 50 ) ;
+    }
+     
+     z80_delay_ms_fastcall( 200 ) ;
+}
+
+ 
+static void show_game_over(void)
+{
+    video_cls( 0x02  |  0x00 );
+    video_set_border(2);
+
+    video_print_at( 8, 10, "GAME  OVER");
+    video_print_at(12, 7, "Press SPACE to retry");
+
+    sound_fx_hit();
+
+    while (!(input_read_keys() &  0x10 )) {
+         z80_delay_ms_fastcall( 50 ) ;
+    }
+     z80_delay_ms_fastcall( 200 ) ;
+}
+
+ 
+static void show_level_complete(void)
+{
+    video_cls( 0x04  |  0x00 );
+    video_set_border(4);
+
+    video_print_at( 8, 8, "LEVEL COMPLETE!");
+
+    sound_fx_pickup();
+     z80_delay_ms_fastcall( 2000 ) ;
+}
+
+ 
+static void game_init(void)
+{
+    score = 0;
+    lives = 3;
+    current_level = 0;
+    frame_counter = 0;
+
+    player_init();
+    chrono_init();
+}
+
+ 
+static void game_update(void)
+{
+    uint8_t keys;
+
+    frame_counter++;
+    keys = input_read_keys();
+
+     
+    if (keys &  0x20 ) {
+        game_state =  2 ;
+        return;
+    }
+
+     
+    chrono_update(keys);
+
+     
+    player_update(keys);
+
+     
+    if (level_check_collision(player_get_x(), player_get_y())) {
+        player_on_hit();
+        sound_fx_hit();
+        if (player_get_lives() == 0) {
+            game_state =  3 ;
+            return;
+        }
+    }
+
+     
+    if (level_check_exit(player_get_x(), player_get_y())) {
+        current_level++;
+        if (current_level >=  3 ) {
+            game_state =  3 ;  
+        } else {
+            game_state =  4 ;
+        }
+        return;
+    }
+
+     
+    video_cls( 0x07  |  0x00 );
+    level_draw(current_level);
+    player_draw();
+    hud_draw(score, lives, chrono_get_energy());
+}
+
+ 
+void main(void)
+{
+     
+    isr_install();
+
+     
+    intrinsic_ei();
+
+     
+    for (;;) {
+        switch (game_state) {
+
+            case  0 :
+                show_title_screen();
+                game_init();
+                game_state =  1 ;
+                break;
+
+            case  1 :
+                intrinsic_halt();    
+                game_update();
+                break;
+
+            case  2 :
+                video_print_at(10, 11, "** PAUSED **");
+                while (input_read_keys() &  0x20 ) {
+                     z80_delay_ms_fastcall( 50 ) ;
+                }
+                 z80_delay_ms_fastcall( 200 ) ;
+                game_state =  1 ;
+                break;
+
+            case  3 :
+                show_game_over();
+                game_state =  0 ;
+                break;
+
+            case  4 :
+                show_level_complete();
+                level_load(current_level);
+                player_reset_position();
+                game_state =  1 ;
+                break;
+        }
+    }
+}
+

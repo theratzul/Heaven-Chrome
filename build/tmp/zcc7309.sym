@@ -1,0 +1,10 @@
+___str_0                        = $0000 ; addr, local, , , rodata_compiler, src/game/hud.c:530
+___str_1                        = $0004 ; addr, local, , , rodata_compiler, src/game/hud.c:534
+_draw_energy_bar                = $0055 ; addr, local, , , code_compiler, src/game/hud.c:409
+_hud_draw                       = $00A4 ; addr, public, , , code_compiler, src/game/hud.c:458
+_score_buf                      = $0000 ; addr, local, , , bss_compiler, src/game/hud.c:329
+_uint16_to_str                  = $0000 ; addr, local, , , code_compiler, src/game/hud.c:361
+l_draw_energy_bar_00102         = $0076 ; addr, local, , , code_compiler, src/game/hud.c:427
+l_draw_energy_bar_00106         = $0083 ; addr, local, , , code_compiler, src/game/hud.c:437
+l_draw_energy_bar_00107         = $0085 ; addr, local, , , code_compiler, src/game/hud.c:439
+l_uint16_to_str_00102           = $0016 ; addr, local, , , code_compiler, src/game/hud.c:371

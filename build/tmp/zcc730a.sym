@@ -1,0 +1,5 @@
+_sprite_draw                    = $0000 ; addr, public, , , code_user, src/engine/sprites.asm:11
+_sprite_draw_masked             = $0023 ; addr, public, , , code_user, src/engine/sprites.asm:36
+draw_loop                       = $0019 ; addr, local, , , code_user, src/engine/sprites.asm:25
+mask_loop                       = $0047 ; addr, local, , , code_user, src/engine/sprites.asm:57
+sprite_calc_addr                = $0058 ; addr, local, , , code_user, src/engine/sprites.asm:74
