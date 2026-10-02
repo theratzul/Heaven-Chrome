@@ -5,6 +5,9 @@
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 html, body {
@@ -16,12 +19,14 @@ html, body {
     overflow: hidden;
     background-color: #0b1a30;
     background: linear-gradient(180deg, #134e7c 0%, #1e88e5 45%, #64b5f6 80%, #b3e5fc 100%);
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel', 'Trajan Pro', Georgia, serif;
     color: #fff;
     touch-action: none;
     -webkit-touch-callout: none;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 #game-wrapper {
@@ -46,7 +51,7 @@ html, body {
     width: 100%;
     max-width: 800px;
     aspect-ratio: 4 / 3;
-    max-height: 52vh;
+    max-height: 50vh;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 35px rgba(255, 215, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.6);
     border: 3px solid #FFD700;
     border-radius: 14px;
@@ -101,30 +106,32 @@ canvas#gameCanvas {
 
 #hud {
     position: absolute;
-    top: 6px;
-    left: 8px;
-    right: 8px;
+    top: 4px;
+    left: 6px;
+    right: 6px;
     display: none; /* Shown during STATE_PLAYING */
     justify-content: space-between;
     align-items: center;
-    padding: 4px 10px;
-    background: rgba(255, 255, 255, 0.78);
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border: 1.5px solid #FFD700;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    font-size: clamp(10px, 2.4vw, 15px);
+    font-size: clamp(9px, 2.3vw, 14px);
     font-weight: 700;
     color: #8B6508;
     text-shadow: 0 1px 2px #fff;
     pointer-events: auto;
+    gap: 4px;
+    white-space: nowrap;
 }
 
 .hud-item {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
 }
 
 .hud-label {
@@ -138,8 +145,8 @@ canvas#gameCanvas {
 }
 
 .energy-bar {
-    width: clamp(55px, 16vw, 120px);
-    height: clamp(12px, 2.5vw, 18px);
+    width: clamp(45px, 13vw, 110px);
+    height: clamp(11px, 2.3vw, 17px);
     border: 1.5px solid #FFD700;
     border-radius: 9px;
     overflow: hidden;
@@ -158,7 +165,7 @@ canvas#gameCanvas {
 .hud-buttons {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
 }
 
 .hud-btn {
@@ -166,9 +173,9 @@ canvas#gameCanvas {
     border: 1.5px solid #DAA520;
     border-radius: 6px;
     color: #8B6508;
-    font-size: clamp(11px, 2.5vw, 15px);
+    font-size: clamp(10px, 2.3vw, 14px);
     font-weight: bold;
-    padding: 2px 7px;
+    padding: 2px 6px;
     cursor: pointer;
     touch-action: manipulation;
 }
@@ -193,7 +200,7 @@ canvas#gameCanvas {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.94);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -201,10 +208,13 @@ canvas#gameCanvas {
     text-align: center;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    padding: 8px 12px;
+    padding: clamp(4px, 1.2vw, 12px) clamp(8px, 2.5vw, 16px);
     pointer-events: auto;
     cursor: pointer;
     overflow-y: auto;
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 .screen.hidden {
@@ -218,84 +228,109 @@ canvas#gameCanvas {
     justify-content: center;
     width: 100%;
     max-height: 100%;
+    max-width: 500px;
+    margin: auto;
 }
 
 .cross-icon {
-    font-size: clamp(24px, 5.5vw, 50px);
+    font-size: clamp(16px, 4vw, 36px);
     color: #FFD700;
-    text-shadow: 0 0 16px #FFD700, 0 0 24px #FFA500;
-    margin-bottom: 2px;
+    text-shadow: 0 0 12px #FFD700, 0 0 20px #FFA500;
+    margin-bottom: 1px;
+    line-height: 1;
 }
 
 h1#titleText {
-    font-size: clamp(20px, 5.2vw, 42px);
-    margin: 0;
+    font-size: clamp(16px, 4.8vw, 34px);
+    margin: 0 auto;
     color: #8B6508;
-    text-shadow: 0 0 15px #FFD700, 1px 1px 2px #fff;
-    letter-spacing: clamp(1px, 0.8vw, 3px);
+    text-shadow: 0 0 12px #FFD700, 1px 1px 2px #fff;
+    letter-spacing: clamp(0.5px, 0.4vw, 2px);
     font-weight: 900;
+    line-height: 1.15;
+    max-width: 98%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
 }
 
 #subText {
-    font-size: clamp(11px, 2.7vw, 17px);
+    font-size: clamp(9.5px, 2.5vw, 15px);
     color: #1e88e5;
-    margin: 3px 0 2px 0;
+    margin: 2px auto;
     font-style: italic;
     font-weight: 700;
+    white-space: nowrap;
+    max-width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 #authorText {
     color: #DAA520;
-    font-size: clamp(10px, 2.3vw, 14px);
+    font-size: clamp(8.5px, 2vw, 12px);
     font-weight: 700;
-    margin: 0 0 6px 0;
-    letter-spacing: 0.5px;
+    margin: 0 auto 3px auto;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .controls-panel {
     background: rgba(255, 215, 0, 0.14);
-    padding: 5px 12px;
+    padding: clamp(3px, 1vw, 6px) clamp(8px, 2vw, 14px);
     border-radius: 8px;
     border: 1.5px solid #FFD700;
-    margin: 4px 0 8px 0;
-    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.25);
-    max-width: 92%;
+    margin: 3px auto 5px auto;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+    width: 92%;
+    max-width: 360px;
 }
 
 .control-row {
     display: flex;
     justify-content: space-between;
-    gap: 12px;
-    margin: 3px 0;
-    font-size: clamp(9px, 2.1vw, 12.5px);
-    font-family: 'Outfit', sans-serif;
+    align-items: center;
+    gap: 8px;
+    margin: 2px 0;
+    font-size: clamp(8.5px, 2.1vw, 12px);
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.25;
 }
 
 .control-key {
     font-weight: 700;
     color: #8B6508;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .control-desc {
-    color: #444;
+    color: #333;
     font-weight: 600;
+    white-space: nowrap;
+    text-align: right;
 }
 
 .action-start-btn {
     font-family: 'Cinzel', serif;
     background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
     border: 2px solid #FFF8DC;
-    border-radius: 24px;
+    border-radius: 20px;
     color: #fff;
     font-weight: 900;
-    font-size: clamp(12px, 2.9vw, 16px);
-    letter-spacing: 1px;
-    padding: 8px 20px;
-    margin: 4px 0;
+    font-size: clamp(10.5px, 2.7vw, 15px);
+    letter-spacing: 0.5px;
+    padding: clamp(5px, 1.4vw, 9px) clamp(14px, 3.5vw, 24px);
+    margin: 3px 0 1px 0;
     box-shadow: 0 4px 15px rgba(255, 140, 0, 0.5), 0 0 10px #FFD700;
     cursor: pointer;
     touch-action: manipulation;
+    white-space: nowrap;
     animation: divineGlowPulse 2s infinite alternate;
 }
 
@@ -311,11 +346,12 @@ h1#titleText {
 
 .blink {
     animation: blinker 1.8s linear infinite;
-    font-size: clamp(10px, 2.2vw, 13px);
+    font-size: clamp(8px, 1.9vw, 11px);
     color: #E65100;
-    text-shadow: 0 0 6px #FFD700;
+    text-shadow: 0 0 5px #FFD700;
     font-weight: 700;
-    margin: 2px 0 0 0;
+    margin: 1px 0 0 0;
+    white-space: nowrap;
 }
 
 @keyframes blinker {
