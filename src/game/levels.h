@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 
-#define LEVEL_COUNT     3
+#define LEVEL_COUNT    20
 #define LEVEL_WIDTH    32
 #define LEVEL_HEIGHT   24
 
