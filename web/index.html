@@ -35,7 +35,10 @@
                         <span class="hud-label">GRACE:</span>
                         <div class="energy-bar"><div id="energyFill"></div></div>
                     </div>
-                    <button id="hudPauseBtn" class="hud-pause-btn" aria-label="Pause game">⏸</button>
+                    <div class="hud-buttons">
+                        <button id="musicToggleBtn" class="hud-btn hud-music-btn" aria-label="Toggle Divine Music">🎵</button>
+                        <button id="hudPauseBtn" class="hud-btn hud-pause-btn" aria-label="Pause game">⏸</button>
+                    </div>
                 </div>
                 
                 <div id="overlay" class="screen">
@@ -92,10 +95,15 @@
 
             <!-- Right: Action Buttons -->
             <div class="action-buttons-wrapper">
-                <button class="deck-btn deck-pause" id="deckPauseBtn" aria-label="Pause or Resume">
-                    <span class="btn-icon">⏸</span>
-                    <span class="btn-text">PAUSE</span>
-                </button>
+                <div class="deck-top-row">
+                    <button class="deck-btn deck-music" id="deckMusicBtn" aria-label="Toggle Music">
+                        <span class="btn-icon">🎵</span>
+                    </button>
+                    <button class="deck-btn deck-pause" id="deckPauseBtn" aria-label="Pause or Resume">
+                        <span class="btn-icon">⏸</span>
+                        <span class="btn-text">PAUSE</span>
+                    </button>
+                </div>
                 
                 <button class="deck-btn deck-slow" id="deckSlowBtn" aria-label="Hold to Slow Time">
                     <div class="halo-ring"></div>

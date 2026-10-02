@@ -22,12 +22,15 @@ levels_h_content = """/* levels.h - Level data and management */
 #define TILE_PLATFORM   2
 #define TILE_HAZARD     3
 #define TILE_EXIT       4
+#define TILE_ANGEL      5
 #define TILE_PICKUP     5
 
 void    level_load(uint8_t level_num);
 void    level_draw(uint8_t level_num);
 uint8_t level_check_collision(uint8_t x, uint8_t y);
 uint8_t level_check_exit(uint8_t x, uint8_t y);
+uint8_t level_check_angel(uint8_t x, uint8_t y);
+void    level_collect_angel(uint8_t x, uint8_t y);
 uint8_t level_get_tile(uint8_t x, uint8_t y);
 
 #endif /* LEVELS_H */
@@ -35,7 +38,7 @@ uint8_t level_get_tile(uint8_t x, uint8_t y);
 
 with open("src/game/levels.h", "w") as f:
     f.write(levels_h_content)
-print("Updated src/game/levels.h with LEVEL_COUNT = 20")
+print("Updated src/game/levels.h with TILE_ANGEL and helper declarations")
 
 # 2. Generate RLE data for each level
 def rle_compress(grid):
@@ -66,7 +69,7 @@ for idx, lvl in enumerate(all_20):
         bytes_list.append(f"{count},{val}")
     bytes_list.append("0,0") # terminator
     
-    # Format lines of ~16 entries
+    # Format lines of ~8 entries
     lines = []
     chunk_size = 8
     for i in range(0, len(bytes_list), chunk_size):
@@ -76,7 +79,7 @@ for idx, lvl in enumerate(all_20):
     c_levels_code.append(f"/* Level {idx+1} RLE Data */\nstatic const uint8_t level{idx+1}_rle[] = {{\n{body}\n}};\n")
     c_level_pointers.append(f"    level{idx+1}_rle")
 
-c_source = f"""/* levels.c - Level data and management (20 Levels, RLE Compressed)
+c_source = f"""/* levels.c - Level data and management (20 Levels with Angels, RLE Compressed)
  *
  * Levels are stored as RLE compressed tile streams and decompressed
  * into a single 768-byte screen buffer on load to fit within 48K RAM.
@@ -88,6 +91,7 @@ c_source = f"""/* levels.c - Level data and management (20 Levels, RLE Compresse
 
 extern void video_print_at(uint8_t row, uint8_t col, const char *str);
 extern void sprite_draw(uint8_t x, uint8_t y, const uint8_t *data);
+extern void sprite_erase(uint8_t x, uint8_t y);
 
 /* Wall tile graphic */
 static const uint8_t tile_wall_gfx[] = {{
@@ -107,6 +111,11 @@ static const uint8_t tile_hazard_gfx[] = {{
 /* Exit tile graphic (door) */
 static const uint8_t tile_exit_gfx[] = {{
     0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E
+}};
+
+/* Angel tile graphic (winged angel with halo) */
+static const uint8_t tile_angel_gfx[] = {{
+    0x3C, 0x18, 0xDB, 0xFF, 0x7E, 0x3C, 0x18, 0x24
 }};
 
 {"".join(c_levels_code)}
@@ -168,6 +177,9 @@ void level_draw(uint8_t level_num)
                 case TILE_EXIT:
                     sprite_draw(x, y, tile_exit_gfx);
                     break;
+                case TILE_ANGEL:
+                    sprite_draw(x, y, tile_angel_gfx);
+                    break;
                 default:
                     break;
             }}
@@ -185,34 +197,21 @@ uint8_t level_check_exit(uint8_t x, uint8_t y)
 {{
     return (level_get_tile(x, y) == TILE_EXIT) ? 1 : 0;
 }}
+
+uint8_t level_check_angel(uint8_t x, uint8_t y)
+{{
+    return (level_get_tile(x, y) == TILE_ANGEL) ? 1 : 0;
+}}
+
+void level_collect_angel(uint8_t x, uint8_t y)
+{{
+    if (x < LEVEL_WIDTH && y < LEVEL_HEIGHT) {{
+        current_level_map[y * LEVEL_WIDTH + x] = TILE_EMPTY;
+        sprite_erase(x, y);
+    }}
+}}
 """
 
 with open("src/game/levels.c", "w") as f:
     f.write(c_source)
-print("Updated src/game/levels.c with 20 levels")
-
-# 3. Update web/script.js
-with open("web/script.js", "r") as f:
-    js_content = f.read()
-
-# Replace level data section in web/script.js
-js_levels_str = "const levels = [\n"
-for idx, lvl in enumerate(all_20):
-    rows_str = ",\n    ".join([json.dumps(row) for row in lvl])
-    js_levels_str += f"    // Level {idx+1}\n    [\n    {rows_str}\n    ]" + (",\n" if idx < len(all_20)-1 else "\n")
-js_levels_str += "];\n"
-
-# Find level data start and end in script.js
-start_marker = "// Levels (32x24) - Matching original C code"
-end_marker = "// Game State Enum"
-
-start_pos = js_content.find(start_marker)
-end_pos = js_content.find(end_marker)
-
-if start_pos != -1 and end_pos != -1:
-    new_js = js_content[:start_pos] + start_marker + "\n" + js_levels_str + "\n" + js_content[end_pos:]
-    with open("web/script.js", "w") as f:
-        f.write(new_js)
-    print("Updated web/script.js with all 20 levels")
-else:
-    print("Could not find markers in web/script.js, please check manually.")
+print("Updated src/game/levels.c with 20 levels and Angel support")

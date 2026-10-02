@@ -34,6 +34,9 @@ extern void sound_beep(uint16_t pitch, uint8_t duration);
 extern void sound_fx_pickup(void);
 extern void sound_fx_hit(void);
 extern void sound_fx_timeshift(void);
+extern void sound_play_music(void);
+extern uint8_t level_check_angel(uint8_t x, uint8_t y);
+extern void level_collect_angel(uint8_t x, uint8_t y);
 extern void isr_install(void);
 extern void sprite_draw(uint8_t x, uint8_t y, const uint8_t *data);
 extern void sprite_draw_masked(uint8_t x, uint8_t y, const uint8_t *data, const uint8_t *mask);
@@ -70,6 +73,8 @@ static void show_title_screen(void)
     video_print_at(22, 5, "(c) 2026 popa bogdan");
 
     /* Wait for SPACE */
+    sound_play_music();
+
     while (!(input_read_keys() & INPUT_KEY_FIRE)) {
         z80_delay_ms(50);
     }
@@ -102,8 +107,8 @@ static void show_level_complete(void)
 
     video_print_at( 8, 8, "LEVEL COMPLETE!");
 
-    sound_fx_pickup();
-    z80_delay_ms(2000);
+    sound_play_music();
+    z80_delay_ms(1000);
 }
 
 /* ---- Initialize a new game ---- */
@@ -146,6 +151,13 @@ static void game_update(void)
             game_state = STATE_GAMEOVER;
             return;
         }
+    }
+
+    /* Check angel collection / divine blessing */
+    if (level_check_angel(player_get_x(), player_get_y())) {
+        level_collect_angel(player_get_x(), player_get_y());
+        score += 500;
+        sound_fx_pickup();
     }
 
     /* Check level completion */

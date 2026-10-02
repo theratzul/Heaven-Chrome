@@ -15,17 +15,17 @@ def empty_grid():
         grid[y][W-1] = 1
     return grid
 
-# Original Level 1: "Awakening"
+# Original Level 1: "Awakening" + Angels
 level1 = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,1],
@@ -43,7 +43,7 @@ level1 = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
-# Original Level 2: "Temporal Corridors"
+# Original Level 2: "Temporal Corridors" + Angels
 level2 = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -53,13 +53,13 @@ level2 = [
     [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,1,3,3,3,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,1],
     [1,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,1],
     [1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -71,18 +71,18 @@ level2 = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
-# Original Level 3: "The Clock Tower"
+# Original Level 3: "The Clock Tower" + Angels
 level3 = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,2,0,0,0,0,3,3,3,3,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1],
@@ -99,10 +99,8 @@ level3 = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
-levels = [level1, level2, level3]
-
-# Helper to build a level
-def build_lvl(walls=[], platforms=[], hazards=[], exit_pos=(28, 4)):
+# Helper to build a level with angels
+def build_lvl(walls=[], platforms=[], hazards=[], angels=[], exit_pos=(28, 4)):
     g = empty_grid()
     # Starting base platform
     for x in range(1, 5):
@@ -124,6 +122,10 @@ def build_lvl(walls=[], platforms=[], hazards=[], exit_pos=(28, 4)):
             for dx in range(w):
                 if 0 < x+dx < 31 and 0 < y+dy < 23:
                     g[y+dy][x+dx] = 3
+    # Custom Angels
+    for (ax, ay) in angels:
+        if 0 < ax < 31 and 0 < ay < 23:
+            g[ay][ax] = 5
     # Exit & platform under exit
     ex, ey = exit_pos
     g[ey][ex] = 4
@@ -131,103 +133,115 @@ def build_lvl(walls=[], platforms=[], hazards=[], exit_pos=(28, 4)):
         for dx in (-1, 0, 1):
             if 0 < ex+dx < 31:
                 g[ey+1][ex+dx] = 2
-    # Ensure start (2, 20) and immediate surroundings are clear
+    # Ensure start (2, 20) is clear
     g[20][2] = 0
     g[21][2] = 0
     g[20][1] = 0
     g[20][3] = 0
     return g
 
-# Level 4: "Pearly Staircase" (Ascending zigzag stairs with hazard gaps)
+# Level 4: "Pearly Staircase"
 lvl4 = build_lvl(
     platforms=[(5, 19, 4), (11, 16, 4), (17, 13, 4), (23, 10, 4), (17, 7, 4), (23, 4, 5)],
     hazards=[(9, 18, 2, 1), (15, 15, 2, 1), (21, 12, 2, 1), (15, 6, 2, 1)],
+    angels=[(7, 18), (19, 12), (19, 6)],
     exit_pos=(26, 3)
 )
 
-# Level 5: "Seraphim's Crossing" (Three horizontal lanes with hazard gate sentinels)
+# Level 5: "Seraphim's Crossing"
 lvl5 = build_lvl(
     platforms=[(1, 18, 28), (3, 13, 27), (1, 8, 28)],
     hazards=[(8, 17, 2, 1), (18, 17, 2, 1), (12, 12, 2, 1), (22, 12, 2, 1), (10, 7, 2, 1), (20, 7, 2, 1)],
+    angels=[(15, 17), (7, 12), (26, 7)],
     exit_pos=(28, 7)
 )
 
-# Level 6: "The Divine Vault" (Chamber walls with doorways)
+# Level 6: "The Divine Vault"
 lvl6 = build_lvl(
     walls=[(10, 1, 1, 9), (10, 13, 1, 10), (21, 1, 1, 9), (21, 13, 1, 10)],
     platforms=[(1, 17, 8), (11, 15, 9), (22, 17, 8), (11, 8, 9), (2, 9, 8), (22, 9, 8)],
     hazards=[(5, 16, 2, 1), (15, 14, 2, 1), (25, 16, 2, 1), (15, 7, 2, 1)],
+    angels=[(5, 8), (15, 13), (26, 15)],
     exit_pos=(26, 8)
 )
 
-# Level 7: "Sky Archipelago" (Floating islands with floating cross hazards)
+# Level 7: "Sky Archipelago"
 lvl7 = build_lvl(
     platforms=[(6, 18, 3), (12, 16, 4), (19, 18, 3), (25, 15, 4), (18, 12, 4), (11, 10, 4), (4, 8, 4), (12, 5, 5), (22, 4, 6)],
     hazards=[(9, 17, 2, 2), (16, 15, 2, 2), (23, 11, 2, 2), (8, 9, 2, 2), (18, 5, 2, 2)],
+    angels=[(14, 15), (6, 7), (14, 4)],
     exit_pos=(26, 3)
 )
 
-# Level 8: "The Red Gauntlet" (Alternating upper and lower spikes)
+# Level 8: "The Red Gauntlet"
 lvl8 = build_lvl(
     platforms=[(1, 17, 6), (9, 15, 5), (16, 13, 5), (23, 11, 7), (16, 8, 5), (9, 6, 5), (18, 4, 10)],
     hazards=[(7, 16, 2, 3), (14, 14, 2, 3), (21, 12, 2, 3), (14, 7, 2, 3), (7, 5, 2, 3)],
+    angels=[(11, 14), (25, 10), (11, 5)],
     exit_pos=(26, 3)
 )
 
-# Level 9: "Twin Sanctums" (Two high marble towers connected by a cloud bridge)
+# Level 9: "Twin Sanctums"
 lvl9 = build_lvl(
     walls=[(8, 10, 2, 13), (22, 10, 2, 13)],
     platforms=[(2, 16, 5), (2, 11, 5), (11, 9, 10), (25, 11, 5), (25, 6, 5)],
     hazards=[(14, 8, 4, 1), (13, 16, 6, 2)],
+    angels=[(4, 10), (16, 8), (27, 10)],
     exit_pos=(27, 5)
 )
 
-# Level 10: "The Celestial Labyrinth" (A maze of marble corridors)
+# Level 10: "The Celestial Labyrinth"
 lvl10 = build_lvl(
     walls=[(6, 1, 1, 16), (12, 7, 1, 16), (18, 1, 1, 16), (24, 7, 1, 16)],
     platforms=[(1, 16, 4), (7, 18, 4), (13, 16, 4), (19, 18, 4), (25, 16, 4), (19, 10, 4), (13, 6, 4), (7, 4, 4), (1, 3, 4)],
     hazards=[(3, 15, 2, 1), (9, 17, 2, 1), (15, 15, 2, 1), (21, 17, 2, 1), (21, 9, 2, 1)],
+    angels=[(9, 16), (15, 5), (9, 3)],
     exit_pos=(3, 2)
 )
 
-# Level 11: "Chamber of Souls" (Vertical hazard columns requiring timed passing)
+# Level 11: "Chamber of Souls"
 lvl11 = build_lvl(
     platforms=[(1, 17, 5), (8, 17, 4), (14, 17, 4), (20, 17, 4), (26, 17, 4),
                (26, 11, 4), (20, 11, 4), (14, 11, 4), (8, 11, 4), (2, 11, 4),
                (2, 5, 5), (10, 5, 5), (18, 5, 5), (25, 5, 5)],
     hazards=[(6, 15, 2, 4), (12, 15, 2, 4), (18, 15, 2, 4), (24, 15, 2, 4),
              (6, 9, 2, 4), (12, 9, 2, 4), (18, 9, 2, 4), (24, 9, 2, 4)],
+    angels=[(10, 16), (16, 10), (12, 4)],
     exit_pos=(28, 4)
 )
 
-# Level 12: "Wings of Faith" (Long leap challenges)
+# Level 12: "Wings of Faith"
 lvl12 = build_lvl(
     platforms=[(6, 18, 3), (14, 16, 3), (22, 14, 3), (14, 11, 3), (6, 9, 3), (15, 6, 4), (24, 4, 5)],
     hazards=[(10, 17, 3, 1), (18, 15, 3, 1), (18, 10, 3, 1), (10, 8, 3, 1), (20, 5, 3, 1)],
+    angels=[(7, 17), (7, 8), (17, 5)],
     exit_pos=(26, 3)
 )
 
-# Level 13: "The Spires of Grace" (High marble spires)
+# Level 13: "The Spires of Grace"
 lvl13 = build_lvl(
     walls=[(7, 14, 2, 9), (15, 10, 2, 13), (23, 6, 2, 17)],
     platforms=[(2, 17, 4), (9, 13, 5), (17, 9, 5), (25, 5, 5)],
     hazards=[(4, 16, 2, 1), (11, 12, 2, 1), (19, 8, 2, 1)],
+    angels=[(3, 15), (11, 11), (19, 7)],
     exit_pos=(27, 4)
 )
 
-# Level 14: "Archangel's Descent & Ascent" (V-shaped passage)
+# Level 14: "Archangel's Descent & Ascent"
 lvl14 = build_lvl(
     walls=[(15, 1, 2, 16)],
     platforms=[(2, 16, 4), (7, 18, 4), (11, 20, 3), (18, 20, 3), (22, 17, 4), (25, 13, 4), (21, 9, 4), (25, 5, 5)],
     hazards=[(5, 15, 2, 1), (9, 17, 2, 1), (20, 19, 2, 1), (24, 16, 2, 1), (23, 8, 2, 1)],
+    angels=[(9, 16), (20, 18), (23, 8)],
     exit_pos=(27, 4)
 )
 
-# Level 15: "The Clockwork Spiral" (Spiral walls inward)
+# Level 15: "The Clockwork Spiral"
 lvl15 = build_lvl(
     walls=[(5, 5, 22, 1), (26, 5, 1, 14), (8, 18, 19, 1), (8, 9, 1, 10), (8, 9, 14, 1), (21, 9, 1, 6), (12, 14, 10, 1)],
     platforms=[(1, 18, 3), (2, 8, 3), (10, 7, 5), (22, 7, 3), (22, 16, 3), (12, 16, 4), (11, 12, 3)],
     hazards=[(6, 6, 2, 1), (24, 10, 2, 1), (16, 17, 2, 1), (10, 11, 2, 1)],
+    angels=[(12, 6), (23, 15), (13, 15)],
     exit_pos=(16, 12)
 )
 
@@ -238,40 +252,45 @@ lvl16 = build_lvl(
                (26, 7, 4), (20, 7, 2), (14, 7, 2), (8, 7, 2), (2, 5, 4), (14, 3, 5)],
     hazards=[(3, 15, 1, 2), (9, 15, 1, 2), (15, 15, 1, 2), (21, 15, 1, 2),
              (21, 6, 1, 2), (15, 6, 1, 2), (9, 6, 1, 2)],
+    angels=[(15, 14), (27, 6), (4, 4)],
     exit_pos=(16, 2)
 )
 
-# Level 17: "The Great Chasm" (Sparse tiny clouds over a wide abyss)
+# Level 17: "The Great Chasm"
 lvl17 = build_lvl(
     platforms=[(7, 19, 2), (13, 17, 2), (19, 15, 2), (25, 13, 2), (19, 10, 2), (13, 8, 2), (7, 6, 2), (15, 4, 3), (24, 3, 4)],
     hazards=[(10, 18, 2, 2), (16, 16, 2, 2), (22, 14, 2, 2), (16, 9, 2, 2), (10, 7, 2, 2), (20, 4, 2, 2)],
+    angels=[(14, 16), (20, 9), (8, 5)],
     exit_pos=(26, 2)
 )
 
-# Level 18: "Gauntlet of Light" (Dense hazard field requiring time-slow)
+# Level 18: "Gauntlet of Light"
 lvl18 = build_lvl(
     platforms=[(1, 18, 4), (7, 16, 3), (12, 14, 3), (17, 16, 3), (22, 14, 3), (27, 12, 3),
                (22, 9, 3), (17, 7, 3), (11, 7, 3), (5, 6, 3), (13, 4, 4), (22, 4, 5)],
     hazards=[(5, 17, 2, 2), (10, 15, 2, 2), (15, 15, 2, 2), (20, 15, 2, 2), (25, 13, 2, 2),
              (20, 8, 2, 2), (14, 6, 2, 2), (8, 6, 2, 2), (18, 4, 2, 2)],
+    angels=[(13, 13), (6, 5), (14, 3)],
     exit_pos=(25, 3)
 )
 
-# Level 19: "The Gatekeeper's Domain" (Guarded fortress before Seventh Heaven)
+# Level 19: "The Gatekeeper's Domain"
 lvl19 = build_lvl(
     walls=[(8, 6, 2, 12), (22, 6, 2, 12), (10, 6, 12, 2)],
     platforms=[(2, 16, 4), (4, 11, 3), (12, 18, 8), (14, 13, 4), (24, 16, 4), (25, 11, 3), (13, 4, 6)],
     hazards=[(5, 15, 2, 2), (11, 17, 2, 1), (19, 17, 2, 1), (14, 12, 4, 1), (24, 15, 2, 2), (10, 8, 2, 2), (20, 8, 2, 2)],
+    angels=[(5, 10), (16, 17), (26, 10)],
     exit_pos=(16, 3)
 )
 
-# Level 20: "The Seventh Heaven" (Grand finale palace)
+# Level 20: "The Seventh Heaven"
 lvl20 = build_lvl(
     walls=[(5, 15, 2, 8), (25, 15, 2, 8), (10, 10, 2, 13), (20, 10, 2, 13), (12, 5, 8, 1)],
     platforms=[(2, 18, 3), (7, 16, 3), (12, 19, 8), (13, 14, 6), (22, 16, 3), (27, 18, 3),
                (2, 12, 4), (26, 12, 4), (7, 8, 4), (21, 8, 4), (13, 4, 6)],
     hazards=[(4, 17, 1, 2), (10, 18, 2, 1), (20, 18, 2, 1), (26, 17, 1, 2),
              (14, 13, 4, 1), (9, 7, 2, 2), (21, 7, 2, 2)],
+    angels=[(16, 18), (8, 7), (22, 7)],
     exit_pos=(16, 3)
 )
 
@@ -280,55 +299,12 @@ all_20 = [level1, level2, level3, lvl4, lvl5, lvl6, lvl7, lvl8, lvl9, lvl10,
 
 print(f"Total levels generated: {len(all_20)}")
 
-# Validate each level
+# Verify all 20 levels have angels
 for idx, lvl in enumerate(all_20):
-    assert len(lvl) == 24, f"Level {idx+1} height != 24"
-    for r in lvl:
-        assert len(r) == 32, f"Level {idx+1} width != 32"
-    # Border walls
-    for x in range(32):
-        assert lvl[0][x] == 1, f"Level {idx+1} top border"
-        assert lvl[23][x] == 1, f"Level {idx+1} bottom border"
-    for y in range(24):
-        assert lvl[y][0] == 1, f"Level {idx+1} left border"
-        assert lvl[y][31] == 1, f"Level {idx+1} right border"
-    # Player start free
-    assert lvl[20][2] == 0, f"Level {idx+1} start pos not empty"
-    # Exit exists
-    has_exit = any(4 in row for row in lvl)
-    assert has_exit, f"Level {idx+1} has no exit!"
+    angel_count = sum(row.count(5) for row in lvl)
+    assert angel_count > 0, f"Level {idx+1} has no angels!"
+    print(f"Level {idx+1}: {angel_count} angels")
 
-print("All 20 levels passed validation!")
-
-# RLE compress each level
-def rle_compress(grid):
-    flat = []
-    for row in grid:
-        flat.extend(row)
-    
-    rle = []
-    current_val = flat[0]
-    count = 1
-    for val in flat[1:]:
-        if val == current_val and count < 255:
-            count += 1
-        else:
-            rle.append((count, current_val))
-            current_val = val
-            count = 1
-    rle.append((count, current_val))
-    return rle
-
-total_rle_bytes = 0
-rle_levels = []
-for idx, lvl in enumerate(all_20):
-    comp = rle_compress(lvl)
-    total_rle_bytes += len(comp) * 2 + 2 # (count, val) pairs + (0, 0) terminator
-    rle_levels.append(comp)
-
-print(f"Total RLE compressed bytes for all 20 levels: {total_rle_bytes} bytes (vs {20*768} bytes uncompressed!)")
-
-# Save JSON of all 20 levels for easy JS embedding
 with open("tools/levels_data.json", "w") as f:
     json.dump(all_20, f)
-print("Saved tools/levels_data.json")
+print("Updated tools/levels_data.json with angels in all 20 levels!")

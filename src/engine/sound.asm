@@ -9,6 +9,7 @@
     PUBLIC  _sound_fx_pickup
     PUBLIC  _sound_fx_hit
     PUBLIC  _sound_fx_timeshift
+    PUBLIC  _sound_play_music
 
 BEEPER_PORT     EQU 254
 
@@ -140,3 +141,64 @@ ts_cont:
     jr      nz, timeshift_outer
 
     ret
+
+_sound_play_music:
+    push    ix
+    ld      ix, divine_melody_data
+play_note_loop:
+    ld      b, (ix+0)
+    ld      a, b
+    or      a
+    jr      z, music_done
+
+    ld      e, (ix+1)
+    ld      d, (ix+2)
+    inc     ix
+    inc     ix
+    inc     ix
+
+    ld      a, 0
+note_cycle:
+    xor     0x10
+    out     (BEEPER_PORT), a
+    push    af
+
+    push    de
+    pop     hl
+note_delay:
+    dec     hl
+    ld      a, h
+    or      l
+    jr      nz, note_delay
+
+    pop     af
+    djnz    note_cycle
+
+    ld      hl, 1000
+note_gap:
+    dec     hl
+    ld      a, h
+    or      l
+    jr      nz, note_gap
+
+    jr      play_note_loop
+
+music_done:
+    pop     ix
+    ret
+
+divine_melody_data:
+    ;; Duration (iterations), period low, period high
+    ;; Heavenly Hymn Theme
+    defb    50, 158, 0     ;; E4
+    defb    50, 133, 0     ;; G4
+    defb    50, 118, 0     ;; A4
+    defb    80, 105, 0     ;; B4
+    defb    90, 99,  0     ;; C5
+    defb    50, 105, 0     ;; B4
+    defb    50, 118, 0     ;; A4
+    defb    90, 133, 0     ;; G4
+    defb    50, 158, 0     ;; E4
+    defb    50, 178, 0     ;; D4
+    defb    110, 158, 0    ;; E4
+    defb    0, 0, 0        ;; Terminator

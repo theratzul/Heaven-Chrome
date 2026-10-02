@@ -155,21 +155,32 @@ canvas#gameCanvas {
     transition: width 0.08s linear;
 }
 
-.hud-pause-btn {
+.hud-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hud-btn {
     background: rgba(255, 215, 0, 0.25);
     border: 1.5px solid #DAA520;
     border-radius: 6px;
     color: #8B6508;
-    font-size: clamp(12px, 2.6vw, 16px);
+    font-size: clamp(11px, 2.5vw, 15px);
     font-weight: bold;
-    padding: 2px 8px;
+    padding: 2px 7px;
     cursor: pointer;
     touch-action: manipulation;
 }
 
-.hud-pause-btn:active {
+.hud-btn:active {
     background: #FFD700;
     color: #fff;
+}
+
+.hud-btn.muted {
+    opacity: 0.5;
+    filter: grayscale(0.9);
 }
 
 /* ===================================================
@@ -437,6 +448,37 @@ h1#titleText {
     align-items: center;
     transition: transform 0.08s ease, box-shadow 0.08s ease;
     font-family: 'Cinzel', serif;
+}
+
+.deck-top-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.deck-music {
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid #DAA520;
+    border-radius: 50%;
+    width: clamp(34px, 8vw, 42px);
+    height: clamp(34px, 8vw, 42px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8B6508;
+    font-size: clamp(14px, 3.2vw, 18px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.deck-music.muted {
+    opacity: 0.5;
+    filter: grayscale(1);
+}
+
+.deck-music.pressed, .deck-music:active {
+    background: #FFD700;
+    color: #fff;
+    transform: scale(0.92);
 }
 
 /* Pause Button */
