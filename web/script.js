@@ -121,7 +121,6 @@ const player = {
     y: 20,
     lives: 3,
     invincible: 0,
-    color: '#0f0'
 };
 
 // Chrono (Time mechanics)
@@ -171,31 +170,35 @@ function setGameState(state) {
     hud.style.display = 'none';
     
     if (state === STATE_TITLE) {
-        titleText.innerText = "CHRONOS";
-        subText.innerText = "A Time-Bending Adventure";
-        subText.style.color = "#f0f";
+        titleText.innerText = "HEAVEN CHRONOS";
+        subText.innerText = "A Divine Time-Bending Journey";
+        subText.style.color = "#4169E1";
         document.querySelector('.controls').style.display = 'block';
+        document.querySelector('.cross-icon').style.display = 'block';
     } else if (state === STATE_PLAYING) {
         overlay.classList.add('hidden');
         hud.style.display = 'flex';
     } else if (state === STATE_PAUSED) {
-        titleText.innerText = "PAUSED";
-        subText.innerText = "Press M to resume";
+        titleText.innerText = "CONTEMPLATION";
+        subText.innerText = "Press M to resume your path";
         document.querySelector('.controls').style.display = 'none';
+        document.querySelector('.cross-icon').style.display = 'none';
     } else if (state === STATE_GAMEOVER) {
-        titleText.innerText = "GAME OVER";
-        subText.innerText = "Press SPACE to restart";
+        titleText.innerText = "FALLEN";
+        subText.innerText = "Press SPACE to resurrect";
         document.querySelector('.controls').style.display = 'none';
+        document.querySelector('.cross-icon').style.display = 'none';
     } else if (state === STATE_LEVELWIN) {
-        titleText.innerText = "LEVEL CLEAR";
-        subText.innerText = "Loading next sector...";
+        titleText.innerText = "ASCENSION";
+        subText.innerText = "Moving to higher heavens...";
         document.querySelector('.controls').style.display = 'none';
+        document.querySelector('.cross-icon').style.display = 'none';
         setTimeout(() => {
             currentLevel++;
             if (currentLevel >= levels.length) {
                 gameState = STATE_GAMEOVER;
-                titleText.innerText = "VICTORY";
-                subText.innerText = "You have mastered time!";
+                titleText.innerText = "PARADISE FOUND";
+                subText.innerText = "You have reached eternal peace!";
                 overlay.classList.remove('hidden');
             } else {
                 resetPlayer();
@@ -276,9 +279,6 @@ function update() {
     let oldX = player.x;
     let oldY = player.y;
     
-    // Throttle movement for a grid feel but smoother. We'll stick to original discrete movement.
-    // Original game moved 1 char per frame. That's very fast at 50fps.
-    // We will do a cooldown for movement to simulate the original feel better.
     if (!player.moveCooldown) player.moveCooldown = 0;
     
     if (player.moveCooldown > 0) {
@@ -300,7 +300,7 @@ function update() {
     if (tile === 1 || tile === 3) {
         if (player.invincible === 0) {
             player.lives--;
-            spawnParticles(player.x, player.y, '#f00');
+            spawnParticles(player.x, player.y, tile === 3 ? '#FF0000' : '#FFFFFF');
             if (player.lives <= 0) {
                 setGameState(STATE_GAMEOVER);
             } else {
@@ -314,7 +314,7 @@ function update() {
             player.y = oldY;
         }
     } else if (tile === 4) {
-        spawnParticles(player.x, player.y, '#0f0');
+        spawnParticles(player.x, player.y, '#FFD700');
         score += 1000;
         setGameState(STATE_LEVELWIN);
     }
@@ -335,29 +335,39 @@ function drawLevel() {
             let px = x * TILE_SIZE;
             let py = y * TILE_SIZE;
 
-            if (tile === 1) { // Wall
-                ctx.fillStyle = '#055';
-                ctx.strokeStyle = '#0ff';
+            if (tile === 1) { // Wall (Marble/Gold blocks)
+                ctx.fillStyle = '#f8f8f8';
+                ctx.strokeStyle = '#FFD700';
                 ctx.lineWidth = 1;
                 ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
                 ctx.strokeRect(px, py, TILE_SIZE, TILE_SIZE);
-            } else if (tile === 2) { // Platform
-                ctx.fillStyle = '#505';
-                ctx.fillRect(px, py + TILE_SIZE/2, TILE_SIZE, TILE_SIZE/2);
-                ctx.fillStyle = '#f0f';
-                ctx.fillRect(px, py + TILE_SIZE/2, TILE_SIZE, 2);
-            } else if (tile === 3) { // Hazard
-                ctx.fillStyle = '#f00';
+            } else if (tile === 2) { // Platform (Clouds)
+                ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
-                ctx.moveTo(px + TILE_SIZE/2, py);
-                ctx.lineTo(px + TILE_SIZE, py + TILE_SIZE);
-                ctx.lineTo(px, py + TILE_SIZE);
+                ctx.arc(px + 8, py + 15, 8, 0, Math.PI * 2);
+                ctx.arc(px + 18, py + 15, 10, 0, Math.PI * 2);
+                ctx.arc(px + 28, py + 18, 6, 0, Math.PI * 2);
                 ctx.fill();
-            } else if (tile === 4) { // Exit
-                ctx.fillStyle = '#0f0';
+            } else if (tile === 3) { // Hazard (Red Cross)
+                ctx.fillStyle = '#FF0000'; // Red
                 ctx.shadowBlur = 10;
-                ctx.shadowColor = '#0f0';
-                ctx.fillRect(px + 5, py + 5, TILE_SIZE - 10, TILE_SIZE - 10);
+                ctx.shadowColor = '#FF0000';
+                // Draw vertical bar
+                ctx.fillRect(px + TILE_SIZE/2 - 3, py + 2, 6, TILE_SIZE - 4);
+                // Draw horizontal bar
+                ctx.fillRect(px + 4, py + 8, TILE_SIZE - 8, 6);
+                ctx.shadowBlur = 0;
+            } else if (tile === 4) { // Exit (Pearly Gates)
+                ctx.fillStyle = '#FFD700';
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#FFD700';
+                // Draw pillars
+                ctx.fillRect(px + 2, py + 2, 4, TILE_SIZE - 4);
+                ctx.fillRect(px + TILE_SIZE - 6, py + 2, 4, TILE_SIZE - 4);
+                // Draw arch
+                ctx.beginPath();
+                ctx.arc(px + TILE_SIZE/2, py + 8, TILE_SIZE/2 - 2, Math.PI, 0);
+                ctx.fill();
                 ctx.shadowBlur = 0;
             }
         }
@@ -370,23 +380,30 @@ function drawPlayer() {
     let px = player.x * TILE_SIZE;
     let py = player.y * TILE_SIZE;
 
-    ctx.fillStyle = player.color;
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = player.color;
+    // Draw Holy Orb / Angelic form
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = '#FFD700';
     
     ctx.beginPath();
     ctx.arc(px + TILE_SIZE/2, py + TILE_SIZE/2, TILE_SIZE/2 - 4, 0, Math.PI * 2);
     ctx.fill();
     
+    // Draw golden halo
+    ctx.strokeStyle = '#FFD700';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.ellipse(px + TILE_SIZE/2, py + 4, 8, 3, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
     ctx.shadowBlur = 0;
 }
 
 function draw() {
-    // Clear
+    // Clear (background is handled by CSS, so we just clear transparently)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     if (gameState === STATE_TITLE) {
-        // Draw some background stuff
         return;
     }
 

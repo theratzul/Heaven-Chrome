@@ -1,15 +1,15 @@
-# Chronos - A Time-Bending Adventure
+# Heaven Chronos - A Divine Time-Bending Adventure
 
-Chronos is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** with enhanced graphics while maintaining the same core mechanics.
+Heaven Chronos is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** with enhanced heavenly graphics while maintaining the same core mechanics.
 
 ## How it Works in Detail
 
-The core mechanic of Chronos involves spatial movement coupled with time manipulation. The player navigates a grid-based level containing walls, platforms, and hazards. 
+The core mechanic of Heaven Chronos involves spatial movement coupled with time manipulation. The player navigates a grid-based level containing walls (marble blocks), platforms (clouds), and hazards (red crosses). 
 
-- **Movement:** The player can move in four directions (Up, Down, Left, Right). 
-- **Time Shift (Slow):** By pressing and holding `SPACE`, the player taps into their Chrono Energy to slow down time. This causes enemies/hazards and the general game loop to run at a reduced speed, allowing the player to safely navigate past fast-moving obstacles or execute precise maneuvers.
-- **Energy Management:** The Time Shift ability drains Chrono Energy while active. When `SPACE` is released, the energy gradually recharges. If energy is depleted, the time slow effect cannot be maintained.
-- **Progression:** The player must reach the exit tile of the level to advance, avoiding hazards. Touching a hazard costs one life and resets the player to the starting point.
+- **Movement:** The player (an angelic glowing orb) can move in four directions (Ascend, Descend, Move Left, Move Right). 
+- **Divine Time Shift (Slow):** By pressing and holding `SPACE`, the player taps into their Divine Grace to slow down time. This causes enemies/hazards and the general game loop to run at a reduced speed, allowing the player to safely navigate past fast-moving obstacles or execute precise maneuvers.
+- **Energy Management:** The Divine Time Shift ability drains Divine Grace while active. When `SPACE` is released, the energy gradually recharges. If energy is depleted, the time slow effect cannot be maintained.
+- **Progression:** The player must reach the exit (the Pearly Gates) to advance, avoiding hazards. Touching a hazard costs one Soul (life) and resets the player to the starting point. The score is represented as "Faith Score".
 
 ## Project Structure
 
@@ -20,7 +20,7 @@ Chronos/
 |   +-- game/           # Game logic (C + ASM)
 +-- web/                # Modern HTML5 Canvas Game (JS/HTML/CSS)
 |   +-- index.html      # Main HTML layout
-|   +-- style.css       # Neon cyber-style UI and styling
+|   +-- style.css       # Heavenly and majestic UI and styling
 |   +-- script.js       # Game logic, rendering, and levels
 +-- assets/             # Graphics and sound assets for ZX version
 +-- build/              # Compiled output (.tap, .tzx, .bin)
@@ -53,9 +53,9 @@ Chronos/
 ## Controls
 
 ### Web Version
-- **W/A/S/D or Arrow Keys or Q/A/O/P** - Move Up, Left, Down, Right
-- **Space** - Action / Time Shift
-- **M** - Pause
+- **W/A/S/D or Arrow Keys or Q/A/O/P** - Ascend, Move Left, Descend, Move Right
+- **Space** - Divine Time Shift (Slow)
+- **M** - Pause (Contemplation)
 
 ### ZX Spectrum Version
 - **Q/A** - Up/Down
@@ -66,4 +66,4 @@ Chronos/
 ## Target Platforms
 
 - **ZX Spectrum 48K** (compatible with 128K): 256x192 resolution, 8 colors.
-- **Web Browsers**: HTML5 Canvas with modern CSS styling and 60 FPS graphics.
+- **Web Browsers**: HTML5 Canvas with modern CSS styling and heavenly graphics.
