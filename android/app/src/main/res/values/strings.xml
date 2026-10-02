@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Heaven Chronos</string>
-    <string name="title_activity_main">Heaven Chronos</string>
+    <string name="app_name">Heaven Chrome</string>
+    <string name="title_activity_main">Heaven Chrome</string>
     <string name="package_name">com.popabogdan.heavenchronos</string>
     <string name="custom_url_scheme">com.popabogdan.heavenchronos</string>
 </resources>

@@ -170,7 +170,7 @@ function setGameState(state) {
     hud.style.display = 'none';
     
     if (state === STATE_TITLE) {
-        titleText.innerText = "HEAVEN CHRONOS";
+        titleText.innerText = "HEAVEN CHROME";
         subText.innerText = "A Divine Time-Bending Journey";
         subText.style.color = "#4169E1";
         document.querySelector('.controls').style.display = 'block';

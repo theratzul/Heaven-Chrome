@@ -1,7 +1,7 @@
 {
-  "name": "heaven-chronos",
+  "name": "heaven-chrome",
   "version": "1.0.0",
-  "description": "Heaven Chronos is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** with enhanced heavenly graphics while maintaining the same core mechanics.",
+  "description": "Heaven Chrome is a time-manipulation action game where the player can slow, stop, and rewind time to solve puzzles and defeat enemies. Originally built for the **ZX Spectrum 48K**, the repository now also contains a modern, beautifully designed **Web Version** with enhanced heavenly graphics while maintaining the same core mechanics.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
