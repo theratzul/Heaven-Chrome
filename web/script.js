@@ -7,6 +7,7 @@ const overlay = document.getElementById('overlay');
 const titleText = document.getElementById('titleText');
 const subText = document.getElementById('subText');
 const authorText = document.getElementById('authorText');
+const levelVal = document.getElementById('levelVal');
 const scoreVal = document.getElementById('scoreVal');
 const livesVal = document.getElementById('livesVal');
 const energyFill = document.getElementById('energyFill');
@@ -689,7 +690,7 @@ function setGameState(state) {
         if (blinkPrompt) blinkPrompt.innerText = "or press SPACE / tap screen";
     } else if (state === STATE_LEVELWIN) {
         titleText.innerText = "ASCENSION";
-        subText.innerText = "Ascending into the higher heavens...";
+        subText.innerText = `Ascending to Realm ${currentLevel + 2} of ${levels.length}...`;
         subText.style.color = "#FFD700";
         if (controlsPanel) controlsPanel.style.display = 'none';
         if (crossIcon) crossIcon.style.display = 'none';
@@ -1010,6 +1011,7 @@ function update() {
     updateParticles();
 
     // Update UI
+    if (levelVal) levelVal.innerText = `${currentLevel + 1}/${levels.length}`;
     scoreVal.innerText = score;
     livesVal.innerText = player.lives;
     energyFill.style.width = (chrono.energy / chrono.maxEnergy * 100) + '%';
