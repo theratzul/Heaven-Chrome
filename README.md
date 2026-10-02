@@ -11,9 +11,11 @@ Heaven Chrome is a time-manipulation action game where the player can slow, stop
 The core mechanic of Heaven Chrome involves spatial movement coupled with time manipulation. The player navigates a grid-based level containing walls (marble blocks), platforms (clouds), and hazards (red crosses). 
 
 - **Movement:** The player (an angelic glowing orb) can move in four directions (Ascend, Descend, Move Left, Move Right). 
-- **Divine Time Shift (Slow):** By pressing and holding `SPACE`, the player taps into their Divine Grace to slow down time. This causes enemies/hazards and the general game loop to run at a reduced speed, allowing the player to safely navigate past fast-moving obstacles or execute precise maneuvers.
-- **Energy Management:** The Divine Time Shift ability drains Divine Grace while active. When `SPACE` is released, the energy gradually recharges. If energy is depleted, the time slow effect cannot be maintained.
-- **Progression:** The player must reach the exit (the Pearly Gates) to advance, avoiding hazards. Touching a hazard costs one Soul (life) and resets the player to the starting point. The score is represented as "Faith Score".
+- **Divine Time Shift (Slow):** By pressing and holding `SPACE` (or the on-screen gold button), the player taps into their Divine Grace to slow down time. This causes hazards and the game loop to run in slow motion, accompanied by pitch/tempo warping audio.
+- **Energy Management:** The Divine Time Shift ability drains Divine Grace while active. When released, energy gradually recharges.
+- **Guardian Angels:** Every one of the 20 heavenly realms contains a Guardian Angel. Collecting an angel bestows holy blessing, granting **+500 Faith Score** and ringing heavenly chimes.
+- **Progression Across 20 Realms:** The player must ascend through 20 handcrafted heavenly realms by reaching the Pearly Gates in each realm.
+- **Celestial MIDI Music:** A polyphonic synthesizer plays an ethereal hymn background soundtrack in real-time, slowing and downshifting harmonically during Divine Time Shift. On ZX Spectrum 48K, a 1-bit beeper music engine plays the divine hymn on title and victory screens.
 
 ## Project Structure
 
@@ -55,12 +57,14 @@ Chronos/
 - **On-Screen D-Pad (▲ / ▼ / ◀ / ▶)** - Ascend, Descend, Move Left, Move Right
 - **Slow Time Button (Hold)** - Divine Time Shift (Slow Motion)
 - **Pause Button (⏸)** - Pause / Contemplate
+- **Sound Button (🔊/🔇)** - Toggle Heavenly MIDI Music & SFX
 - **Tap Screen** - Start Game / Resurrect / Resume
 
 ### Web / Desktop Version
 - **W/A/S/D or Arrow Keys or Q/A/O/P** - Ascend, Move Left, Descend, Move Right
 - **Space** - Divine Time Shift (Slow)
 - **M** - Pause (Contemplation)
+- **Audio Icon (🔊/🔇)** - Toggle Celestial Soundtrack
 
 ### ZX Spectrum Version
 - **Q/A** - Up/Down

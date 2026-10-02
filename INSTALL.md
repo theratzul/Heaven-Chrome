@@ -467,7 +467,38 @@ The game features **20 distinct, progressive heavenly realms** across both the W
 * **Level Progression:** Both platforms track ascension through all 20 realms, with the web/mobile HUD displaying real-time progress (`HEAVEN: X/20`).
 * **Level Tooling:**
   * [`tools/build_levels.py`](tools/build_levels.py) — Defines and validates all 20 level grids.
-  * [`tools/export_levels.py`](tools/export_levels.py) — Exports RLE data into `src/game/levels.c` and JavaScript arrays into `web/script.js`.
+---
+
+### 4.8 Heavenly MIDI Music & Guardian Angels System
+
+Both the ZX Spectrum and Web/Android versions include rich atmospheric background music and divine collectibles:
+
+#### 1. Celestial MIDI Soundtrack (Web & Android)
+* **Web Audio API Polyphonic Synthesizer (`HeavenMidiSynth`):**
+  * Built using pure Web Audio API oscillator nodes (no heavy external sound banks required).
+  * 3 simultaneous polyphonic channels:
+    * **Lead Divine Hymn:** Triangle wave voice with gentle attack, resonant low-pass filter, and celestial sustain.
+    * **Heavenly Harp Arpeggios:** Sine wave rapid arpeggiator creating ethereal shimmering patterns.
+    * **Cathedral Organ Bass:** Dual detuned saw/triangle pedal tones giving majestic harmonic depth.
+* **Dynamic Time-Shift Audio Warping:**
+  * When the player holds `SPACE` or the on-screen **SLOW TIME** button, the music dynamically transitions into slow-motion.
+  * The tempo decelerates to 40% speed and pitch down-shifts smoothly via Web Audio time constants (`exponentialRampToValueAtTime`), audibly warping the music during Divine Time Shift.
+* **Audio Controls & Chimes:**
+  * Volume/mute toggle button (🔊 / 🔇) accessible both on the HUD and the mobile control deck.
+  * Audio is initialized on first user interaction (click, keypress, or touch) adhering to modern browser autoplay policies.
+  * High-frequency holy chimes play upon collecting Guardian Angels.
+
+#### 2. 1-Bit Beeper Music Engine (ZX Spectrum 48K)
+* **Assembly Melody Routine ([`src/engine/sound.asm`](src/engine/sound.asm)):**
+  * Handcrafted `_sound_play_music` routine driving the ZX Spectrum 1-bit beeper through port `0xFE` (port 254).
+  * Plays the sacred hymn on the title screen and upon clearing each of the 20 heavenly realms.
+  * Calibrated pitch table (`_note_table`) maps semitones to Z80 delay cycle counts for accurate pitch reproduction on 3.5 MHz Z80 hardware.
+
+#### 3. Guardian Angels in all 20 Heavenly Realms
+* **Guardian Angels (`TILE_ANGEL = 5`):**
+  * Distributed across all 20 levels in both versions.
+  * **Web/Android:** Rendered with glowing golden halos, fluttering angelic wings, hovering float animation, and radiant light particle emissions. Collecting an angel awards +500 Faith Score and holy chime audio.
+  * **ZX Spectrum:** Rendered using an 8×8 custom pixel sprite glyph (`tile_angel_gfx`) rendered with bright cyan on dark blue attributes (`BRIGHT 1 | INK 5 | PAPER 1`). Collecting an angel increases Faith Score by 500 and plays a high-pitched celebratory tone.
 
 ---
 
