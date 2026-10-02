@@ -10,6 +10,13 @@
 2. [Platform A — ZX Spectrum 48K (z88dk + Fuse)](#2-platform-a--zx-spectrum-48k-z88dk--fuse)
 3. [Platform B — Web Browser](#3-platform-b--web-browser)
 4. [Platform C — Android (Node.js + Capacitor)](#4-platform-c--android-nodejs--capacitor)
+   - 4.1 [Tool Explanations](#41-tool-explanations)
+   - 4.2 [Windows Setup](#42-windows-setup)
+   - 4.3 [Linux / macOS Setup](#43-linux--macos-setup)
+   - 4.4 [Debug vs Release APK](#44-debug-vs-release-apk)
+   - 4.5 [Testing Android APK without Android Studio](#45-testing-android-apk-without-android-studio)
+   - 4.6 [Mobile Screen Formatting & Touch Controls (Samsung S24)](#46-mobile-screen-formatting--touch-controls-samsung-s24)
+   - 4.7 [20 Realms Level Architecture & RLE Compression](#47-20-realms-level-architecture--rle-compression)
 5. [CI/CD — GitHub Actions](#5-cicd--github-actions)
 6. [Repository Scripts Reference](#6-repository-scripts-reference)
 7. [Troubleshooting](#7-troubleshooting)
@@ -365,6 +372,105 @@ adb install android/app/build/outputs/apk/debug/Heaven-Chrome.apk
 
 ---
 
+### 4.5 Testing Android APK without Android Studio
+
+You do **not** need Android Studio installed to test and debug the generated APK. Here are the 4 recommended testing approaches:
+
+#### Method 1 — Direct Hardware Testing on Phone (e.g. Samsung Galaxy S24 via ADB)
+This provides the most accurate performance and real touchscreen evaluation.
+
+1. **Enable Developer Options & USB Debugging on your phone:**
+   - Go to **Settings** → **About phone** → **Software information**.
+   - Tap **Build number** 7 times until you see "Developer mode has been enabled".
+   - Return to **Settings** → **Developer options** → toggle **USB debugging** to **ON**.
+2. **Connect phone to your computer via USB** (and authorize the debugging prompt on your phone screen).
+3. **Verify and install the APK via command line:**
+   ```bash
+   # Ensure platform-tools is in PATH (if using the bundled SDK: export PATH="$PATH:$HOME/android-sdk/platform-tools")
+   adb devices
+
+   # Install or reinstall the APK onto the device:
+   adb install -r android/app/build/outputs/apk/debug/Heaven-Chrome.apk
+
+   # Launch the application directly from the terminal:
+   adb shell monkey -p com.popabogdan.heavenchronos -c android.intent.category.LAUNCHER 1
+   ```
+4. *(Optional)* **Mirror and control your phone screen on Linux desktop using `scrcpy`:**
+   ```bash
+   sudo apt install scrcpy
+   scrcpy
+   ```
+
+#### Method 2 — Command-Line Android Emulator (No Android Studio GUI)
+You can run the official Google Android Emulator completely headless or in a lightweight window using the command-line tools:
+
+1. **Install the emulator binary and an Android system image:**
+   ```bash
+   export PATH="$PATH:$HOME/android-sdk/cmdline-tools/latest/bin:$HOME/android-sdk/platform-tools"
+   sdkmanager "emulator" "system-images;android-34;google_apis;x86_64"
+   ```
+2. **Create an Android Virtual Device (AVD):**
+   ```bash
+   avdmanager create avd -n S24_Test -k "system-images;android-34;google_apis;x86_64" --device "pixel_8"
+   ```
+3. **Launch the emulator:**
+   ```bash
+   $HOME/android-sdk/emulator/emulator -avd S24_Test &
+   ```
+4. **Deploy the APK once the virtual device boots:**
+   ```bash
+   adb install -r android/app/build/outputs/apk/debug/Heaven-Chrome.apk
+   ```
+
+#### Method 3 — Mobile Browser Simulation with Touch Emulation (Instant Iteration)
+Because Capacitor apps wrap `web/` inside an Android WebView, you can test the game layout and touch controls instantly in your browser:
+
+1. **Start a local static server:**
+   ```bash
+   python3 -m http.server 8080 --directory web
+   ```
+2. **Open your browser (Firefox / Chrome / Chromium):**
+   ```bash
+   firefox http://localhost:8080 &
+   ```
+3. **Enable Responsive Mobile Device Mode:**
+   - Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>.
+   - Set viewport dimensions to Samsung Galaxy S24 resolution: **`412 × 915`** (or **`384 × 832`**).
+   - Ensure the **Touch Simulation** icon (hand/finger) is enabled.
+   - Test the virtual D-Pad, Slow Time button, pause, and start buttons with your mouse simulating touch events.
+
+#### Method 4 — Download via GitHub Actions Artifacts
+Push any commit to your repository, wait ~1 minute for GitHub Actions to build `Heaven-Chrome.apk`, open GitHub on your phone browser, download the artifact from the latest run, and install it directly on your device.
+
+---
+
+### 4.6 Mobile Screen Formatting & Touch Controls (Samsung S24)
+
+The application has been engineered to deliver an ergonomic handheld console experience on smartphones (such as Samsung Galaxy S24) with tall 19.5:9 / 20:9 aspect ratios:
+
+* **Responsive 4:3 Scaling:** The 800×600 pixel internal canvas is scaled dynamically (`aspect-ratio: 4 / 3; width: 100%; max-height: 52vh;`) with safe-area padding (`env(safe-area-inset-top)` / `env(safe-area-inset-bottom)`). This eliminates horizontal cropping and ensures the entire game world is 100% visible in portrait mode.
+* **Ergonomic Control Deck:** In portrait mode, the lower half of the phone screen hosts a dedicated, non-intrusive celestial controller deck so fingers never obstruct the game view.
+* **Virtual D-Pad (Left Thumb):** 4-way direction pad (▲, ▼, ◀, ▶) featuring smooth touch sliding (`touchmove` tracking) so players can glide between directions without lifting their thumb.
+* **Divine Slow Time Button (Right Thumb):** Large, pulsing golden button that triggers and sustains the Divine Grace time-slow mechanic while held.
+* **Pause & Start Interactions:** Quick-access pause buttons (⏸) on both the control deck and the HUD, plus full-screen tap-to-start / tap-to-resurrect support.
+
+---
+
+### 4.7 20 Realms Level Architecture & RLE Compression
+
+The game features **20 distinct, progressive heavenly realms** across both the Web/Android and ZX Spectrum versions:
+
+* **Z80 Memory Constraints & RLE Solution:**
+  * Raw uncompressed 32×24 level maps would consume `20 × 768 = 15,360 bytes` (15 KB), threatening the 48K RAM limits above address `0x8000`.
+  * Implemented an ultra-compact Run-Length Encoding (RLE) format in [`src/game/levels.c`](src/game/levels.c). All 20 levels compress down to only **4.5 KB** of ROM.
+  * At runtime, `level_load(level_num)` instantly decompresses the active level into a single 768-byte screen buffer with zero frame-rate penalty.
+* **Level Progression:** Both platforms track ascension through all 20 realms, with the web/mobile HUD displaying real-time progress (`HEAVEN: X/20`).
+* **Level Tooling:**
+  * [`tools/build_levels.py`](tools/build_levels.py) — Defines and validates all 20 level grids.
+  * [`tools/export_levels.py`](tools/export_levels.py) — Exports RLE data into `src/game/levels.c` and JavaScript arrays into `web/script.js`.
+
+---
+
 ## 5. CI/CD — GitHub Actions
 
 **Workflow file:** [`.github/workflows/android.yml`](.github/workflows/android.yml)
@@ -399,12 +505,15 @@ After a successful run: **Actions tab** → click the run → scroll to **Artifa
 
 | Script | OS | What it does |
 |---|---|---|
+| [`build-android.sh`](build-android.sh) | Linux / macOS | One-click script: syncs `web/` assets into Capacitor and builds `Heaven-Chrome.apk`. |
 | [`env.bat`](env.bat) | Windows | Adds `tools\z88dk\bin` to `PATH`; sets `ZCCCFG` and `Z80_OZFILES`. Must be called before building. |
 | [`env.sh`](env.sh) | Linux | Delegates to `env.bat` via `wine cmd /c env.bat`. |
 | [`build.bat`](build.bat) | Windows | Calls `env.bat`, then runs `zcc` with all source files. Outputs `build\chronos.tap`. |
-| [`build.sh`](build.sh) | Linux | Delegates to `build.bat` via `wine cmd /c build.bat`. |
+| [`build.sh`](build.sh) | Linux | Delegates to `build.bat` via `wine cmd /c build.bat`. Outputs `build/chronos.tap`. |
 | [`run.bat`](run.bat) | Windows | Calls `build.bat`, then launches Fuse with `--machine 48 --tape build\chronos.tap`. |
 | [`run.sh`](run.sh) | Linux | Calls `build.sh`, then launches Fuse (system Fuse → `tools/fuse/fuse` → Wine Fuse fallback). |
+| [`tools/build_levels.py`](tools/build_levels.py) | Cross-platform | Validates and generates all 20 levels in JSON and verifies constraints. |
+| [`tools/export_levels.py`](tools/export_levels.py) | Cross-platform | Compresses 20 levels via RLE and updates `src/game/levels.c` and `web/script.js`. |
 
 ---
 
