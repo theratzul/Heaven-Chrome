@@ -8,15 +8,8 @@
 
 1. [Project Overview](#1-project-overview)
 2. [Platform A — ZX Spectrum 48K (z88dk + Fuse)](#2-platform-a--zx-spectrum-48k-z88dk--fuse)
-   - [What Each Tool Does](#21-what-each-tool-does)
-   - [Windows Setup](#22-windows-setup)
-   - [Linux Setup](#23-linux-setup)
 3. [Platform B — Web Browser](#3-platform-b--web-browser)
 4. [Platform C — Android (Node.js + Capacitor)](#4-platform-c--android-nodejs--capacitor)
-   - [What Each Tool Does](#41-what-each-tool-does)
-   - [Windows Setup](#42-windows-setup)
-   - [Linux / macOS Setup](#43-linux--macos-setup)
-   - [Building the APK](#44-building-the-apk)
 5. [CI/CD — GitHub Actions](#5-cicd--github-actions)
 6. [Repository Scripts Reference](#6-repository-scripts-reference)
 7. [Troubleshooting](#7-troubleshooting)
@@ -29,150 +22,131 @@ Heaven Chronos targets three distinct platforms, each requiring a different tool
 
 | Platform | Technology | Output |
 |---|---|---|
-| ZX Spectrum 48K | C + Z80 ASM → z88dk → `.tap` | Tape image, run in Fuse emulator |
-| Web Browser | HTML5 + JavaScript + CSS | Open `web/index.html` directly |
-| Android | Web wrapped via Capacitor | `.apk` installable on any Android device |
+| ZX Spectrum 48K | C + Z80 ASM compiled by z88dk | `.tap` tape image, run in Fuse emulator |
+| Web Browser | HTML5 Canvas + JavaScript + CSS | Open `web/index.html` directly in any browser |
+| Android | Web app wrapped via Capacitor | `.apk` installable on any Android device |
 
 ---
 
 ## 2. Platform A — ZX Spectrum 48K (z88dk + Fuse)
 
-The ZX Spectrum version is the original version of Heaven Chronos. The game source code lives in `src/` and is written in **C** (game logic) and **Z80 Assembly** (engine routines). It is compiled by **z88dk** into a `.tap` tape image that runs in the **Fuse** emulator.
+The ZX Spectrum version is the **original** version of Heaven Chronos. Source code lives in `src/` and is split between **C** (game logic: `main.c`, `player.c`, `levels.c`, `chrono.c`, `hud.c`) and **Z80 Assembly** (engine layer: `sprites.asm`, `video.asm`, `input.asm`, `sound.asm`, `isr.asm`).
 
-### 2.1 What Each Tool Does
+### 2.1 Tool Explanations
 
-#### z88dk — The Z80 Cross-Compiler Toolchain
-**Location in repo:** `tools/z88dk/`
+#### z88dk — The Z80 C/Assembly Cross-Compiler Toolchain
+**Bundled location:** `tools/z88dk/`
 
-z88dk is a complete C and Z80 assembly development kit targeting 8-bit Z80-based computers. It includes:
+z88dk is a full C and Z80 assembly development kit for 8-bit Z80 computers. It includes the following components used by this project:
 
-- **`zcc`** — The compiler driver. It orchestrates the entire build pipeline: preprocessing, C compilation (via SDCC), assembly, linking, and tape image creation. The build command uses these key flags:
-  - `+zx` — targets the ZX Spectrum platform
-  - `-startup=1` — uses the standard ROM-based startup (BASIC loader)
-  - `-clib=sdcc_iy` — uses the SDCC-compatible C library (IY register-based)
-  - `-SO3 --max-allocs-per-node200000` — aggressive size/speed optimization
-  - `-pragma-define:CRT_ORG_CODE=0x8000` — places game code at address 32768 in RAM
-  - `-pragma-define:REGISTER_SP=0xD000` — sets the stack pointer
-  - `-create-app` — produces a `.tap` / `.tzx` tape image as final output
+| Component | Role |
+|---|---|
+| `zcc` | The compiler driver — orchestrates the full pipeline: C → assembly → linking → tape image |
+| `ZCCCFG` env var | Points to `lib/config/` — z88dk reads platform definitions from here |
+| `Z80_OZFILES` env var | Points to `lib/clibs/` — precompiled C library objects for linking |
+| `z88dk/bin/` | Contains `zcc`, `z80asm`, `appmake`, and other tools — must be on `PATH` |
 
-- **`ZCCCFG`** — Environment variable pointing to z88dk's library config directory. Required for `zcc` to locate platform headers and libraries.
+**Key `zcc` flags used in `build.bat`:**
 
-- **`Z80_OZFILES`** — Environment variable pointing to compiled C library objects. Required at link time.
-
-The `env.bat` / `env.sh` scripts set all these environment variables so `zcc` can be called from anywhere.
+| Flag | Meaning |
+|---|---|
+| `+zx` | Target platform: ZX Spectrum |
+| `-startup=1` | Use ROM BASIC startup (generates a BASIC loader on the tape) |
+| `-clib=sdcc_iy` | Use the SDCC-compatible C library with IY register used as frame pointer |
+| `-SO3` | Optimization level 3 (maximum) |
+| `--max-allocs-per-node200000` | Allows the optimizer more iterations for better code generation |
+| `--opt-code-speed` | Favor execution speed over code size |
+| `-pragma-define:CRT_ORG_CODE=0x8000` | Place compiled code at memory address 32768 (above the BASIC area) |
+| `-pragma-define:REGISTER_SP=0xD000` | Set stack pointer to 0xD000 (53248), safely above the game code |
+| `-pragma-define:CRT_STACK_SIZE=512` | Reserve 512 bytes for the call stack |
+| `-create-app` | Post-link: package everything into a `.tap` / `.tzx` tape image |
+| `-o build/chronos` | Output base name (`build/chronos.tap` is created) |
 
 #### Fuse — The ZX Spectrum Emulator
-**Location in repo:** `tools/fuse/`
+**Bundled location:** `tools/fuse/`
 
-Fuse (Free Unix Spectrum Emulator) is the most accurate and feature-rich open-source ZX Spectrum emulator. It emulates the original Spectrum hardware cycle-accurately, including:
+Fuse (Free Unix Spectrum Emulator) is the most accurate open-source ZX Spectrum emulator. It cycle-accurately emulates:
 
-- The **Z80 CPU** (all undocumented opcodes)
-- **ULA** (Uncommitted Logic Array) — the chip responsible for video output, keyboard scanning, and the tape interface
-- **AY-3-8912** sound chip (for 128K models; 48K uses the single-channel beeper)
-- **Border** colour effects timed to the video frame
+- The **Zilog Z80 CPU** including all undocumented opcodes
+- The **ULA** (Uncommitted Logic Array) — handles video timing, border effects, keyboard matrix scanning, and the tape interface
+- The **beeper** (single-channel audio on 48K)
+- Tape loading via the virtual tape interface
 
-Heaven Chronos targets the **48K** model. The `--machine 48` flag tells Fuse to emulate the original 48K Spectrum. The `--tape` flag loads the compiled `.tap` file and auto-plays it (equivalent to `LOAD ""` on a real machine).
+**Flags used when launching:**
+
+| Flag | Meaning |
+|---|---|
+| `--machine 48` | Emulate the 48K Spectrum (16KB ROM + 48KB RAM, no AY sound chip) |
+| `--tape build/chronos.tap` | Load and auto-play the tape image (auto-runs the BASIC loader) |
 
 ---
 
 ### 2.2 Windows Setup
 
-**Prerequisites:** Windows 10 or later.
-
-#### Step 1 — Clone the repository
-```bat
-git clone https://github.com/theratzul/Heaven-Chrome.git
-cd Heaven-Chronos
-```
-
-#### Step 2 — Set up the environment
-The compiler and emulator are bundled in `tools/`. Simply run the environment script to register the paths:
+**Requirements:** Windows 10+, no additional installs (tools are bundled).
 
 ```bat
+REM Step 1: Open the project folder in a terminal (cmd or PowerShell)
+cd C:\path\to\Heaven-Chronos
+
+REM Step 2: Set up environment (sets PATH, ZCCCFG, Z80_OZFILES)
 env.bat
-```
 
-This sets `PATH`, `ZCCCFG`, and `Z80_OZFILES` for the current terminal session, pointing to `tools\z88dk\`.
-
-#### Step 3 — Build
-```bat
+REM Step 3: Build — compiles all C and ASM sources into build\chronos.tap
 build.bat
-```
 
-The compiled tape image will be saved to `build\chronos.tap`.
-
-#### Step 4 — Run in Fuse
-```bat
+REM Step 4: Run — launches the compiled game in Fuse
 run.bat
 ```
-
-This calls `build.bat` and then launches `tools\fuse\fuse.exe --machine 48 --tape build\chronos.tap`.
 
 ---
 
 ### 2.3 Linux Setup
 
-On Linux, the `.bat` scripts are executed through **Wine** (a Windows compatibility layer), which is the simplest way to run the bundled Windows builds of z88dk and Fuse. Alternatively, you can install native Linux versions.
+On Linux, `build.sh` and `run.sh` delegate to the Windows `.bat` files through **Wine**.
 
-#### Option A — Using Wine (Simplest, uses bundled tools)
+#### Option A — Wine (uses the bundled Windows tools, easiest)
 
-**Install Wine:**
 ```bash
-# Ubuntu / Debian
-sudo apt update && sudo apt install wine
+# Install Wine
+sudo apt install wine          # Ubuntu/Debian
+sudo dnf install wine          # Fedora
+sudo pacman -S wine            # Arch
 
-# Fedora
-sudo dnf install wine
-
-# Arch Linux
-sudo pacman -S wine
+# Set up, build, and run
+source env.sh
+./build.sh
+./run.sh
 ```
 
-**Build and run:**
+`run.sh` automatically finds Fuse in this priority order:
+1. System-installed `fuse` binary
+2. `tools/fuse/fuse` (native Linux build, if present)
+3. `tools/fuse/fuse.exe` via Wine (fallback)
+
+#### Option B — Native Linux tools
+
+**Install z88dk from source:**
 ```bash
-source env.sh   # Sets up env via wine cmd
-./build.sh      # Compiles via wine cmd → build.bat
-./run.sh        # Builds and launches Fuse
-```
-
-#### Option B — Native Linux z88dk + Fuse
-
-**Install z88dk (native):**
-```bash
-# Ubuntu / Debian (from package manager, may be older version)
-sudo apt install z88dk
-
-# Or build from source for the latest version:
 sudo apt install git make gcc libboost-dev texinfo bison flex libxml2-dev
-git clone --recursive https://github.com/z88dk/z88dk.git
-cd z88dk
+git clone --recursive https://github.com/z88dk/z88dk.git && cd z88dk
 chmod +x build.sh && ./build.sh
-```
 
-Set environment variables manually:
-```bash
-export Z88DK=/path/to/z88dk
+# Export env vars (add to ~/.bashrc to persist)
+export Z88DK=$HOME/z88dk
 export ZCCCFG=$Z88DK/lib/config
 export Z80_OZFILES=$Z88DK/lib/clibs
 export PATH=$Z88DK/bin:$PATH
 ```
 
-**Install Fuse (native):**
+**Install Fuse:**
 ```bash
-# Ubuntu / Debian
-sudo apt install fuse-emulator-gtk
-
-# Arch Linux
-sudo pacman -S fuse-emulator
-
-# Fedora
-sudo dnf install fuse-emulator
-
-# macOS (Homebrew)
-brew install fuse-emulator
+sudo apt install fuse-emulator-gtk    # Ubuntu/Debian
+sudo pacman -S fuse-emulator          # Arch
+sudo dnf install fuse-emulator        # Fedora
 ```
 
-**Build and run:**
+**Build and run manually:**
 ```bash
 zcc +zx -vn -startup=1 -clib=sdcc_iy -SO3 \
     --max-allocs-per-node200000 --opt-code-speed \
@@ -192,52 +166,60 @@ fuse --machine 48 --tape build/chronos.tap
 
 ## 3. Platform B — Web Browser
 
-The Web version is the simplest to run — it requires **no build process** and **no installation**.
+The Web version requires **no installation whatsoever** — it is a completely self-contained HTML5 application.
 
 ### What the Web Version Is
 
-The `web/` directory contains a self-contained HTML5 Canvas game. It is a faithful port of the ZX Spectrum version with enhanced graphics and the same core mechanics (Divine Time Shift, Faith Score, Pearly Gates progression). It runs entirely in the browser's JavaScript engine.
+`web/index.html` contains a full Heaven Chronos port using the **HTML5 Canvas API**. The game loop, collision detection, time-shift mechanic, and all rendering are implemented in JavaScript. It is also the source that gets embedded into the Android APK by Capacitor.
 
-### Running Locally
+### Running
 
-1. Open your file manager and navigate to the `web/` directory.
-2. Double-click `index.html` — it will open in your default browser.
-3. That's it. No server, no build step, no dependencies.
+1. Navigate to the `web/` folder.
+2. Open `index.html` in any modern browser — double-click it in your file manager.
+3. No server or build step needed.
 
-### Supported Browsers
+### Browser Compatibility
 
-| Browser | Support |
-|---|---|
-| Chrome / Chromium 90+ | ✅ Full support |
-| Firefox 88+ | ✅ Full support |
-| Edge 90+ | ✅ Full support |
-| Safari 14+ | ✅ Full support |
-| Internet Explorer | ❌ Not supported |
+| Browser | Version | Support |
+|---|---|---|
+| Chrome / Chromium | 90+ | Full |
+| Firefox | 88+ | Full |
+| Edge | 90+ | Full |
+| Safari | 14+ | Full |
+| Internet Explorer | Any | Not supported |
 
 ---
 
 ## 4. Platform C — Android (Node.js + Capacitor)
 
-The Android version wraps the Web version in a native Android application shell using **Capacitor**. The game logic is identical to the Web version — Capacitor simply provides the native WebView container, access to Android APIs, and the ability to package the app as an `.apk`.
+The Android version wraps `web/` in a native Android WebView shell using **Capacitor**. The game itself is unchanged — Capacitor provides the packaging, native container, and APK build pipeline.
 
-### 4.1 What Each Tool Does
+### 4.1 Tool Explanations
 
-#### Node.js (≥ 20.0.0 LTS)
-Node.js is the JavaScript runtime used to run the Capacitor CLI and npm (the Node Package Manager). It is not used at runtime in the Android app — it is only needed during the build phase to run tooling scripts.
+#### Node.js (version >= 20.0.0 LTS required)
 
-- **npm** — Node's package manager. Running `npm install` reads `package.json` and downloads all declared dependencies (Capacitor packages) into `node_modules/`.
-- **npx** — npm's script runner. `npx cap` runs the locally-installed Capacitor CLI from `node_modules/.bin/cap` without needing a global install.
+Node.js is the JavaScript runtime that powers the Capacitor CLI tooling. It is used **only during the build phase**, not inside the final Android app.
 
-> **Why ≥ 20?** The Capacitor CLI (`@capacitor/cli ^7.x`) dropped support for Node < 20. Using Node 18 or earlier causes a fatal error during `npx cap sync`.
+| Component | Role |
+|---|---|
+| `node` | JavaScript runtime (must be v20+) |
+| `npm` | Package manager — `npm install` downloads `@capacitor/cli`, `@capacitor/core`, `@capacitor/android` into `node_modules/` |
+| `npx` | Runs local binaries — `npx cap` runs `node_modules/.bin/cap` without a global install |
 
-#### Capacitor CLI (`@capacitor/cli`)
-Capacitor is Ionic's open-source native runtime that bridges web apps and mobile platforms. The CLI provides:
+> **Why v20 minimum?** `@capacitor/cli ^7.x` uses Node.js APIs that were stabilized in v20 (notably the native `fetch` global and updated `vm` module). Node 18 and below trigger the `[fatal] The Capacitor CLI requires NodeJS >=20.0.0` error.
 
-- **`npx cap sync android`** — Copies the web app from `web/` (the `webDir` defined in `capacitor.config.json`) into the Android project's assets directory (`android/app/src/main/assets/public/`), and updates any native plugins. This is the critical step that embeds your web game into the Android shell.
-- **`npx cap open android`** — Opens the `android/` project in Android Studio.
-- **`npx cap add android`** — (Initial setup only) Generates the `android/` native project structure.
+#### Capacitor CLI (`@capacitor/cli ^7.6.9`)
 
-The Capacitor configuration (`capacitor.config.json`) defines:
+Capacitor is Ionic's open-source bridge between web apps and native mobile platforms. The key commands:
+
+| Command | What it does |
+|---|---|
+| `npx cap sync android` | Reads `capacitor.config.json`, copies `web/` into `android/app/src/main/assets/public/`, updates native plugin configs |
+| `npx cap open android` | Opens the `android/` project in Android Studio |
+| `npx cap add android` | (First time only) Scaffolds the `android/` native project |
+
+**`capacitor.config.json` fields:**
+
 ```json
 {
   "appId": "com.popabogdan.heavenchronos",
@@ -245,89 +227,71 @@ The Capacitor configuration (`capacitor.config.json`) defines:
   "webDir": "web"
 }
 ```
-- **`appId`** — The reverse-domain application ID, used by Android to uniquely identify the app on a device.
-- **`webDir`** — The directory whose contents are copied into the Android WebView.
 
-#### Gradle / Android SDK
-The `android/` directory is a standard Android Gradle project. `./gradlew assembleDebug` uses the Gradle wrapper to download all Android dependencies and compile the APK. You do **not** need Android Studio installed to build — only the **Java JDK 21** (for the Gradle JVM) and the **Android SDK** (auto-managed by Gradle if `ANDROID_HOME` is set).
+| Field | Meaning |
+|---|---|
+| `appId` | Reverse-domain app identifier — Android uses this as the unique package name on the device and Play Store |
+| `appName` | Human-readable name shown on the device launcher |
+| `webDir` | The local folder Capacitor copies into the Android APK's WebView assets |
+
+#### Gradle & Android SDK
+
+`android/` is a standard Android Gradle project. The Gradle wrapper (`gradlew`) downloads the correct Gradle version automatically. What you need installed:
+
+| Requirement | Why |
+|---|---|
+| Java JDK 21 | Gradle runs on the JVM; JDK 21 matches the CI configuration |
+| Android SDK | Provides `android.jar` (compilation) and `build-tools` (packaging + signing) |
+| `ANDROID_HOME` env var | Tells Gradle where to find the SDK |
 
 ---
 
 ### 4.2 Windows Setup
 
-#### Step 1 — Install Node.js ≥ 20 LTS
-
-1. Go to [https://nodejs.org](https://nodejs.org) and download the **LTS** installer (currently v20.x or v22.x).
-2. Run the installer, making sure **"Add to PATH"** is checked.
-3. Verify:
-   ```bat
-   node --version   :: Should print v20.x.x or higher
-   npm --version
-   ```
+#### Step 1 — Install Node.js 20 LTS
+1. Download the Windows LTS installer from [https://nodejs.org](https://nodejs.org).
+2. Run it — ensure **"Add to PATH"** is ticked.
+3. Verify: `node --version` (must be `v20.x.x` or higher).
 
 #### Step 2 — Install Java JDK 21
-
-1. Download **Temurin JDK 21** from [https://adoptium.net](https://adoptium.net).
-2. Run the installer.
-3. Verify:
-   ```bat
-   java --version   :: Should print openjdk 21...
-   ```
+1. Download Temurin JDK 21 from [https://adoptium.net](https://adoptium.net).
+2. Run the installer — it sets `JAVA_HOME` automatically.
+3. Verify: `java --version`.
 
 #### Step 3 — Install Android SDK
+**Via Android Studio (recommended):**
+1. Download from [https://developer.android.com/studio](https://developer.android.com/studio).
+2. Open **SDK Manager** and install **Android SDK Platform 34** and **Build-Tools 34.x**.
 
-**Option A — Via Android Studio (Recommended):**
-1. Download Android Studio from [https://developer.android.com/studio](https://developer.android.com/studio).
-2. Install it and open **SDK Manager** → install **Android SDK Platform 34** (or latest).
-3. Note the SDK path (e.g. `C:\Users\YourName\AppData\Local\Android\Sdk`).
-
-**Option B — Command-line tools only:**
-1. Download "Command line tools only" from the Android Studio download page.
-2. Extract to a folder (e.g. `C:\Android\cmdline-tools\latest\`).
-3. Run: `sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"`
-
-Set the environment variable:
+**Set environment variable:**
 ```bat
 setx ANDROID_HOME "C:\Users\YourName\AppData\Local\Android\Sdk"
 setx PATH "%PATH%;%ANDROID_HOME%\platform-tools"
 ```
 
-#### Step 4 — Install dependencies and sync
-
+#### Step 4 — Build
 ```bat
-cd Heaven-Chronos
 npm install
 npx cap sync android
-```
-
-#### Step 5 — Build the APK
-
-```bat
 cd android
 gradlew.bat assembleDebug
 ```
 
-The APK is output to:
-```
-android\app\build\outputs\apk\debug\app-debug.apk
-```
+APK location: `android\app\build\outputs\apk\debug\app-debug.apk`
 
 ---
 
 ### 4.3 Linux / macOS Setup
 
-#### Step 1 — Install Node.js ≥ 20 LTS
+#### Step 1 — Install Node.js 20 LTS
 
-**Using nvm (recommended — avoids permission issues):**
+**Using nvm (recommended):**
 ```bash
-# Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc   # or ~/.zshrc
-
-# Install and use Node 20 LTS
+source ~/.bashrc    # or ~/.zshrc
 nvm install 20
 nvm use 20
-node --version     # Should print v20.x.x
+node --version      # v20.x.x
 ```
 
 **Using package manager:**
@@ -339,132 +303,108 @@ sudo apt install -y nodejs
 # Arch Linux
 sudo pacman -S nodejs npm
 
-# macOS (Homebrew)
+# macOS
 brew install node@20
 ```
 
 #### Step 2 — Install Java JDK 21
-
 ```bash
-# Ubuntu / Debian
-sudo apt install openjdk-21-jdk
-
-# Arch Linux
-sudo pacman -S jdk21-openjdk
-
-# macOS (Homebrew)
-brew install openjdk@21
-
-# Verify
+sudo apt install openjdk-21-jdk      # Ubuntu/Debian
+sudo pacman -S jdk21-openjdk         # Arch
+brew install openjdk@21              # macOS
 java --version
 ```
 
 #### Step 3 — Install Android SDK
 
-**Option A — Via Android Studio:**
-Download from [https://developer.android.com/studio](https://developer.android.com/studio), install, then add to your shell profile (`~/.bashrc` or `~/.zshrc`):
+**Via Android Studio:**
+Download from [https://developer.android.com/studio](https://developer.android.com/studio), then:
 ```bash
-export ANDROID_HOME=$HOME/Android/Sdk            # Linux
-export ANDROID_HOME=$HOME/Library/Android/sdk    # macOS
+# Add to ~/.bashrc or ~/.zshrc
+export ANDROID_HOME=$HOME/Android/Sdk          # Linux
+export ANDROID_HOME=$HOME/Library/Android/sdk  # macOS
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
-**Option B — Command-line tools only (Linux):**
+**Via command-line tools only (Linux):**
 ```bash
 mkdir -p ~/Android/cmdline-tools/latest
-# Download commandlinetools-linux-*.zip from https://developer.android.com/studio#command-line-tools-only
+# Download commandlinetools-linux-*.zip from developer.android.com/studio#command-line-tools-only
 unzip commandlinetools-linux-*.zip -d ~/Android/cmdline-tools/latest/
-
-# Accept licenses and install SDK components
 yes | ~/Android/cmdline-tools/latest/bin/sdkmanager --licenses
 ~/Android/cmdline-tools/latest/bin/sdkmanager \
     "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-# Add to ~/.bashrc
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
-#### Step 4 — Install dependencies and sync
-
+#### Step 4 — Build
 ```bash
-cd Heaven-Chronos
 npm install
 npx cap sync android
-```
-
-#### Step 5 — Build the APK
-
-```bash
-cd android
-chmod +x gradlew
+cd android && chmod +x gradlew
 ./gradlew assembleDebug
 ```
 
-The APK is output to:
-```
-android/app/build/outputs/apk/debug/app-debug.apk
-```
+APK location: `android/app/build/outputs/apk/debug/app-debug.apk`
 
-**Install directly on a connected Android device:**
+**Install to a connected device:**
 ```bash
 adb install android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
 ---
 
-### 4.4 Building the APK
+### 4.4 Debug vs Release APK
 
-Once all prerequisites are installed, the full build pipeline is:
-
-```bash
-npm install              # 1. Download Capacitor packages
-npx cap sync android     # 2. Copy web/ into android/ assets
-cd android
-./gradlew assembleDebug  # 3. Compile the APK
-```
-
-#### Debug vs Release
-
-| Build Type | Command | Notes |
-|---|---|---|
-| Debug | `./gradlew assembleDebug` | Signed with a debug keystore. Sideloadable on any device with "Unknown sources" enabled. |
-| Release | `./gradlew assembleRelease` | Requires a signing keystore. Required for Play Store distribution. |
+| Type | Gradle command | Signing | Use case |
+|---|---|---|---|
+| Debug | `./gradlew assembleDebug` | Auto-signed with debug keystore | Sideloading, testing |
+| Release | `./gradlew assembleRelease` | Requires your own keystore | Play Store distribution |
 
 ---
 
 ## 5. CI/CD — GitHub Actions
 
-The repository includes an automated build pipeline at [`.github/workflows/android.yml`](.github/workflows/android.yml).
+**Workflow file:** [`.github/workflows/android.yml`](.github/workflows/android.yml)
 
-### What it does
+### Triggers
 
-On every `push` or `pull_request` to `main`/`master` (and manual trigger via **Run workflow**):
+| Event | Description |
+|---|---|
+| `push` to `main` / `master` | Runs automatically on every commit |
+| `pull_request` to `main` / `master` | Runs on every PR targeting main |
+| `workflow_dispatch` | Manual trigger from the GitHub Actions UI |
 
-1. **Checks out** the repository
-2. **Sets up Node.js 20** (LTS — satisfies Capacitor CLI ≥ 20 requirement)
-3. **Sets up JDK 21** (Temurin distribution — required by Gradle)
-4. **Runs `npm install`** to fetch Capacitor packages
-5. **Runs `npx cap sync android`** to embed the web game into the Android project
-6. **Runs `./gradlew assembleDebug`** to compile the APK
-7. **Uploads `app-debug.apk`** as a downloadable workflow artifact (available under Actions → your run → Artifacts)
+### Pipeline Steps
 
-### Manual trigger
+| Step | Action | Why |
+|---|---|---|
+| Checkout | `actions/checkout@v4` | Fetch the repository code |
+| Setup Node.js 20 | `actions/setup-node@v4` with `node-version: '20'` | Satisfies Capacitor CLI >= 20 requirement |
+| Setup JDK 21 | `actions/setup-java@v4` with `java-version: '21'`, `distribution: 'temurin'` | Required by Gradle to compile the Android project |
+| Install dependencies | `npm install` | Downloads `@capacitor/cli`, `@capacitor/core`, `@capacitor/android` |
+| Sync Capacitor | `npx cap sync android` | Copies `web/` into the Android project assets |
+| Build APK | `cd android && ./gradlew assembleDebug` | Compiles the debug APK |
+| Upload artifact | `actions/upload-artifact@v4` | Makes `app-debug.apk` downloadable from the Actions run page |
 
-Go to your repository on GitHub → **Actions** tab → **Build Android** → **Run workflow** → select branch → click **Run workflow**.
+### Downloading the APK
+
+After a successful run: **Actions tab** → click the run → scroll to **Artifacts** → download **`app-debug`**.
 
 ---
 
 ## 6. Repository Scripts Reference
 
-| Script | Platform | Description |
+| Script | OS | What it does |
 |---|---|---|
-| `env.bat` | Windows | Sets `PATH`, `ZCCCFG`, `Z80_OZFILES` for z88dk. Run once per terminal session before building. |
-| `env.sh` | Linux | Wrapper — delegates to `env.bat` via Wine. |
-| `build.bat` | Windows | Calls `env.bat` then compiles with `zcc`. Outputs `build/chronos.tap`. |
-| `build.sh` | Linux | Wrapper — delegates to `build.bat` via Wine. |
-| `run.bat` | Windows | Builds and launches Fuse with the compiled tape. |
-| `run.sh` | Linux | Builds and launches Fuse (tries system Fuse → `tools/fuse/fuse` → Wine Fuse). |
+| [`env.bat`](env.bat) | Windows | Adds `tools\z88dk\bin` to `PATH`; sets `ZCCCFG` and `Z80_OZFILES`. Must be called before building. |
+| [`env.sh`](env.sh) | Linux | Delegates to `env.bat` via `wine cmd /c env.bat`. |
+| [`build.bat`](build.bat) | Windows | Calls `env.bat`, then runs `zcc` with all source files. Outputs `build\chronos.tap`. |
+| [`build.sh`](build.sh) | Linux | Delegates to `build.bat` via `wine cmd /c build.bat`. |
+| [`run.bat`](run.bat) | Windows | Calls `build.bat`, then launches Fuse with `--machine 48 --tape build\chronos.tap`. |
+| [`run.sh`](run.sh) | Linux | Calls `build.sh`, then launches Fuse (system Fuse → `tools/fuse/fuse` → Wine Fuse fallback). |
 
 ---
 
@@ -472,27 +412,30 @@ Go to your repository on GitHub → **Actions** tab → **Build Android** → **
 
 ### ZX Spectrum / z88dk
 
-| Problem | Fix |
+| Error | Fix |
 |---|---|
-| `zcc: command not found` | Run `env.bat` / `source env.sh` first to add z88dk to PATH. |
-| `wine: command not found` (Linux) | Install Wine: `sudo apt install wine` |
-| Build fails with undefined symbols | Make sure all `.c` and `.asm` source files are listed in the build command. |
-| Fuse not found | Install `fuse-emulator-gtk` via your package manager, or ensure `tools/fuse/fuse.exe` exists. |
+| `zcc: command not found` | Run `env.bat` (Windows) or `source env.sh` (Linux) to add z88dk to `PATH`. |
+| `wine: command not found` | Install Wine: `sudo apt install wine` |
+| Build output missing (`build\chronos.tap`) | Check terminal for compile errors. Ensure all `.c` and `.asm` files listed in `build.bat` exist in `src/`. |
+| Fuse opens but game does not start | Tape auto-play may be disabled. In Fuse: **Media → Tape → Play**. |
+| Fuse window is too small | Fuse scales to 2x by default. Use **Options → General → Emulation speed** to adjust. |
 
 ### Android / Capacitor
 
-| Problem | Fix |
+| Error | Fix |
 |---|---|
-| `[fatal] The Capacitor CLI requires NodeJS >=20.0.0` | Upgrade Node.js to v20 LTS or later. See Section 4.2/4.3. |
-| `ANDROID_HOME is not set` | Set the `ANDROID_HOME` environment variable to your Android SDK path. |
-| `SDK location not found` | Create `android/local.properties` with: `sdk.dir=/path/to/your/Android/Sdk` |
-| `./gradlew: Permission denied` (Linux/macOS) | Run `chmod +x android/gradlew` |
-| APK builds but crashes on device | Run `adb logcat` to inspect runtime errors in the WebView. |
-| `npx cap sync` fails silently | Ensure `web/index.html` exists — Capacitor copies the `webDir` (`web/`) into the Android assets. |
+| `[fatal] The Capacitor CLI requires NodeJS >=20.0.0` | Upgrade Node.js to v20 LTS. Run `node --version` to confirm. |
+| `SDK location not found` | Create `android/local.properties`: `sdk.dir=/home/yourname/Android/Sdk` |
+| `ANDROID_HOME is not set` | Export `ANDROID_HOME` in your shell profile and restart your terminal. |
+| `./gradlew: Permission denied` | Run `chmod +x android/gradlew` |
+| `npx cap sync` copies nothing / empty assets | Confirm `web/index.html` exists — Capacitor copies the directory specified in `webDir`. |
+| APK installs but shows blank screen | Run `adb logcat | grep Capacitor` to find WebView errors. |
+| APK not installing (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`) | Uninstall the existing app version first: `adb uninstall com.popabogdan.heavenchronos` |
 
 ### Web Version
 
 | Problem | Fix |
 |---|---|
-| Blank screen / nothing loads | Open browser DevTools (F12) → Console tab and check for errors. |
-| Game runs but controls do not work | Click on the game canvas first to give it keyboard focus. |
+| Page loads but canvas is blank | Open DevTools (F12) → Console — look for JavaScript errors. |
+| Controls unresponsive | Click on the game canvas to focus it before pressing keys. |
+| Game runs slowly | Close other tabs; the game is CPU-intensive on older hardware. |
