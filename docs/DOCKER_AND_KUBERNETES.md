@@ -8,6 +8,22 @@ This guide explains how to containerize Heaven Chrome, deploy it to a local Kube
 
 Heaven Chrome's web application is packaged using a production-optimized `nginx:alpine` container.
 
+### Docker Storage on /mnt/storage
+To prevent Docker images, build caches, and layers from filling the root partition (`/`), Docker is configured with its data root on the secondary LVM partition (`/mnt/storage/docker`).
+
+Configuration file: `/etc/docker/daemon.json`
+```json
+{
+  "data-root": "/mnt/storage/docker"
+}
+```
+
+To verify Docker's root directory:
+```bash
+sudo docker info --format 'Docker Root Dir: {{.DockerRootDir}}'
+```
+Expected output: `Docker Root Dir: /mnt/storage/docker`
+
 ### Building the Docker Image
 ```bash
 docker build -t heaven-chrome:latest -t heaven-chrome:1.0.0 .
@@ -114,3 +130,27 @@ The application is pre-configured in `k8s/argocd-app.yaml`:
 kubectl apply -f k8s/argocd-app.yaml
 ```
 ArgoCD will continuously monitor the Git repository and synchronize the Helm chart to the cluster automatically.
+
+---
+
+## 5. Docker Storage Configuration (/mnt/storage)
+
+To avoid exhausting the root partition (`/`), Docker's data directory has been migrated to the secondary LVM partition at `/mnt/storage/docker`.
+
+### Daemon Configuration: `/etc/docker/daemon.json`
+```json
+{
+  "data-root": "/mnt/storage/docker"
+}
+```
+
+### Verification
+```bash
+sudo docker info --format 'Docker Root Dir: {{.DockerRootDir}}'
+# Expected output: /mnt/storage/docker
+```
+
+### Managing Docker & Kubernetes Services
+To keep system startup fast and save background resources, autostart on boot is disabled. Use the project helper scripts:
+- **Start services**: `./start-k8s-docker.sh`
+- **Stop services**: `./stop-k8s-docker.sh`
