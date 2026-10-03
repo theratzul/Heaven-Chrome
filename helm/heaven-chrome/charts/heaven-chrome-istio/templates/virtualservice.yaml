@@ -1,0 +1,22 @@
+{{- if and .Values.virtualService .Values.virtualService.enabled -}}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Values.virtualService.name | default (printf "%s-vs" (include "heaven-chrome.fullname" .)) }}
+  labels:
+    {{- include "heaven-chrome.labels" . | nindent 4 }}
+spec:
+  hosts:
+    {{- toYaml .Values.virtualService.hosts | nindent 4 }}
+  gateways:
+    {{- toYaml .Values.virtualService.gateways | nindent 4 }}
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: {{ .Values.virtualService.destinationHost | default "heaven-chrome-web" }}
+            port:
+              number: 80
+{{- end }}

@@ -1,0 +1,13 @@
+{{- if and .Values.gateway .Values.gateway.enabled -}}
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: {{ .Values.gateway.name | default (printf "%s-gateway" (include "heaven-chrome.fullname" .)) }}
+  labels:
+    {{- include "heaven-chrome.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- toYaml .Values.gateway.selector | nindent 4 }}
+  servers:
+    {{- toYaml .Values.gateway.servers | nindent 4 }}
+{{- end }}

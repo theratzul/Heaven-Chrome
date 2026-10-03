@@ -1,0 +1,11 @@
+Heaven Chrome is a divine time-manipulation action puzzle adventure where the player guides an angelic soul through perilous heavenly realms.
+
+Navigate past demonic hazards, collect Guardian Angels for divine grace, and reach the Pearly Gates to ascend through 20 handcrafted heavenly realms.
+
+Features:
+- Divine Time Shift: Tap and hold the Golden Hourglass to bend time into slow motion and maneuver through tight hazards.
+- 20 Handcrafted Heavenly Realms: Ascend from the Celestial Gates to the Throne Room of Paradise.
+- Guardian Angels: Free the holy cherubs in each realm to gain Faith Score and celestial energy.
+- Real-Time Celestial Synthesizer: Polyphonic ethereal hymns that react and pitch-shift dynamically with time manipulation.
+- Responsive Touch Controls: Ergonomic virtual D-Pad and sacred action buttons tailored for mobile gameplay.
+- Completely Free & Open Source: No advertisements, no trackers, no in-app purchases, and 100% offline gameplay.

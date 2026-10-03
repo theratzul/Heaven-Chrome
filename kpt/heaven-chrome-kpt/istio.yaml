@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: heaven-chrome-kpt-gateway
+  namespace: default
+  labels:
+    app.kubernetes.io/name: heaven-chrome-kpt
+    app.kubernetes.io/instance: heaven-chrome-kpt
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: heaven-chrome-kpt-vs
+  namespace: default
+  labels:
+    app.kubernetes.io/name: heaven-chrome-kpt
+    app.kubernetes.io/instance: heaven-chrome-kpt
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - heaven-chrome-kpt-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /kpt
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: heaven-chrome-kpt
+            port:
+              number: 80

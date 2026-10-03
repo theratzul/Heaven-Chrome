@@ -1,0 +1,58 @@
+# ==============================================================================
+# Heaven Chrome - Umbrella Helm Chart Values
+# Manages subcharts: heaven-chrome-web and heaven-chrome-istio
+# ==============================================================================
+
+# Subchart 1: Web Application
+heaven-chrome-web:
+  enabled: true
+  replicaCount: 2
+  image:
+    repository: heaven-chrome
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+  autoscaling:
+    enabled: false
+  resources:
+    limits:
+      cpu: 250m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# Subchart 2: Istio Service Mesh
+heaven-chrome-istio:
+  enabled: true
+  gateway:
+    enabled: true
+    name: "heaven-chrome-gateway"
+    selector:
+      istio: ingressgateway
+    servers:
+      - port:
+          number: 80
+          name: http
+          protocol: HTTP
+        hosts:
+          - "*"
+  virtualService:
+    enabled: true
+    name: "heaven-chrome-vs"
+    hosts:
+      - "*"
+    gateways:
+      - heaven-chrome-gateway
+    routes:
+      - match:
+          - uri:
+              prefix: /
+        route:
+          - destination:
+              host: heaven-chrome-web
+              port:
+                number: 80

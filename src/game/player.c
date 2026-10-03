@@ -101,6 +101,12 @@ void player_on_hit(void)
     old_py = start_y;
 }
 
+void player_revert(void)
+{
+    px = old_px;
+    py = old_py;
+}
+
 void player_reset_position(void)
 {
     px = start_x;

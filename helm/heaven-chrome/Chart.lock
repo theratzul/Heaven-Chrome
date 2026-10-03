@@ -1,0 +1,9 @@
+dependencies:
+- name: heaven-chrome-web
+  repository: file://./charts/heaven-chrome-web
+  version: 1.0.0
+- name: heaven-chrome-istio
+  repository: file://./charts/heaven-chrome-istio
+  version: 1.0.0
+digest: sha256:b8c074c9c27cf373b79aca992a4f4e3d916d7439e235731e61b435ae1c173a2d
+generated: "2026-10-03T13:16:39.886384093+03:00"

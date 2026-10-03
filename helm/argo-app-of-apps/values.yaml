@@ -1,0 +1,31 @@
+targetRevision: HEAD
+repoURL: https://github.com/theratzul/Heaven-Chrome.git
+
+apps:
+  - name: heaven-chrome-prod
+    namespace: default
+    path: helm/heaven-chrome
+    values:
+      replicaCount: 3
+      service:
+        port: 80
+      istio:
+        enabled: true
+        gateway:
+          name: heaven-chrome-prod-gateway
+        virtualService:
+          name: heaven-chrome-prod-vs
+
+  - name: heaven-chrome-staging
+    namespace: default
+    path: helm/heaven-chrome
+    values:
+      replicaCount: 1
+      service:
+        port: 80
+      istio:
+        enabled: false
+
+  - name: heaven-chrome-kpt
+    namespace: default
+    path: kpt/heaven-chrome-kpt

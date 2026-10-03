@@ -1,0 +1,27 @@
+apiVersion: v2
+name: heaven-chrome
+description: Heaven Chrome Umbrella Chart managing Web Application and Istio Service Mesh
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - heaven-chrome
+  - umbrella
+  - game
+  - html5
+  - istio
+home: https://github.com/theratzul/Heaven-Chrome
+sources:
+  - https://github.com/theratzul/Heaven-Chrome
+maintainers:
+  - name: popa bogdan
+    email: theratzul@users.noreply.github.com
+dependencies:
+  - name: heaven-chrome-web
+    version: "1.0.0"
+    repository: "file://./charts/heaven-chrome-web"
+    condition: heaven-chrome-web.enabled
+  - name: heaven-chrome-istio
+    version: "1.0.0"
+    repository: "file://./charts/heaven-chrome-istio"
+    condition: heaven-chrome-istio.enabled

@@ -1,29 +1,86 @@
-# z88dk temporary files
-build/tmp/
+# ==============================================================================
+# Heaven Chrome - Git Ignore Configuration
+# ==============================================================================
 
-# Node.js dependencies
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Android build outputs & local config
+# ------------------------------------------------------------------------------
+# Android Build Outputs & Package Archives (APKs, AABs)
+# ------------------------------------------------------------------------------
+*.apk
+*.aab
+*.ap_
 android/.gradle/
 android/app/build/
 android/local.properties
 android/.idea/
 android/*.iml
 android/app/*.iml
+android/captures/
+.externalNativeBuild/
 
-# Linux build outputs
+# ------------------------------------------------------------------------------
+# Linux Desktop & Steam Build Outputs
+# ------------------------------------------------------------------------------
 linux/bin/
 linux/src/*.o
 linux/steam_package/
 linux/*.tar.gz
 
-# OS and editor files
+# ------------------------------------------------------------------------------
+# Windows Desktop & Steam Build Outputs
+# ------------------------------------------------------------------------------
+windows/bin/
+windows/src/*.o
+windows/*.res.o
+windows/steam_windows_package/
+windows/*.zip
+windows/bin/*.exe
+
+# ------------------------------------------------------------------------------
+# Java Desktop Build Outputs
+# ------------------------------------------------------------------------------
+java/target/
+java/bin/
+*.class
+*.jar
+*.war
+
+# ------------------------------------------------------------------------------
+# ZX Spectrum / z88dk Build Outputs
+# ------------------------------------------------------------------------------
+build/
+*.tap
+*.tzx
+*.bin
+*.ihx
+
+# ------------------------------------------------------------------------------
+# Python & Flask Virtual Environments & Caches
+# ------------------------------------------------------------------------------
+flask_app/venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# ------------------------------------------------------------------------------
+# Node.js Dependencies & Logs
+# ------------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ------------------------------------------------------------------------------
+# Operating System, Editor & Temporary Files
+# ------------------------------------------------------------------------------
+.vscode/
 .DS_Store
 Thumbs.db
 *.swp
+*.swo
 *~
+*.tmp
 
+# Binaries directory & files
+bin/
+bin

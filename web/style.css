@@ -112,31 +112,35 @@ canvas#gameCanvas {
     display: none; /* Shown during STATE_PLAYING */
     justify-content: space-between;
     align-items: center;
-    padding: 3px 8px;
-    background: rgba(255, 255, 255, 0.88);
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.90);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border: 1.5px solid #FFD700;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    font-size: clamp(9px, 2.3vw, 14px);
+    font-size: clamp(8px, 1.7vw, 11px);
     font-weight: 700;
     color: #8B6508;
     text-shadow: 0 1px 2px #fff;
     pointer-events: auto;
-    gap: 4px;
+    gap: 2px 4px;
     white-space: nowrap;
+    overflow: hidden;
 }
 
 .hud-item {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .hud-label {
-    letter-spacing: 0.5px;
+    letter-spacing: 0.2px;
     color: #6d4f04;
+    font-size: 0.92em;
 }
 
 .hud-val {
@@ -145,13 +149,14 @@ canvas#gameCanvas {
 }
 
 .energy-bar {
-    width: clamp(45px, 13vw, 110px);
-    height: clamp(11px, 2.3vw, 17px);
+    width: clamp(32px, 8vw, 65px);
+    height: clamp(8px, 1.8vw, 12px);
     border: 1.5px solid #FFD700;
     border-radius: 9px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.6);
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    flex-shrink: 0;
 }
 
 #energyFill {
@@ -165,19 +170,21 @@ canvas#gameCanvas {
 .hud-buttons {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
+    flex-shrink: 0;
 }
 
 .hud-btn {
     background: rgba(255, 215, 0, 0.25);
     border: 1.5px solid #DAA520;
-    border-radius: 6px;
+    border-radius: 5px;
     color: #8B6508;
-    font-size: clamp(10px, 2.3vw, 14px);
+    font-size: clamp(8px, 1.5vw, 11px);
     font-weight: bold;
-    padding: 2px 6px;
+    padding: 1px 4px;
     cursor: pointer;
     touch-action: manipulation;
+    line-height: 1.2;
 }
 
 .hud-btn:active {
@@ -540,20 +547,26 @@ h1#titleText {
 /* Divine Slow Time Button */
 .deck-slow {
     position: relative;
-    width: clamp(96px, 24vw, 130px);
-    height: clamp(96px, 24vw, 130px);
+    width: clamp(86px, 22vw, 115px);
+    height: clamp(86px, 22vw, 115px);
     border-radius: 50%;
     background: radial-gradient(circle, rgba(255, 245, 190, 0.95) 0%, rgba(255, 204, 0, 0.9) 70%, rgba(255, 140, 0, 0.9) 100%);
-    border: 3.5px solid #FFD700;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 215, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.8);
+    border: 3px solid #FFD700;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.8);
     color: #6d4f04;
-    padding: 6px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .halo-ring {
     position: absolute;
-    inset: -6px;
+    inset: -5px;
     border-radius: 50%;
     border: 2px dashed rgba(255, 215, 0, 0.6);
     animation: rotateRays 20s linear infinite;
@@ -561,27 +574,34 @@ h1#titleText {
 }
 
 .btn-symbol {
-    font-size: clamp(22px, 5.5vw, 30px);
-    margin-bottom: 1px;
+    font-size: clamp(14px, 3.4vw, 18px);
+    line-height: 1;
+    margin: 0 0 1px 0;
+    display: inline-block;
     pointer-events: none;
     filter: drop-shadow(0 1px 2px rgba(255,255,255,0.8));
+    transform: scale(0.92);
 }
 
 .btn-main-text {
-    font-size: clamp(10px, 2.5vw, 13px);
+    font-size: clamp(8.5px, 2vw, 10.5px);
     font-weight: 900;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
+    line-height: 1.1;
     pointer-events: none;
     color: #5a3e00;
+    white-space: nowrap;
 }
 
 .btn-sub-text {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(8px, 1.8vw, 10px);
+    font-size: clamp(6.5px, 1.5vw, 8px);
     font-weight: 700;
     color: #8B5A00;
+    line-height: 1;
     margin-top: 1px;
     pointer-events: none;
+    white-space: nowrap;
 }
 
 .deck-slow.pressed, .deck-slow:active {
@@ -648,6 +668,29 @@ h1#titleText {
    =================================================== */
 
 @media (max-width: 480px) and (orientation: portrait) {
+    #hud {
+        top: 2px;
+        left: 4px;
+        right: 4px;
+        padding: 2px 4px;
+        gap: 2px;
+        font-size: clamp(7.5px, 2.1vw, 9.5px);
+    }
+
+    .hud-item {
+        gap: 1.5px;
+    }
+
+    .energy-bar {
+        width: clamp(26px, 7vw, 42px);
+        height: 7px;
+    }
+
+    .hud-btn {
+        padding: 1px 3px;
+        font-size: 8.5px;
+    }
+
     #game-container {
         border-width: 2px;
         border-radius: 12px;
@@ -715,8 +758,22 @@ h1#titleText {
     }
 
     .deck-slow {
-        width: clamp(88px, 22vw, 115px);
-        height: clamp(88px, 22vw, 115px);
+        width: clamp(78px, 20vw, 98px);
+        height: clamp(78px, 20vw, 98px);
+        padding: 3px;
+    }
+
+    .btn-symbol {
+        font-size: 13px;
+        margin-bottom: 0px;
+    }
+
+    .btn-main-text {
+        font-size: 8px;
+    }
+
+    .btn-sub-text {
+        font-size: 6px;
     }
 }
 

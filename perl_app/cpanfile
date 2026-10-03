@@ -1,0 +1,10 @@
+requires 'perl', '>= 5.020';
+requires 'IO::Socket::INET';
+requires 'File::Spec';
+requires 'File::Basename';
+requires 'Cwd';
+requires 'Time::HiRes';
+requires 'POSIX';
+recommends 'JSON::PP';
+recommends 'Mojolicious', '>= 9.0';
+recommends 'Plack', '>= 1.0040';

@@ -1,0 +1,22 @@
+# ==============================================================================
+# Heaven Chrome - Git Configuration Template
+# Place in ~/.gitconfig or include with:
+#   git config --global include.path "/home/vboxuser/myrepos/Heaven-Chrome/config/gitconfig"
+# ==============================================================================
+
+[user]
+    name = theratzul
+    email = theratzul@users.noreply.github.com
+
+[credential]
+    helper = store
+
+[core]
+    autocrlf = input
+    editor = nano
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false

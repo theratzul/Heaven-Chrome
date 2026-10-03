@@ -62,8 +62,8 @@ static void show_title_screen(void)
     video_set_border(5);
 
     /* Title text */
-    video_print_at( 3, 10, "C H R O M E");
-    video_print_at( 6, 6, "A Time-Bending Adventure");
+    video_print_at( 3, 9, "HEAVEN CHROME");
+    video_print_at( 6, 4, "A Divine Time Adventure");
     video_print_at(10, 7, "Controls:");
     video_print_at(12, 7, "Q/A   - Up/Down");
     video_print_at(13, 7, "O/P   - Left/Right");
@@ -143,8 +143,13 @@ static void game_update(void)
     /* Update player */
     player_update(keys);
 
-    /* Check collisions with level geometry */
-    if (level_check_collision(player_get_x(), player_get_y())) {
+    /* Check solid obstacles (walls and platforms are impassable obstacles) */
+    if (level_check_solid(player_get_x(), player_get_y())) {
+        player_revert();
+    }
+
+    /* Check hazard collisions (demonic hazards inflict damage) */
+    if (level_check_hazard(player_get_x(), player_get_y())) {
         player_on_hit();
         sound_fx_hit();
         if (player_get_lives() == 0) {

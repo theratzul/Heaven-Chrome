@@ -1,0 +1,35 @@
+Categories:
+  - Games
+License: MIT
+AuthorName: popa bogdan
+SourceCode: https://github.com/theratzul/Heaven-Chrome
+IssueTracker: https://github.com/theratzul/Heaven-Chrome/issues
+
+AutoName: Heaven Chrome
+Summary: A divine time-bending puzzle adventure across 20 heavenly realms
+Description: |-
+  Heaven Chrome is an open-source time-manipulation action puzzle adventure
+  where the player guides an angelic soul through perilous heavenly realms.
+  Slow down time, dodge demonic hazards, rescue Guardian Angels, and ascend
+  through 20 handcrafted realms to reach eternal paradise.
+
+RepoType: git
+Repo: https://github.com/theratzul/Heaven-Chrome.git
+
+Builds:
+  - versionName: '1.0'
+    versionCode: 1
+    commit: main
+    subdir: android
+    gradle:
+      - assembleRelease
+    output: app/build/outputs/apk/release/Heaven-Chrome.apk
+    prebuild:
+      - pushd ..
+      - npx cap sync android
+      - popd
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: '1.0'
+CurrentVersionCode: 1

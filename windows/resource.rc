@@ -1,0 +1,25 @@
+id ICON "icon.ico"
+
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "CompanyName", "popa bogdan"
+      VALUE "FileDescription", "Heaven Chrome - A Divine Time-Bending Journey"
+      VALUE "FileVersion", "1.0.0"
+      VALUE "InternalName", "heaven-chrome"
+      VALUE "LegalCopyright", "(c) 2026 popa bogdan"
+      VALUE "OriginalFilename", "heaven-chrome.exe"
+      VALUE "ProductName", "Heaven Chrome"
+      VALUE "ProductVersion", "1.0.0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END

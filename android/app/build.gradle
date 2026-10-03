@@ -16,10 +16,22 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("release.keystore")
+            storePassword "heavenchrome"
+            keyAlias "heavenchrome"
+            keyPassword "heavenchrome"
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     applicationVariants.all { variant ->
@@ -29,26 +41,7 @@ android {
     }
 }
 
-tasks.register('copyAlternativeApkNames') {
-    doLast {
-        def apkDir = file("$buildDir/outputs/apk/debug")
-        def primaryApk = file("$apkDir/Heaven-Chrome.apk")
-        if (primaryApk.exists()) {
-            copy {
-                from apkDir
-                into apkDir
-                include "Heaven-Chrome.apk"
-                rename "Heaven-Chrome.apk", "Heaven Chrome.apk"
-            }
-        }
-    }
-}
 
-afterEvaluate {
-    tasks.named("assembleDebug").configure {
-        finalizedBy "copyAlternativeApkNames"
-    }
-}
 
 repositories {
     flatDir{

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heaven-chrome-kpt
+  namespace: default
+  labels:
+    app.kubernetes.io/name: heaven-chrome-kpt
+    app.kubernetes.io/instance: heaven-chrome-kpt
+    app.kubernetes.io/managed-by: kpt
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: heaven-chrome-kpt
+      app.kubernetes.io/instance: heaven-chrome-kpt
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+      labels:
+        app.kubernetes.io/name: heaven-chrome-kpt
+        app.kubernetes.io/instance: heaven-chrome-kpt
+    spec:
+      containers:
+        - name: heaven-chrome-kpt
+          image: heaven-chrome:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            limits:
+              cpu: 250m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi

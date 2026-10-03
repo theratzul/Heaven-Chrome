@@ -17,6 +17,7 @@ void    player_init(void);
 void    player_update(uint8_t keys);
 void    player_draw(void);
 void    player_on_hit(void);
+void    player_revert(void);
 void    player_reset_position(void);
 uint8_t player_get_x(void);
 uint8_t player_get_y(void);

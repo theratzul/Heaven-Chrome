@@ -14,12 +14,13 @@ export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform
 echo "1. Syncing Web Assets with Capacitor..."
 npx cap sync android
 
-echo "2. Building Heaven-Chrome.apk..."
+echo "2. Building F-Droid Release & Debug APKs..."
 cd "$REPO_ROOT/android"
-./gradlew assembleDebug --no-daemon
+./gradlew assembleRelease assembleDebug --no-daemon
 
 echo ""
-echo "=== Android Build Successful ==="
-echo "Generated APKs:"
+echo "=== Android Build Successful (F-Droid Ready) ==="
+echo "Generated Release APK (F-Droid & Direct Install):"
+ls -lh "$REPO_ROOT/android/app/build/outputs/apk/release/Heaven-Chrome.apk" 2>/dev/null || true
+echo "Generated Debug APK:"
 ls -lh "$REPO_ROOT/android/app/build/outputs/apk/debug/Heaven-Chrome.apk" 2>/dev/null || true
-ls -lh "$REPO_ROOT/android/app/build/outputs/apk/debug/Heaven Chrome.apk" 2>/dev/null || true

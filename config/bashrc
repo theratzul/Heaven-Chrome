@@ -1,0 +1,30 @@
+# ==============================================================================
+# Heaven Chrome - Developer Environment & Shell Configuration
+# Source this file to enable all project binaries, SDK paths, and shortcuts:
+#   source tools/source-repo-bashrc.sh
+# ==============================================================================
+
+if [ -n "$BASH_SOURCE" ]; then
+    HEAVEN_REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+else
+    HEAVEN_REPO_ROOT="$HOME/myrepos/Heaven-Chrome"
+fi
+
+export PATH="$HEAVEN_REPO_ROOT/bin:$PATH"
+export ANDROID_HOME="${ANDROID_HOME:-/home/vboxuser/android-sdk}"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
+
+alias argocd="argocd --port-forward --port-forward-namespace argocd"
+alias argocd-login="argocd login --port-forward --port-forward-namespace argocd --username theratzul --password \"HeavenChrome2026!\" --insecure"
+
+alias heaven-argo-connect="$HEAVEN_REPO_ROOT/tools/argocd-connect.sh"
+alias heaven-istio-check="$HEAVEN_REPO_ROOT/tools/istioctl-check.sh"
+alias heaven-emulator="$HEAVEN_REPO_ROOT/tools/run-emulator.sh"
+alias heaven-run-flask="$HEAVEN_REPO_ROOT/run-flask.sh"
+alias heaven-run-perl="$HEAVEN_REPO_ROOT/run-perl.sh"
+alias heaven-run-linux="$HEAVEN_REPO_ROOT/run-linux.sh"
+alias heaven-build-android="$HEAVEN_REPO_ROOT/build-android.sh"
+alias heaven-build-linux="$HEAVEN_REPO_ROOT/build-linux.sh"
+alias heaven-install-phone="$HEAVEN_REPO_ROOT/install-phone.sh"
+
+echo "[✓] Heaven Chrome environment loaded: PATH, SDKs, and aliases configured."

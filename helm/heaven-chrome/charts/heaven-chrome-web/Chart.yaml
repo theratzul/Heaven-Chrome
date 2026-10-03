@@ -1,0 +1,6 @@
+apiVersion: v2
+name: heaven-chrome-web
+description: Web Application Subchart for Heaven Chrome
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

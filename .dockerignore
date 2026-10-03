@@ -1,0 +1,16 @@
+.git
+.github
+.vscode
+node_modules
+android
+linux
+windows
+src
+tools
+build
+fastlane
+metadata
+*.apk
+*.zip
+*.tar.gz
+*.exe

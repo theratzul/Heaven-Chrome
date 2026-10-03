@@ -376,30 +376,28 @@ adb install android/app/build/outputs/apk/debug/Heaven-Chrome.apk
 
 You do **not** need Android Studio installed to test and debug the generated APK. Here are the 4 recommended testing approaches:
 
-#### Method 1 — Direct Hardware Testing on Phone (e.g. Samsung Galaxy S24 via ADB)
+#### Method 1 — Direct Hardware Testing on Phone (One-Click `./install-phone.sh`)
 This provides the most accurate performance and real touchscreen evaluation.
 
 1. **Enable Developer Options & USB Debugging on your phone:**
    - Go to **Settings** → **About phone** → **Software information**.
-   - Tap **Build number** 7 times until you see "Developer mode has been enabled".
+   - Tap **Build number** 7 times until you see *"Developer mode has been enabled"*.
    - Return to **Settings** → **Developer options** → toggle **USB debugging** to **ON**.
-2. **Connect phone to your computer via USB** (and authorize the debugging prompt on your phone screen).
-3. **Verify and install the APK via command line:**
+2. **Connect phone to computer via USB cable:**
+   - **VirtualBox USB Passthrough:** Because this Linux environment runs in VirtualBox, click the VirtualBox window top menu: **Devices** → **USB** → check the box next to your phone (e.g. `SAMSUNG Electronics...` or `SM-S921...`).
+   - Unlock your phone and accept the prompt: *"Allow USB debugging?"* (select *Always allow*).
+3. **One-click installation and launch:**
    ```bash
-   # Ensure platform-tools is in PATH (if using the bundled SDK: export PATH="$PATH:$HOME/android-sdk/platform-tools")
-   adb devices
-
-   # Install or reinstall the APK onto the device:
-   adb install -r android/app/build/outputs/apk/debug/Heaven-Chrome.apk
-
-   # Launch the application directly from the terminal:
-   adb shell monkey -p com.popabogdan.heavenchronos -c android.intent.category.LAUNCHER 1
+   ./install-phone.sh
    ```
-4. *(Optional)* **Mirror and control your phone screen on Linux desktop using `scrcpy`:**
-   ```bash
-   sudo apt install scrcpy
-   scrcpy
-   ```
+   *This automatically detects your phone via ADB, installs `Heaven-Chrome.apk`, and launches the game on your screen!*
+4. *(Alternative)* **Wireless ADB (Same Wi-Fi):**
+   - On phone: **Settings** → **Developer options** → toggle **Wireless debugging** to **ON**.
+   - Note the IP & Port shown (e.g. `192.168.1.50:38521`).
+   - Run: `./install-phone.sh 192.168.1.50:38521`.
+5. *(Alternative)* **Direct Browser Download via Flask Server:**
+   - Start the local Flask server: `./run-flask.sh`.
+   - On your phone browser, open `http://<computer-ip>:5000/download` to download and install directly!
 
 #### Method 2 — Command-Line Android Emulator (No Android Studio GUI)
 You can run the official Google Android Emulator completely headless or in a lightweight window using the command-line tools:
@@ -457,7 +455,7 @@ The application has been engineered to deliver an ergonomic handheld console exp
   * Dedicated portrait media query `@media (max-width: 480px) and (orientation: portrait)` tailored to Samsung Galaxy S24 screen proportions (412×915 and 384×854).
 * **Ergonomic Control Deck:** In portrait mode, the lower half of the phone screen hosts a dedicated, non-intrusive celestial controller deck so fingers never obstruct the game view.
 * **Virtual D-Pad (Left Thumb):** 4-way direction pad (▲, ▼, ◀, ▶) featuring smooth touch sliding (`touchmove` tracking) so players can glide between directions without lifting their thumb.
-* **Divine Slow Time Button (Right Thumb):** Large, pulsing golden button that triggers and sustains the Divine Grace time-slow mechanic while held.
+* **Divine Slow Time Button (Right Thumb):** Large, pulsing golden button that triggers and sustains the Divine Grace time-slow mechanic while held. The clepsidra (hourglass ⏳) and typography have been scaled with flex containment (`overflow: hidden`) to guarantee it never clips or exits the circle on Android devices.
 * **Pause & Start Interactions:** Quick-access pause buttons (⏸) on both the control deck and the HUD, plus full-screen tap-to-start / tap-to-resurrect support.
 
 ---
@@ -581,9 +579,17 @@ The Linux build is pre-configured with everything needed to upload to Steam:
 
 ## 7. Repository Scripts Reference
 
-| Script | OS | What it does |
+| Script / Binary | OS | What it does |
 |---|---|---|
+| [`bin/istioctl`](bin/istioctl) | Linux x86_64 | Istio 1.31.1 CLI for mesh installation, debugging (`analyze`, `proxy-status`). |
+| [`bin/argocd`](bin/argocd) | Linux x86_64 | ArgoCD v3.5.3 CLI for GitOps cluster login, sync, and application management. |
+| [`bin/kpt`](bin/kpt) | Linux x86_64 | KPT CLI (v1.0.0-beta.61) for packaging and rendering declarative Kubernetes blueprints. |
+| [`bin/yq`](bin/yq) | Linux x86_64 | YAML command-line processor (v4.54.1). |
+| [`bin/jq`](bin/jq) | Linux x86_64 | JSON command-line processor (v1.7). |
+| [`run-perl.sh`](run-perl.sh) | Cross-platform | Boots standalone Perl web server (port 5050) serving web game and APK download. |
+| [`run-flask.sh`](run-flask.sh) | Cross-platform | Boots local Flask server serving the web game and direct wireless APK download (`/download`). |
 | [`build-linux.sh`](build-linux.sh) | Linux / Debian | One-click script: builds native 64-bit ELF binary `linux/bin/heaven-chrome` with SDL2. |
+| [`install-phone.sh`](install-phone.sh) | Linux / macOS | One-click script: detects phone via ADB (cable or wireless), installs APK, and launches game. |
 | [`run-linux.sh`](run-linux.sh) | Linux / Debian | Launches native Linux game (delegates to `linux/run.sh`). |
 | [`build-android.sh`](build-android.sh) | Linux / macOS | One-click script: syncs `web/` assets into Capacitor and builds `Heaven-Chrome.apk`. |
 | [`env.bat`](env.bat) | Windows | Adds `tools\z88dk\bin` to `PATH`; sets `ZCCCFG` and `Z80_OZFILES`. Must be called before building. |
@@ -597,7 +603,43 @@ The Linux build is pre-configured with everything needed to upload to Steam:
 
 ---
 
-## 7. Troubleshooting
+## 8. Docker, Kubernetes, Istio & ArgoCD
+
+For complete setup instructions, see the dedicated [KUBERNETES_ISTIO_ARGO_LVM.md](docs/KUBERNETES_ISTIO_ARGO_LVM.md) and [ARGOCD_ISTIOCTL_KPT_PERL.md](docs/ARGOCD_ISTIOCTL_KPT_PERL.md) guides.
+
+### Quick Commands:
+
+* **Docker Compose:**
+  ```bash
+  docker compose up -d --build
+  ```
+* **Helm with Istio Gateway & VirtualService:**
+  ```bash
+  helm upgrade --install heaven-chrome ./helm/heaven-chrome \
+    --set istio.enabled=true \
+    --set istio.inject=true
+  ```
+* **Istio Mesh Debugging:**
+  ```bash
+  ./bin/istioctl analyze
+  ./bin/istioctl proxy-status
+  ```
+* **ArgoCD CLI Connection:**
+  ```bash
+  ./bin/argocd login localhost:8081 --username admin --insecure
+  ./bin/argocd app sync heaven-chrome
+  ```
+
+---
+
+## 9. LVM Storage Management
+
+A dedicated 2.62 GiB disk `/dev/sdc` is managed under LVM (`vg_storage/lv_storage`) and mounted at `/mnt/storage`.
+* Full details and commands for adding disks to standard LVM root filesystems are documented in [docs/KUBERNETES_ISTIO_ARGO_LVM.md](docs/KUBERNETES_ISTIO_ARGO_LVM.md).
+
+---
+
+## 10. Troubleshooting
 
 ### ZX Spectrum / z88dk
 

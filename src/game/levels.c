@@ -494,7 +494,18 @@ void level_draw(uint8_t level_num)
 uint8_t level_check_collision(uint8_t x, uint8_t y)
 {
     uint8_t tile = level_get_tile(x, y);
-    return (tile == TILE_WALL || tile == TILE_HAZARD) ? 1 : 0;
+    return (tile == TILE_WALL || tile == TILE_PLATFORM || tile == TILE_HAZARD) ? 1 : 0;
+}
+
+uint8_t level_check_solid(uint8_t x, uint8_t y)
+{
+    uint8_t tile = level_get_tile(x, y);
+    return (tile == TILE_WALL || tile == TILE_PLATFORM) ? 1 : 0;
+}
+
+uint8_t level_check_hazard(uint8_t x, uint8_t y)
+{
+    return (level_get_tile(x, y) == TILE_HAZARD) ? 1 : 0;
 }
 
 uint8_t level_check_exit(uint8_t x, uint8_t y)

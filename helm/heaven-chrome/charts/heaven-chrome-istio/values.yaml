@@ -1,0 +1,29 @@
+gateway:
+  enabled: true
+  name: "heaven-chrome-gateway"
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+
+virtualService:
+  enabled: true
+  name: "heaven-chrome-vs"
+  hosts:
+    - "*"
+  gateways:
+    - heaven-chrome-gateway
+  routes:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: heaven-chrome-web
+            port:
+              number: 80

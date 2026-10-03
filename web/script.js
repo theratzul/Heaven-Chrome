@@ -1203,10 +1203,15 @@ function update() {
     let tileY = Math.floor(player.y);
     let tile = map[tileY][tileX];
 
-    if (tile === 1 || tile === 3) {
+    if (tile === 1 || tile === 2) {
+        // Obstacles (Walls & Platforms) are solid and not passable, but do not kill
+        player.x = oldX;
+        player.y = oldY;
+    } else if (tile === 3) {
+        // Demonic hazards kill the player
         if (player.invincible === 0) {
             player.lives--;
-            spawnParticles(player.x, player.y, tile === 3 ? '#FF0000' : '#FFFFFF');
+            spawnParticles(player.x, player.y, '#FF0000');
             if (player.lives <= 0) {
                 setGameState(STATE_GAMEOVER);
             } else {

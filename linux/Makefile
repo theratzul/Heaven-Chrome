@@ -48,6 +48,7 @@ package: all
 	cp run.sh steam_package/
 	cp steam_appid.txt steam_package/
 	cp heaven-chrome.desktop steam_package/
+	cp heaven-chrome.png steam_package/
 	tar -czvf heaven-chrome-linux.tar.gz -C steam_package .
 	rm -rf steam_package
 	@echo "Created Steam package: heaven-chrome-linux.tar.gz"
@@ -57,3 +58,7 @@ install: all
 	install -m 755 $(TARGET) /usr/local/bin/
 	install -d /usr/local/share/applications
 	install -m 644 heaven-chrome.desktop /usr/local/share/applications/
+	install -d /usr/local/share/icons/hicolor/256x256/apps
+	install -m 644 heaven-chrome.png /usr/local/share/icons/hicolor/256x256/apps/heaven-chrome.png
+	install -d /usr/share/pixmaps
+	install -m 644 heaven-chrome.png /usr/share/pixmaps/heaven-chrome.png
