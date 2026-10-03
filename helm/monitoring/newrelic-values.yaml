@@ -1,0 +1,37 @@
+# ==============================================================================
+# New Relic (nri-bundle) Values for Heaven Chrome
+# Deploys New Relic Infrastructure agent & metadata injection on Kubernetes
+# ==============================================================================
+
+global:
+  cluster: "heaven-chrome"
+  licenseKey: "nr-demo-license-key-heaven-chrome"
+  lowDataMode: true
+
+newrelic-infrastructure:
+  enabled: true
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 25m
+      memory: 64Mi
+
+nri-metadata-injection:
+  enabled: true
+
+kube-state-metrics:
+  enabled: false
+
+nri-prometheus:
+  enabled: false
+
+newrelic-logging:
+  enabled: false
+
+newrelic-pixie:
+  enabled: false
+
+pixie-chart:
+  enabled: false
